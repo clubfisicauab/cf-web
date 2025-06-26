@@ -15,7 +15,7 @@ features:
     image: "/images/inici/IMG_7894.jpg"
     content: "El Club de Física de la UAB és un organisme nou, de manera que encara està en creixement i poc a poc anem incorporant nous integrants. De moment el grup està format en la seva majoria per estudiants del primer curs del grau de Física, els quals es reuneixen també amb alumnes de més experiència, com poden ser alumnes que cursen el TFG, TFM o doctorat. Finalment, tot el grup està coordinat pel professor Pere Masjuan, qui procura assegurar, juntament amb l'estudiant de TFG Júlia López, que el funcionament del Club vagi sempre cap a millor."
     bulletpoints:
-      - "Alumnes de primer del grau de física"
+      - "Alumnes de primer del grau de Física"
       - "Estudiants de TFG, TFM, doctorat, post-doctorat i professors"
       - "Som un grup divers en edats i recorreguts personals"
       - "Compartim opinions, coneixements, curiositats, dubtes..."
@@ -41,7 +41,7 @@ features:
 
   - title: "Vols Col·laborar?"
     image: "/images/inici/connexions.webp"
-    content: "T'agradaria formar part del Club? Estem esperant-te! A l'apartat de contacte trobaràs un formulari on pots posar-te en contacte amb nosaltres."
+    content: "T'agradaria formar part del Club? Estem esperant-te! A l'apartat de contacte trobaràs un correu mitjançant el qual pots posar-te en contacte amb nosaltres."
     bulletpoints:
       - "Si ets de 1r de Física, pots participar en algun dels projectes"
       - "Encara no estàs segur/a de si el Club de Física és un lloc per tu? Contacta amb nosaltres per venir d'oient a alguna de les nostres reunions!"
