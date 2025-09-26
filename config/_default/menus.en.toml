@@ -1,0 +1,38 @@
+############# English navigation ##############
+
+# main menu
+[[main]]
+name = "Inici"
+url = "/"
+weight = 1
+
+[[main]]
+name = "Qui Som"
+url = "/authors"
+weight = 2
+
+[[main]]
+name = "Blog"
+url = "/blog"
+weight = 3
+
+[[main]]
+name = "Imatges"
+url = "/gallery"
+weight = 4
+
+[[main]]
+name = "Contacte"
+url = "/contact"
+weight = 5
+
+# footer menu
+[[footer]]
+name = "Sobre el Club de Física"
+url = "/about"
+weight = 1
+
+[[footer]]
+name = "Política de Privadesa"
+url = "/privacy-policy"
+weight = 3
