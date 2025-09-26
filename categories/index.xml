@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Hugoplate</title>
+    <link>https://clubdefisicauab.cat/categories/</link>
+    <description>Recent content in Categories on Hugoplate</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 26 Sep 2025 05:00:00 +0000</lastBuildDate>
+    <atom:link href="https://clubdefisicauab.cat/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Club De Física</title>
+      <link>https://clubdefisicauab.cat/categories/club-de-f%C3%ADsica/</link>
+      <pubDate>Fri, 26 Sep 2025 05:00:00 +0000</pubDate>
+      <guid>https://clubdefisicauab.cat/categories/club-de-f%C3%ADsica/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Fira</title>
+      <link>https://clubdefisicauab.cat/categories/fira/</link>
+      <pubDate>Wed, 19 Mar 2025 05:00:00 +0000</pubDate>
+      <guid>https://clubdefisicauab.cat/categories/fira/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Presentacions</title>
+      <link>https://clubdefisicauab.cat/categories/presentacions/</link>
+      <pubDate>Wed, 19 Mar 2025 05:00:00 +0000</pubDate>
+      <guid>https://clubdefisicauab.cat/categories/presentacions/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Reunions</title>
+      <link>https://clubdefisicauab.cat/categories/reunions/</link>
+      <pubDate>Wed, 19 Mar 2025 05:00:00 +0000</pubDate>
+      <guid>https://clubdefisicauab.cat/categories/reunions/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Merch</title>
+      <link>https://clubdefisicauab.cat/categories/merch/</link>
+      <pubDate>Tue, 31 Dec 2024 05:00:00 +0000</pubDate>
+      <guid>https://clubdefisicauab.cat/categories/merch/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
