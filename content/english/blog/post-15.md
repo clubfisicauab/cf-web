@@ -11,12 +11,12 @@ draft: false
 ---
 
 Fas Física a la UAB i vols formar part del Club de Física? ✨  
-Volem nous membres que tinguin curiositat científica i vulguin gaudir d’activitats enriquidores dins i fora de les aules
+Volem nous membres que tinguin curiositat científica i vulguin gaudir d’activitats enriquidores dins i fora de les aules.
 
 El Club de Física és un espai obert on podràs:
-- Preparar i participar en activitats en grup sobre física al campus 
-- Discutir sobre temes d'actualitat, fer preguntes i generar converses de valor científic en reunions setmanals amb altres persones amb la mateixa passió
-- Atendre (o fer) presentacions sobre temes relacionats amb la física
+- Preparar i participar en activitats en grup sobre física al campus. 
+- Discutir sobre temes d'actualitat, fer preguntes i generar converses de valor científic en reunions setmanals amb altres persones amb la mateixa passió.
+- Atendre (o fer) presentacions sobre temes relacionats amb la física.
 
 Abans de començar a preparar noves activitats, volem saber quanta gent està interessada.  
 Per això hem preparat un petit qüestionari molt ràpid de respondre.
