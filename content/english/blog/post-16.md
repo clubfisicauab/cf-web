@@ -3,7 +3,7 @@ title: "Nit de la Recerca 2025"
 meta_title: ""
 description: "this is meta description"
 date: 2025-09-26T05:00:00Z
-image: "/images/gallery/nr.jpeg"
+image: "/images/gallery/ndr.jpeg"
 categories: ["Club de Física","Nit de la Recerca","Fira"]
 author: "David Galan"
 tags: ["clubdefisica","fira","taller"]
