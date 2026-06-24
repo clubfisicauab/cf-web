@@ -1,0 +1,307 @@
+/* 1. Oculta l'icona de la lupa amb el '+' */
+.pswp__button--zoom {
+    display: none !important;
+}
+
+/* 2. Desactiva el comportament de l'enllaç que obre el Lightbox */
+/* Això farà que, en clicar la imatge, no passi absolutament res */
+.targeta-blog-home a[data-lightbox] {
+    pointer-events: none !important;
+    cursor: default !important;
+}
+
+/* 3. Opcional: Si l'icona surt flotant sobre la imatge (CSS Overlay), oculta-la */
+.lightbox-icon {
+    display: none !important;
+}
+
+/* 1. Barra fosca IFT */
+#barra-superior {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #0B1538;
+    z-index: 9999;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 2rem;
+}
+.xarxes-esquerra { display: flex; gap: 25px; align-items: center; }
+.xarxes-esquerra a { display: flex; align-items: center; }
+.xarxes-esquerra svg { height: 20px; fill: white; transition: fill 0.2s; }
+.xarxes-esquerra a:hover svg { fill: #Eab308 !important; }
+
+/* 2. Barra blanca del menú principal */
+.main-menu {
+    position: fixed !important;
+    top: 60px !important; /* A sota exacte de la teva primera barra */
+    left: 0 !important;
+    width: 100vw !important;
+    max-width: 100% !important;
+    transform: none !important; /* Bloqueja qualsevol animació de scroll del tema */
+    z-index: 100 !important;
+    background-color: rgba(255, 255, 255, 0.98) !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important;
+    padding: 15px 2rem !important;
+    box-sizing: border-box !important;
+}
+
+/* 3. Ajustament de l'inici */
+body, main {
+    padding-top: 77px !important; /* Espai per a les dues barres juntes */
+}
+
+/* 4. Amagar elements innecessaris */
+#skip-to-content, .skip-link, a.sr-only, a[href^="#main"], a[href*="content"] { 
+    display: none !important; 
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    position: absolute !important;
+    top: -9999px !important;
+    pointer-events: none !important;
+}
+button[id^="appearance-switcher"], button[id^="search-button"], .search-button, article header { display: none !important; }
+.max-w-7xl, .max-w-prose { max-width: 95% !important; }
+
+/* 5. Mida del menú principal (Inici, Qui Som...) */
+span.text-base.font-medium.break-normal {
+    font-size: 1.3rem !important;
+    transition: color 0.2s !important;
+}
+
+a:hover span.text-base.font-medium.break-normal {
+    color: #5f8bcc !important;
+}
+
+/* 6. Títol del costat del logo (Club de Física UAB) */
+a.text-base.font-medium.truncate {
+    font-size: 1.7rem !important;
+    padding-left: 20px !important;
+}
+
+/* 7. Carrusel d'imatges */
+.carrusel-contenidor {
+    position: relative;
+    width: 100vw;
+    height: 70vh;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    margin-bottom: -2rem;
+    margin-top: -1rem;
+    overflow: hidden;
+}
+
+.diapositiva {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    opacity: 0; /* Ho controla el JavaScript */
+}
+
+.fletxa-carrusel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    border: none;
+    font-size: 2.5rem;
+    padding: 15px 25px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s;
+    user-select: none;
+}
+
+.fletxa-carrusel:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.fletxa-esquerra { left: 0; }
+.fletxa-dreta { right: 0; }
+
+
+/* =========================================
+   PÀGINA DEL BLOG (Llista de posts)
+========================================= */
+
+/* Capçalera gris */
+.capcalera-blog {
+  background-color: #f4f5f7;
+  border-radius: 12px;
+  text-align: center;
+  padding: 3.5rem 1rem;
+  margin: 2rem auto 4rem auto;
+  max-width: 1200px;
+}
+.titol-capcalera {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 0.5rem;
+}
+.engrunes-capcalera {
+  font-size: 0.95rem;
+  color: #555;
+}
+.engrunes-capcalera a {
+  color: #111;
+  text-decoration: none;
+}
+
+/* Layout General */
+.graella-layout-blog {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  max-width: 1200px;
+  margin: 0 auto 5rem auto;
+  padding: 0 1rem;
+}
+@media (min-width: 900px) {
+  .graella-layout-blog { flex-direction: row; }
+  .columna-articles { width: 65%; }
+  .columna-sidebar { width: 35%; }
+}
+
+/* Articles */
+.columna-articles {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-content: start;
+}
+@media (min-width: 768px) {
+  .columna-articles { grid-template-columns: 1fr 1fr; }
+}
+.targeta-blog {
+  display: flex;
+  flex-direction: column;
+}
+.titol-article {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 0.8rem;
+  line-height: 1.25;
+}
+.titol-article a { color: inherit; text-decoration: none; }
+.titol-article a:hover { color: #Eab308; }
+
+.metadades-article {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+.dada-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.dada-meta svg { width: 16px; height: 16px; fill: currentColor; }
+
+.resum-article {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.boto-llegir-mes {
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  margin-top: 1rem;
+  border: 1px solid #111;
+  color: #111;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 4px;
+  text-decoration: none;
+  width: max-content;
+  transition: all 0.2s ease-in-out;
+}
+.boto-llegir-mes:hover {
+  background-color: #111;
+  color: #fff;
+}
+
+/* Sidebar */
+.caixa-sidebar {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 2.5rem 2rem;
+  margin-bottom: 2.5rem;
+}
+.titol-sidebar {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 1.5rem;
+}
+.llista-categories {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.llista-categories li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+  font-size: 0.95rem;
+}
+.llista-categories a { color: #555; text-decoration: none; }
+.llista-categories a:hover { color: #111; font-weight: 600; }
+.llista-categories span { color: #555; }
+
+.núvol-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+.boto-tag {
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  color: #555;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.boto-tag:hover {
+  border-color: #111;
+  color: #111;
+}
+
+.boto-gran-veure-mes {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background-color: white;
+  border: 2px solid #111827; /* Color fosc a joc amb els títols */
+  border-radius: 12px; /* Arrodoniment modern */
+  font-weight: 700;
+  font-size: 1rem;
+  color: #111827;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.boto-gran-veure-mes:hover {
+  background-color: #111827;
+  color: white;
+  transform: translateY(-3px); /* Petit efecte d'elevació */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+}

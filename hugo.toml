@@ -1,0 +1,53 @@
+baseURL = 'https://clubdefisicauab.cat/'
+locale = 'ca'
+title = 'Club de Física UAB'
+theme = 'blowfish'
+
+[params]
+  logo = "logo.png"
+  defaultAppearance = "light"
+  autoSwitchAppearance = false
+    favicon = "favicon.ico"
+    # Si el tema busca aquestes mides, posa-les també
+    favicon16 = "favicon-16x16.png"
+    favicon32 = "favicon-32x32.png"
+    appleTouchIcon = "apple-touch-icon.png"
+
+[params.header]
+  themeToggle = false
+  showTitle = true
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[[menu.main]]
+  identifier = "inici"
+  name = "Inici"
+  url = "/"
+  weight = 10
+
+[[menu.main]]
+  identifier = "qui"
+  name = "Qui Som"
+  url = "/authors/"
+  weight = 20
+
+[[menu.main]]
+  identifier = "blog"
+  name = "Blog"
+  url = "/blog/"
+  weight = 30
+
+[[menu.main]]
+  identifier = "gallery"
+  name = "Imatges"
+  url = "/gallery/"
+  weight = 40
+
+[[menu.main]]
+  identifier = "contact"
+  name = "Contacte"
+  url = "/contact/"
+  weight = 50
+
+paginate = 30
