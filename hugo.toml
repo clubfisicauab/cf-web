@@ -4,6 +4,9 @@ title = 'Club de Física UAB'
 theme = 'blowfish'
 buildFuture = true
 
+[services.googleAnalytics]
+  id = "G-99XSV6TSK4"
+
 [params]
   logo = "logo.png"
   defaultAppearance = "light"
