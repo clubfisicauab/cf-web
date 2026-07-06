@@ -1,0 +1,139 @@
+{{ define "main" }}
+
+<style>
+  .arxiv-container {
+    max-width: 900px;
+    margin: 4rem auto 6rem auto;
+    padding: 0 1.5rem;
+  }
+  
+  /* Estil de capçalera arXiv */
+  .arxiv-header {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .arxiv-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #111111;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  
+  .arxiv-authors {
+    font-size: 1.2rem;
+    color: #2563eb; /* Blau clàssic d'enllaç acadèmic */
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  
+  .arxiv-table-meta {
+    font-size: 0.9rem;
+    color: #555555;
+    line-height: 1.6;
+  }
+  
+  /* Contenidor de l'Abstract */
+  .arxiv-abstract-box {
+    background-color: #fafafa;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .arxiv-abstract-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+  
+  .arxiv-abstract-text {
+    font-size: 1rem;
+    color: #333333;
+    line-height: 1.6;
+    text-align: justify;
+  }
+
+  /* Secció de Comentaris / Discussions */
+  .discussions-box {
+    margin-top: 5rem;
+    border-top: 2px solid #e5e7eb;
+    padding-top: 3rem;
+  }
+</style>
+
+<div id="barra-superior">
+  <div class="xarxes-esquerra">
+    <a href="https://instagram.com/clubfisicauab" target="_blank" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+    </a>
+    <a href="https://x.com/clubfisicauab" target="_blank" aria-label="X">
+      <svg viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+    </a>
+  </div>
+</div>
+
+<div class="arxiv-container">
+
+  <header class="arxiv-header">
+    <h1 class="arxiv-title">{{ .Title }}</h1>
+    <h2 style="font-size: 1.6rem; font-weight: 400; color: #6e6e6e; margin-bottom: 0.5rem;">{{ .Description }}</h2>
+    <div class="arxiv-authors">
+      {{ if .Params.author }}{{ .Params.author }}{{ else }}Club de Física UAB{{ end }}
+    </div>
+    
+    <div class="arxiv-table-meta">
+      <div><strong>Pujat el:</strong> {{ .Date.Format "02/01/2006" }}</div>
+      <div>
+        <strong>Temes:</strong> 
+        {{ range $index, $tag := .Params.tags }}
+          {{ if $index }}, {{ end }}{{ $tag }}
+        {{ end }}
+      </div>
+    </div>
+  </header>
+
+  {{ if .Content }}
+  <section class="arxiv-abstract-box">
+    <h2 class="arxiv-abstract-title">Abstract</h2>
+    <div class="arxiv-abstract-text">
+      {{ .Content }}
+    </div>
+  </section>
+  {{ end }}
+
+  <div style="margin-bottom: 4rem; display: flex; gap: 1rem; justify-content: flex-start;">
+    <a href="paper.pdf" target="_blank" rel="noopener noreferrer" class="boto-gran-veure-mes" style="margin: 0; padding: 0.8rem 2rem; font-size: 0.95rem;">
+      📄 Visualitzar PDF (Pantalla completa)
+    </a>
+  </div>
+
+  <div style="position: relative; width: 100%; padding-top: 141.4%; border-radius: 8px; overflow: hidden; border: 1px solid #e5e7eb; margin-bottom: 5rem;">
+    <object data="paper.pdf" type="application/pdf" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+      <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #f8f9fa;">
+        <p style="color: #555;">El visor de PDF no s'ha pogut carregar automàticament. <a href="paper.pdf" style="color: #2563eb; text-decoration: underline;">Descarrega'l aquí</a>.</p>
+      </div>
+    </object>
+  </div>
+
+  <section class="discussions-box">
+    <h3 class="titol-sidebar" style="font-size: 1.8rem; margin-bottom: 2rem;">Discussions i Comentaris</h3>
+    
+    {{ if templates.Exists "partials/comments.html" }}
+      {{ partial "comments.html" . }}
+    {{ else }}
+      <div id="comment-system-placeholder" style="color: #666; font-size: 0.95rem; background: #f9f9f9; padding: 2rem; border-radius: 8px; text-align: center; border: 1px dashed #ccc;">
+        Espai reservat per al fil de discussions de la comunitat.
+      </div>
+    {{ end }}
+  </section>
+
+</div>
+
+{{ end }}

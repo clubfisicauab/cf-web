@@ -29,7 +29,7 @@ theme = 'blowfish'
 [[menu.main]]
   identifier = "qui"
   name = "Qui Som"
-  url = "/authors/"
+  url = "/qui-som/"
   weight = 20
 
 [[menu.main]]
@@ -38,16 +38,40 @@ theme = 'blowfish'
   url = "/blog/"
   weight = 30
 
-[[menu.main]]
-  identifier = "gallery"
-  name = "Imatges"
-  url = "/gallery/"
+  [[menu.main]]
+  name = "Paperillos"
+  url = "/paperillos/"
   weight = 40
 
 [[menu.main]]
-  identifier = "contact"
+  identifier = "contacte"
   name = "Contacte"
-  url = "/contact/"
+  url = "/contacte/"
   weight = 50
 
+[[menu.footer]]
+  name = "Política de Privadesa"
+  url = "/politica-privadesa/"
+  weight = 10
+
 paginate = 30
+
+[params.article]
+  showComments = true
+
+[params.comments]
+  enable = true
+  provider = "giscus"
+
+  [params.comments.giscus]
+    repo = "clubfisicauab/cf-web" # Exemple: "ClubFisicaUAB/web"
+    repoId = "R_kgDONi9X0g"           # Copiat de giscus.app
+    category = "General"                     # La categoria de GitHub Discussions
+    categoryId = "DIC_kwDONi9X0s4DAnhs"   # Copiat de giscus.app
+    mapping = "pathname"
+    strict = "0"
+    reactionsEnabled = "1"
+    emitMetadata = "0"
+    inputPosition = "top"
+    theme = "light"
+    lang = "ca"                              # Posa la interfície en català

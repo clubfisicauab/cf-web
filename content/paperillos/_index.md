@@ -1,0 +1,4 @@
+---
+title: "Paperillos"
+type: "paperillos"
+---

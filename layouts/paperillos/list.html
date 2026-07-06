@@ -1,0 +1,203 @@
+{{ define "main" }}
+
+<style>
+  /* 1. Forcem que els papers ocupin tot l'espai horitzontal de la seva columna */
+  .articles-una-columna {
+    display: grid;
+    grid-template-columns: 1fr !important;
+    gap: 2rem;
+    align-content: start;
+  }
+
+  /* 2. Caixa de la descripció estètica i a l'esquerra */
+  .caixa-descripcio {
+    max-width: 1200px;
+    margin: -1.5rem auto 4rem auto;
+    padding: 0 1rem;
+  }
+  .descripcio-contingut {
+    background-color: #f8f9fa;
+    border-left: 4px solid #2563eb; /* Línia blava a joc amb els tags actius */
+    padding: 1.5rem 2rem;
+    border-radius: 0 8px 8px 0;
+  }
+
+  /* 3. Estil per la targeta horitzontal del Paperillo */
+  .paperillo-card {
+    display: block;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 2rem;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+  }
+  .paperillo-card:hover {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    border-color: #d1d5db;
+    transform: translateY(-2px);
+  }
+
+  /* 4. Classe que posarem amb JS quan un tag estigui seleccionat */
+  .boto-tag.active-tag {
+    background-color: #2563eb !important; /* Blau */
+    border-color: #2563eb !important;
+    color: #ffffff !important;
+    font-weight: bold;
+  }
+  
+  /* Cursor pels botons de tags */
+  .boto-tag {
+    cursor: pointer;
+  }
+</style>
+
+<div id="barra-superior">
+  <div class="xarxes-esquerra">
+    <a href="https://instagram.com/clubfisicauab" target="_blank" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+    </a>
+    <a href="https://x.com/clubfisicauab" target="_blank" aria-label="X">
+      <svg viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+    </a>
+  </div>
+</div>
+
+<div class="capcalera-blog">
+  <h1 class="titol-capcalera">{{ .Title }}</h1>
+</div>
+
+<div class="caixa-descripcio">
+  <div class="descripcio-contingut">
+    <p style="font-size: 1.1rem; color: #111; font-weight: 600; margin-bottom: 0.5rem; line-height: 1.5;">
+      Els <strong>Paperillos</strong> són breus articles, assajos i treballs de recerca independents redactats pels membres del Club de Física de la UAB.
+    </p>
+    <p style="font-size: 0.95rem; color: #555; margin: 0; line-height: 1.6;">
+      Aquest espai funciona com un repositori obert per compartir idees, resoldre dubtes complexos, analitzar l'actualitat científica o publicar les conclusions dels nostres projectes col·laboratius i seminaris.
+    </p>
+  </div>
+</div>
+
+<div class="graella-layout-blog">
+  
+  <div class="columna-articles articles-una-columna">
+    {{ range .Pages }}
+    
+    {{ $pageTags := slice }}
+    {{ range .Params.tags }}
+      {{ $pageTags = $pageTags | append (. | urlize) }}
+    {{ end }}
+    {{ $tagsString := delimit $pageTags " " }}
+
+    <a href="{{ .RelPermalink }}" data-tags="{{ $tagsString }}" class="paperillo-card">
+      
+      <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 1rem;">
+        <span style="background: {{ .Params.boxcolor }}; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; color: {{ .Params.color }};">{{ .Params.icon }}</span>
+        <span style="font-size: 0.85rem; color: #888;">{{ .Date.Format "02/01/2006" }}</span>
+      </div>
+      
+      <h2 style="font-size: 1.8rem; font-weight: 800; color: #111; margin-bottom: 0.5rem;">{{ .Title }}</h2>
+
+      <h3 style="font-size: 1.2rem; font-weight: 600; color: #6e6e6e; margin-bottom: 0.5rem;">{{ .Description }}</h3>
+      
+      <p style="font-size: 0.85rem; font-weight: 700; color: #666; margin-bottom: 1.2rem;">
+        Autor: <span style="color: #111;">{{ if .Params.author }}{{ .Params.author }}{{ else }}Club de Física{{ end }}</span>
+      </p>
+      
+      <p style="font-size: 1rem; color: #444; line-height: 1.6; margin-bottom: 1.5rem;">
+        {{ .Summary | plainify | truncate 220 }}
+      </p>
+      
+      <div class="metadades-article">
+        {{ range .Params.tags }}
+        <span style="border: 1px solid #e5e7eb; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; color: #666; font-weight: 700;">
+          {{ . }}
+        </span>
+        {{ end }}
+      </div>
+      
+    </a>
+    {{ end }}
+  </div>
+
+  {{ $scratch := newScratch }}
+  {{ range .Pages }}
+    {{ range .Params.tags }}
+      {{ $scratch.Add "allTags" (slice .) }}
+    {{ end }}
+  {{ end }}
+  {{ $tags := ($scratch.Get "allTags") | uniq }}
+
+  <aside class="columna-sidebar">
+    <div class="caixa-sidebar" style="position: sticky; top: 100px;">
+      <h3 class="titol-sidebar">Tags</h3>
+      
+      <div class="núvol-tags">
+        {{ range $tags }}
+        <button onclick="toggleFilter('{{ . | urlize }}', this)" class="boto-tag filter-btn">
+          {{ . }}
+        </button>
+        {{ end }}
+      </div>
+      
+      <p id="filter-status" style="margin-top: 1.5rem; font-size: 0.85rem; color: #888; text-align: center;">
+        Mostrant tots els documents.
+      </p>
+    </div>
+  </aside>
+
+</div>
+
+<script>
+let activeTags = [];
+
+function toggleFilter(tag, btn) {
+  const index = activeTags.indexOf(tag);
+  
+  if (index > -1) {
+    // Si ja estava seleccionat, el deseleccionem (Traiem la classe blava)
+    activeTags.splice(index, 1);
+    btn.classList.remove('active-tag');
+  } else {
+    // Si no estava seleccionat, l'afegim (Posem la classe blava)
+    activeTags.push(tag);
+    btn.classList.add('active-tag');
+  }
+  
+  applyFilters();
+}
+
+function applyFilters() {
+  const cards = document.querySelectorAll('.paperillo-card');
+  let visibleCount = 0;
+  
+  cards.forEach(card => {
+    if (activeTags.length === 0) {
+      card.style.display = 'block';
+      visibleCount++;
+      return;
+    }
+    
+    const cardTags = card.getAttribute('data-tags').split(' ');
+    // Si el document té ALMENYS UN dels tags seleccionats, es mostra
+    const isMatch = activeTags.some(tag => cardTags.includes(tag));
+    
+    if (isMatch) {
+      card.style.display = 'block';
+      visibleCount++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+  
+  const statusEl = document.getElementById('filter-status');
+  if (activeTags.length === 0) {
+    statusEl.textContent = "Mostrant tots els documents.";
+  } else {
+    statusEl.textContent = `Mostrant ${visibleCount} document(s) filtrat(s).`;
+  }
+}
+</script>
+
+{{ end }}
