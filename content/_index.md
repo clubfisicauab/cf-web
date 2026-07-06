@@ -34,7 +34,7 @@ type: "home"
 
 <div style="text-align: center; margin-bottom: 5rem;">
   <a href="/blog/" class="boto-gran-veure-mes">
-    Veure més articles
+    Veure més posts
   </a>
 </div>
 
