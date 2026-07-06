@@ -4,7 +4,7 @@ meta_title: ""
 description: "this is meta description"
 date: 2025-03-19T05:00:00Z
 image: "/images/gallery/post12.jpeg"
-categories: ["reunions", "Club de Física", "presentacions"]
+categories: ["Reunions", "Club de Física", "Presentacions"]
 author: "Júlia López"
 tags: ["clubdefisica", "reunions"]
 draft: false

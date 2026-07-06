@@ -38,6 +38,6 @@ type: "home"
   </a>
 </div>
 
-{{< events >}}
+{{< agenda >}}
 
 <script src="/js/carrusel.js"></script>

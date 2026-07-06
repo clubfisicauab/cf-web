@@ -38,6 +38,12 @@
           </span>
           {{ end }}
           
+          <!-- Data afegida -->
+          <span class="dada-meta">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7v-5z"/></svg>
+            {{ .Date.Format "02/01/2006" }}
+          </span>
+          
           {{ if .Params.categories }}
           <span class="dada-meta">
             <svg viewBox="0 0 24 24"><path fill="currentColor" d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
@@ -55,13 +61,36 @@
 
   <aside class="columna-sidebar">
     
+    <!-- 1. Recopilem els tags i categories exclusius d'aquesta secció (el Blog) -->
+    {{ $scratch := newScratch }}
+    {{ range .Pages }}
+      {{ range .Params.categories }}
+        {{ $scratch.Add "blogCats" (slice .) }}
+      {{ end }}
+      {{ range .Params.tags }}
+        {{ $scratch.Add "blogTags" (slice .) }}
+      {{ end }}
+    {{ end }}
+    
+    {{ $categories := ($scratch.Get "blogCats") | uniq }}
+    {{ $tags := ($scratch.Get "blogTags") | uniq }}
+
     <div class="caixa-sidebar">
       <h3 class="titol-sidebar">Categories</h3>
       <ul class="llista-categories">
-        {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
+        {{ range $catName := $categories }}
+          
+          <!-- Calculem quants posts del blog tenen aquesta categoria -->
+          {{ $count := 0 }}
+          {{ range $.Pages }}
+            {{ if in .Params.categories $catName }}
+              {{ $count = add $count 1 }}
+            {{ end }}
+          {{ end }}
+          
         <li>
-          <a href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}">{{ $name | humanize | title }}</a>
-          <span>( {{ $taxonomy.Count }} )</span>
+          <a href="{{ "/categories/" | relLangURL }}{{ $catName | urlize }}">{{ $catName }}</a>
+          <span>( {{ $count }} )</span>
         </li>
         {{ end }}
       </ul>
@@ -70,8 +99,8 @@
     <div class="caixa-sidebar">
       <h3 class="titol-sidebar">Tags</h3>
       <div class="núvol-tags">
-        {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
-        <a href="{{ "/tags/" | relLangURL }}{{ $name | urlize }}" class="boto-tag">{{ $name | humanize | title }}</a>
+        {{ range $tags }}
+        <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="boto-tag">{{ . }}</a>
         {{ end }}
       </div>
     </div>

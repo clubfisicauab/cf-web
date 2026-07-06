@@ -2,6 +2,7 @@ baseURL = 'https://clubdefisicauab.cat/'
 locale = 'ca'
 title = 'Club de Física UAB'
 theme = 'blowfish'
+buildFuture = true
 
 [params]
   logo = "logo.png"
@@ -39,15 +40,21 @@ theme = 'blowfish'
   weight = 30
 
   [[menu.main]]
+  identifier = "paperillos"
   name = "Paperillos"
   url = "/paperillos/"
   weight = 40
 
 [[menu.main]]
+  name = "Agenda"
+  url = "/agenda/"
+  weight = 50
+
+[[menu.main]]
   identifier = "contacte"
   name = "Contacte"
   url = "/contacte/"
-  weight = 50
+  weight = 60
 
 [[menu.footer]]
   name = "Política de Privadesa"

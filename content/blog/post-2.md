@@ -4,7 +4,7 @@ meta_title: ""
 description: "this is meta description"
 date: 2024-12-31T05:00:00Z
 image: "/images/gallery/logo_club.jpeg"
-categories: ["merch", "Club de Física"]
+categories: ["Merch", "Club de Física"]
 author: "Júlia López"
 tags: ["clubdefisica", "logo"]
 draft: false

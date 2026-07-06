@@ -11,7 +11,7 @@ Inaugurem el Club de Física de la UAB! Els alumnes de primer del grau de Físic
 
 Avui hem pogut gaudir d’una presentació d’alguns dels integrants del Club sobre la supersimetria…s’ha generat un debat molt interessant entre tots!
 
-{{< figure src="/images/gallery/IMG_7894.jpg" caption="Assistents a la primera reunió del club a l'Eix Central." >}}
+{{< figure src="/images/gallery/IMG_7894.jpg" caption="Assistents a la primera reunió del club" >}}
 
 ## Teoria de la Supersimetria
 

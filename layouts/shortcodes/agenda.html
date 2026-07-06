@@ -68,44 +68,59 @@
 
 <div class="seccio-events-wrapper">
   <section class="seccio-events">
-        <div style="text-align: center; margin-bottom: 4rem;">
-        <h2 style="font-size: 2.8rem; font-weight: 900; color: #222; margin-bottom: 0.8rem;" class="dark:text-white">Activitats</h2>
-        <div style="width: 70px; height: 3px; background-color: #Eab308; margin: 0 auto;"></div>
-        </div>
+    <div style="text-align: center; margin-bottom: 4rem;">
+      <h2 style="font-size: 2.8rem; font-weight: 900; color: #222; margin-bottom: 0.8rem;" class="dark:text-white">Agenda</h2>
+      <div style="width: 70px; height: 3px; background-color: #Eab308; margin: 0 auto;"></div>
+    </div>
+        
     <ul class="llista-events">
-      <li>
-        <a href="/events/quantum-journal-club/" class="item-event-link">
-          <div class="data-event">
-            <div class="mes-event">Jun</div>
-            <div class="dia-event">00</div>
-          </div>
-          <div class="detall-event">
-            <div class="hora-event">00:00 - 00:00</div>
-            <div class="titol-event-item">No hi ha cap activitat planejada encara</div>
-            <div class="desc-event">...</div>
-          </div>
-        </a>
-      </li>
-
-      <!-- <li>
-        <a href="/events/seminar-lukas-born/" class="item-event-link">
-          <div class="data-event">
-            <div class="mes-event">Jul</div>
-            <div class="dia-event">02</div>
-          </div>
-          <div class="detall-event">
-            <div class="hora-event">15:00 - 16:00</div>
-            <div class="titol-event-item">Seminar by Lukas Born</div>
-            <div class="desc-event">Descripció detallada del seminari, on s'explicaran els avenços més recents en el camp de la física.</div>
-          </div>
-        </a>
-      </li> -->
-
+      
+      {{ $mesos := slice "Gen" "Feb" "Mar" "Abr" "Mai" "Jun" "Jul" "Ago" "Set" "Oct" "Nov" "Des" }}
+      
+      {{ $agenda := where site.RegularPages "Section" "agenda" }}
+      {{ $agenda = sort $agenda "Date" "desc" }}
+      
+      {{ if gt (len $agenda) 0 }}
+        {{ range first 3 $agenda }}
+        <li>
+          <a href="{{ .RelPermalink }}" class="item-event-link">
+            <div class="data-event">
+              <div class="mes-event">{{ index $mesos (sub .Date.Month 1) }}</div>
+              <div class="dia-event">{{ .Date.Format "02" }}</div>
+            </div>
+            <div class="detall-event">
+              <div class="hora-event">
+                {{ if .Params.time }}{{ .Params.time }}{{ else }}Pendent d'hora{{ end }}
+                {{ if .Params.location }} | {{ .Params.location }}{{ end }}
+              </div>
+              <div class="titol-event-item">{{ .Title }}</div>
+              <div class="desc-event">{{ .Summary | plainify | truncate 130 }}</div>
+            </div>
+          </a>
+        </li>
+        {{ end }}
+      {{ else }}
+        <li>
+          <a href="#" class="item-event-link" style="pointer-events: none;">
+            <div class="data-event">
+              <div class="mes-event">--</div>
+              <div class="dia-event">00</div>
+            </div>
+            <div class="detall-event">
+              <div class="hora-event">00:00 - 00:00</div>
+              <div class="titol-event-item">No hi ha cap activitat planejada encara</div>
+              <div class="desc-event">Estigues atent/a a les nostres xarxes socials per a properes actualitzacions.</div>
+            </div>
+          </a>
+        </li>
+      {{ end }}
+      
     </ul>
-        <div style="text-align: center; margin-bottom: 5rem;">
-        <a href="/events/" class="boto-gran-veure-mes">
-            Veure més activitats
-        </a>
-        </div>
+    
+    <div style="text-align: center; margin-bottom: 5rem; margin-top: 3rem;">
+      <a href="/agenda/" class="boto-gran-veure-mes">
+        Veure més activitats
+      </a>
+    </div>
   </section>
 </div>
