@@ -122,17 +122,31 @@
     </object>
   </div>
 
-  <section class="discussions-box">
-    <h3 class="titol-sidebar" style="font-size: 1.8rem; margin-bottom: 2rem;">Discussions i Comentaris</h3>
+  <div style="margin-top: 5rem; border-top: 1px solid #e5e7eb; padding-top: 3rem;">
+  
+  <h3 style="font-size: 1.6rem; font-weight: 800; color: #111827; margin-bottom: 2rem; display: flex; align-items: center; gap: 12px;">
+    💬 Espai de discussió
+  </h3>
+  
+  <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);">
     
-    {{ if templates.Exists "partials/comments.html" }}
-      {{ partial "comments.html" . }}
-    {{ else }}
-      <div id="comment-system-placeholder" style="color: #666; font-size: 0.95rem; background: #f9f9f9; padding: 2rem; border-radius: 8px; text-align: center; border: 1px dashed #ccc;">
-        Espai reservat per al fil de discussions de la comunitat.
-      </div>
-    {{ end }}
-  </section>
+    <script src="https://giscus.app/client.js"
+        data-repo="clubfisicauab/cf-web"
+        data-repo-id="R_kgDONi9X0g"
+        data-category="General"
+        data-category-id="DIC_kwDONi9X0s4DAnhs"
+        data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="bottom"
+            data-theme="light" data-lang="ca"
+        crossorigin="anonymous"
+        async>
+    </script>
+    
+  </div>
+</div>
 
 </div>
 
