@@ -66,22 +66,17 @@ buildFuture = true
 
 paginate = 30
 
-[params.article]
+
+[article]
   showComments = true
 
-[params.comments]
-  enable = true
-  provider = "giscus"
+[comments]
+  system = "giscus"
 
-  [params.comments.giscus]
-    repo = "clubfisicauab/cf-web" # Exemple: "ClubFisicaUAB/web"
-    repoId = "R_kgDONi9X0g"           # Copiat de giscus.app
-    category = "General"                     # La categoria de GitHub Discussions
-    categoryId = "DIC_kwDONi9X0s4DAnhs"   # Copiat de giscus.app
-    mapping = "pathname"
-    strict = "0"
-    reactionsEnabled = "1"
-    emitMetadata = "0"
-    inputPosition = "top"
-    theme = "light"
-    lang = "ca"                              # Posa la interfície en català
+[giscus]
+  repo = "clubfisicauab/cf-web" # El teu usuari i repo de GitHub
+  repoId = "R_kgDONi9X0g"      # El data-repo-id que has obtingut
+  category = "General" 
+  categoryId = "DIC_kwDONi9X0s4DAnhs" # El data-category-id que has obtingut
+  mapping = "pathname"
+  theme = "preferred_color_scheme"                     # Posa la interfície en català
