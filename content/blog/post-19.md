@@ -16,4 +16,6 @@ Sou capaços d'endevinar com han afrontat aquest problema? Doncs sí, utilitzant
 
 {{< figure src="/images/gallery/post19.jpeg" caption="Moments de la presentació" >}}
 
+Us deixem el repositori de GitHub per si voleu fer una ullada a tot el projecte: https://github.com/Anty48/Warehouse-Optimizer
+
 Us esperem a la pròxima sessió. Fins aviat! 📦⚛️
