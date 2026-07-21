@@ -6,7 +6,7 @@ date: 2026-06-03T05:00:00Z
 image: "/images/gallery/post21.jpeg"
 categories: ["Club de Física","Reunions","Presentacions"]
 author: "David Galan"
-tags: ["clubdefisica","presentacions"]
+tags: ["clubdefisica","presentacions","principi-holografic"]
 draft: false
 ---
 
