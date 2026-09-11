@@ -23,7 +23,7 @@ La millor manera de contactar amb nosaltres per a col·laboracions, dubtes sobre
 Segueix-nos per estar al dia de les últimes novetats, reunions i esdeveniments que organitzem a la universitat:
 
 * 📸 **Instagram:** [@clubfisicauab](https://instagram.com/clubfisicauab)
-* 🐦 **X (Twitter):** [@clubfisicauab](https://x.com/clubfisicauab)
+* 🐦 **X (Twitter):** [@clubfisicauab](https://x.com/clubdefisicauab)
 
 ---
 
