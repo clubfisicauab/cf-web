@@ -1,0 +1,113 @@
+{{- /* Dades estructurades (JSON-LD) per a Google: organització, web, posts, activitats i paperillos */ -}}
+{{- $iso := "2006-01-02T15:04:05-07:00" -}}
+{{- $club := site.Params.club -}}
+{{- $idOrganitzacio := printf "%s#organitzacio" site.Home.Permalink -}}
+{{- $refOrganitzacio := dict "@id" $idOrganitzacio -}}
+{{- $compartir := partial "imatge-compartir.html" . -}}
+{{- $descripcio := partial "descripcio.html" . -}}
+
+{{- $xarxes := slice -}}
+{{- with $club.instagram }}{{ $xarxes = $xarxes | append (printf "https://www.instagram.com/%s/" .) }}{{ end -}}
+{{- with $club.x }}{{ $xarxes = $xarxes | append (printf "https://x.com/%s" .) }}{{ end -}}
+
+{{- $dades := slice -}}
+
+{{- if .IsHome -}}
+  {{- $dades = $dades | append (dict
+    "@context" "https://schema.org"
+    "@type" "Organization"
+    "@id" $idOrganitzacio
+    "name" site.Title
+    "url" site.Home.Permalink
+    "logo" ("logo.png" | absURL)
+    "email" $club.email
+    "description" site.Params.description
+    "sameAs" $xarxes
+    "parentOrganization" (dict "@type" "CollegeOrUniversity" "name" "Universitat Autònoma de Barcelona" "url" "https://www.uab.cat/")
+  ) -}}
+  {{- $dades = $dades | append (dict
+    "@context" "https://schema.org"
+    "@type" "WebSite"
+    "name" site.Title
+    "url" site.Home.Permalink
+    "inLanguage" "ca"
+    "description" site.Params.description
+    "publisher" $refOrganitzacio
+  ) -}}
+
+{{- else if and .IsPage (eq .Section "blog") -}}
+  {{- $autor := $refOrganitzacio -}}
+  {{- with .Params.author }}{{ $autor = dict "@type" "Person" "name" . }}{{ end -}}
+  {{- $dades = $dades | append (dict
+    "@context" "https://schema.org"
+    "@type" "BlogPosting"
+    "headline" .Title
+    "description" $descripcio
+    "url" .Permalink
+    "mainEntityOfPage" .Permalink
+    "inLanguage" "ca"
+    "datePublished" (.PublishDate.Format $iso)
+    "dateModified" (.Lastmod.Format $iso)
+    "author" $autor
+    "publisher" (dict "@type" "Organization" "name" site.Title "logo" (dict "@type" "ImageObject" "url" ("logo.png" | absURL)))
+    "image" ($compartir.url | default "")
+    "keywords" (delimit (.Params.tags | default (slice)) ", ")
+  ) -}}
+
+{{- else if and .IsPage (eq .Section "agenda") -}}
+  {{- $hores := partial "esdeveniment-hores.html" . -}}
+  {{- $format := cond $hores.totElDia "2006-01-02" $iso -}}
+  {{- $adreca := $club.adreca -}}
+  {{- $dades = $dades | append (dict
+    "@context" "https://schema.org"
+    "@type" "Event"
+    "name" .Title
+    "description" $descripcio
+    "url" .Permalink
+    "inLanguage" "ca"
+    "startDate" ($hores.inici.Format $format)
+    "endDate" ($hores.fi.Format $format)
+    "eventStatus" "https://schema.org/EventScheduled"
+    "eventAttendanceMode" "https://schema.org/OfflineEventAttendanceMode"
+    "location" (dict
+      "@type" "Place"
+      "name" (.Params.location | default $adreca.lloc)
+      "address" (dict "@type" "PostalAddress" "streetAddress" $adreca.lloc "addressLocality" $adreca.localitat "postalCode" $adreca.codiPostal "addressRegion" $adreca.regio "addressCountry" $adreca.pais)
+    )
+    "organizer" (dict "@type" "Organization" "name" site.Title "url" site.Home.Permalink)
+    "image" ($compartir.url | default "")
+  ) -}}
+
+{{- else if and .IsPage (eq .Section "paperillos") -}}
+  {{- $article := dict
+    "@context" "https://schema.org"
+    "@type" "ScholarlyArticle"
+    "headline" .Title
+    "description" $descripcio
+    "url" .Permalink
+    "inLanguage" "ca"
+    "datePublished" (.PublishDate.Format $iso)
+    "dateModified" (.Lastmod.Format $iso)
+    "author" (dict "@type" "Person" "name" (.Params.author | default site.Title))
+    "publisher" (dict "@type" "Organization" "name" site.Title)
+    "image" ($compartir.url | default "")
+    "keywords" (delimit (.Params.tags | default (slice)) ", ")
+  -}}
+  {{- with .Resources.GetMatch "*.pdf" }}{{ $article = merge $article (dict "encoding" (dict "@type" "MediaObject" "contentUrl" .Permalink "encodingFormat" "application/pdf")) }}{{ end -}}
+  {{- $dades = $dades | append $article -}}
+
+{{- else -}}
+  {{- $dades = $dades | append (dict
+    "@context" "https://schema.org"
+    "@type" "WebPage"
+    "name" .Title
+    "description" $descripcio
+    "url" .Permalink
+    "inLanguage" "ca"
+    "isPartOf" (dict "@type" "WebSite" "name" site.Title "url" site.Home.Permalink)
+  ) -}}
+{{- end -}}
+
+{{- range $dades }}
+<script type="application/ld+json">{{ . | jsonify | safeJS }}</script>
+{{- end }}

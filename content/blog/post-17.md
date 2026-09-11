@@ -1,9 +1,11 @@
 ---
 title: "Trobada 0 del Club de Física de 2025"
+description: "Trobada inicial del curs amb presentacions d’estudiants de doctorat per donar la benvinguda a una nova generació del Club."
 meta_title: ""
 date: 2025-10-26T05:00:00Z
 image: "/images/gallery/post17.jpeg"
 categories: ["Club de Física","Trobada","Presentacions"]
+cursos: ["2025-26"]
 author: "David Galan"
 tags: ["clubdefisica","trobada","inauguració","presentacions"]
 draft: false

@@ -5,7 +5,7 @@
 <section class="cf-hero" data-carrusel aria-label="Presentació del Club">
   <div class="cf-hero-diapositives">
     {{- range $i, $d := $diapositives }}
-    <img src="{{ $d.imatge | relURL }}" alt="{{ $d.alt }}" class="cf-hero-diapositiva nozoom{{ if eq $i 0 }} activa{{ end }}" {{ if eq $i 0 }}fetchpriority="high"{{ else }}loading="lazy"{{ end }} decoding="async">
+    {{ partial "imatge.html" (dict "src" $d.imatge "alt" $d.alt "amplades" (slice 800 1400 2000) "mida" "100vw" "classe" (printf "cf-hero-diapositiva nozoom%s" (cond (eq $i 0) " activa" "")) "carrega" (cond (eq $i 0) "eager" "lazy") "prioritat" (cond (eq $i 0) "high" "")) }}
     {{- end }}
   </div>
 

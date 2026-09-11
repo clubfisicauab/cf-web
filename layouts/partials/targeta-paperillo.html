@@ -1,0 +1,31 @@
+{{- /* Targeta d'un paperillo amb la seva portada (secció de la portada del web) */ -}}
+{{- $portada := "" -}}
+{{- with .Resources.GetMatch "portada.*" -}}
+  {{- $portada = partial "imatge.html" (dict "recurs" . "amplades" (slice 400 640) "proporcio" "4:3" "ancora" "Top" "mida" "(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" "classe" "nozoom") -}}
+{{- end -}}
+<article class="cf-targeta cf-targeta--paperillo">
+  {{- with .Params.icon }}
+  <span class="cf-targeta-data cf-estat" style="background-color: {{ $.Params.boxcolor }}; color: {{ $.Params.color }};">{{ . }}</span>
+  {{- end }}
+  <div class="cf-targeta-imatge{{ if not $portada }} cf-targeta-imatge--buida{{ end }}">
+    {{- with $portada }}
+    {{ . }}
+    {{- else }}
+    {{ partial "icona.html" "document" }}
+    {{- end }}
+  </div>
+  <div class="cf-targeta-cos">
+    {{- with .Params.tags }}
+    <p class="cf-targeta-categoria">{{ index . 0 }}</p>
+    {{- end }}
+    <h3 class="cf-targeta-titol"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+    <p class="cf-targeta-meta">
+      <span>{{ partial "icona.html" "user" }}{{ .Params.author | default site.Title }}</span>
+      <span>{{ partial "icona.html" "calendar" }}{{ .Date.Format "02/01/2006" }}</span>
+    </p>
+    {{- with .Description }}
+    <p class="cf-targeta-resum">{{ . }}</p>
+    {{- end }}
+    <span class="cf-enllac-fletxa cf-targeta-peu" aria-hidden="true">Llegir el paperillo {{ partial "icona.html" "arrow-right" }}</span>
+  </div>
+</article>

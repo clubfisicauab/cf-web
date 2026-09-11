@@ -1,9 +1,11 @@
 ---
 title: "Vols unir-te al Club de Física de la UAB?"
+description: "Busquem nous membres per al Club de Física de la UAB: respon el qüestionari i descobreix com participar-hi."
 meta_title: ""
 date: 2025-09-26T05:00:00Z
 image: "/images/gallery/post15.jpeg"
 categories: ["Club de Física"]
+cursos: ["2025-26"]
 author: "David Galan"
 tags: ["clubdefisica","qüestionari"]
 draft: false

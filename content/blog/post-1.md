@@ -1,8 +1,10 @@
 ---
 title: "Inaugurem el Club de Física de la UAB"
+description: "Primera reunió del Club de Física de la UAB: alumnes de primer i estudiants de TFG, màster i doctorat debaten sobre la supersimetria."
 date: 2024-12-16T05:00:00Z
 image: "/images/gallery/IMG_7894.jpg"
 categories: ["Reunions"]
+cursos: ["2024-25"]
 author: "Júlia López"
 tags: ["clubdefisica", "femfisica"]
 ---

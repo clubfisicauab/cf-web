@@ -5,6 +5,7 @@ description: "Membres del Club assisteixen a la xerrada de Leonard Susskind a l'
 date: 2026-07-17T10:00:00Z
 image: "/images/gallery/post22.jpeg"
 categories: ["Club de Física","Sortides","Xerrades"]
+cursos: ["2025-26"]
 author: "David Galan"
 tags: ["clubdefisica","ifae","susskind","principi-holografic"]
 draft: false

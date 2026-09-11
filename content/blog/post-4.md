@@ -1,9 +1,11 @@
 ---
-title: "Reprenem el Club després de les vacances de Nadal!"
+title: "Ens reunim per estudiar química i acabem parlant de relativitat"
+description: "Una reunió per estudiar abans dels exàmens que acaba amb la pissarra plena de fórmules i paradoxes relativistes."
 meta_title: ""
 date: 2025-01-15T05:00:00Z
 image: "/images/gallery/post4.jpeg"
 categories: ["Reunions", "Club de Física"]
+cursos: ["2024-25"]
 author: "Júlia López"
 tags: ["clubdefisica", "reunions"]
 draft: false

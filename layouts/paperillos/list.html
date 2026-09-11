@@ -14,25 +14,33 @@
       {{- $pageTags := slice }}
       {{- range .Params.tags }}{{ $pageTags = $pageTags | append (. | urlize) }}{{ end }}
       {{- $paperillo := . }}
-      <a href="{{ .RelPermalink }}" class="cf-paperillo" data-tags="{{ delimit $pageTags " " }}">
-        <div class="cf-paperillo-cap">
-          {{- with .Params.icon }}
-          <span class="cf-estat" style="background-color: {{ $paperillo.Params.boxcolor }}; color: {{ $paperillo.Params.color }};">{{ . }}</span>
-          {{- end }}
-          <span class="cf-paperillo-data">{{ .Date.Format "02/01/2006" }}</span>
-        </div>
-        <h2 class="cf-paperillo-titol">{{ .Title }}</h2>
-        {{- with .Description }}
-        <p class="cf-paperillo-desc">{{ . }}</p>
+      {{- $portada := .Resources.GetMatch "portada.*" }}
+      <a href="{{ .RelPermalink }}" class="cf-paperillo{{ if $portada }} cf-paperillo--portada{{ end }}" data-tags="{{ delimit $pageTags " " }}">
+        {{- with $portada }}
+        <span class="cf-paperillo-portada" aria-hidden="true">
+          {{ partial "imatge.html" (dict "recurs" . "amplades" (slice 160 320) "proporcio" "3:4" "ancora" "Top" "mida" "130px" "classe" "nozoom") }}
+        </span>
         {{- end }}
-        <p class="cf-paperillo-autor">{{ partial "icona.html" "user" }}{{ .Params.author | default "Club de Física UAB" }}</p>
-        <div class="cf-paperillo-peu">
-          <div class="cf-etiquetes">
-            {{- range .Params.tags }}
-            <span class="cf-etiqueta-petita">{{ . }}</span>
+        <div class="cf-paperillo-cos">
+          <div class="cf-paperillo-cap">
+            {{- with .Params.icon }}
+            <span class="cf-estat" style="background-color: {{ $paperillo.Params.boxcolor }}; color: {{ $paperillo.Params.color }};">{{ . }}</span>
             {{- end }}
+            <span class="cf-paperillo-data">{{ .Date.Format "02/01/2006" }}</span>
           </div>
-          <span class="cf-enllac-fletxa">Llegir el paperillo {{ partial "icona.html" "arrow-right" }}</span>
+          <h2 class="cf-paperillo-titol">{{ .Title }}</h2>
+          {{- with .Description }}
+          <p class="cf-paperillo-desc">{{ . }}</p>
+          {{- end }}
+          <p class="cf-paperillo-autor">{{ partial "icona.html" "user" }}{{ .Params.author | default "Club de Física UAB" }}</p>
+          <div class="cf-paperillo-peu">
+            <div class="cf-etiquetes">
+              {{- range .Params.tags }}
+              <span class="cf-etiqueta-petita">{{ . }}</span>
+              {{- end }}
+            </div>
+            <span class="cf-enllac-fletxa">Llegir el paperillo {{ partial "icona.html" "arrow-right" }}</span>
+          </div>
         </div>
       </a>
       {{- end }}

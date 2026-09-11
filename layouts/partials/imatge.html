@@ -1,0 +1,40 @@
+{{- /* Imatge responsiva: genera versions WebP de diverses mides.
+       Origen: "src" (ruta dins de static/ o assets/, o URL externa) o bé "recurs" (un recurs de Hugo, p. ex. una portada).
+       Ús: {{ partial "imatge.html" (dict "src" "/images/gallery/post22.jpeg" "alt" "..." "amplades" (slice 480 960)
+             "proporcio" "16:10" "mida" "(min-width: 1024px) 380px, 100vw" "classe" "..." "carrega" "lazy" "prioritat" "high") }}
+       Si la imatge no existeix no escriu res (així qui la crida pot mostrar un fons alternatiu). */ -}}
+{{- $src := .src -}}
+{{- $alt := .alt | default "" -}}
+{{- $classe := .classe | default "" -}}
+{{- $carrega := .carrega | default "lazy" -}}
+{{- $prioritat := .prioritat | default "" -}}
+{{- $original := .recurs -}}
+{{- if and (not $original) $src (not (hasPrefix $src "http")) -}}
+  {{- $original = resources.Get (strings.TrimPrefix "/" $src) -}}
+{{- end -}}
+
+{{- if and (not $original) $src (hasPrefix $src "http") -}}
+<img src="{{ $src }}" alt="{{ $alt }}" class="{{ $classe }}" loading="{{ $carrega }}" decoding="async">
+{{- else if $original -}}
+  {{- if eq $original.MediaType.SubType "svg" -}}
+<img src="{{ $original.RelPermalink }}" alt="{{ $alt }}" class="{{ $classe }}" loading="{{ $carrega }}" decoding="async">
+  {{- else -}}
+    {{- $srcset := slice -}}
+    {{- $gran := $original -}}
+    {{- $ancora := .ancora | default "Center" -}}
+    {{- range (.amplades | default (slice 480 960)) -}}
+      {{- $w := int (math.Min . $original.Width) -}}
+      {{- $versio := "" -}}
+      {{- with $.proporcio -}}
+        {{- $parts := split . ":" -}}
+        {{- $h := div (mul $w (int (index $parts 1))) (int (index $parts 0)) -}}
+        {{- $versio = $original.Fill (printf "%dx%d webp %s" $w $h $ancora) -}}
+      {{- else -}}
+        {{- $versio = $original.Resize (printf "%dx webp" $w) -}}
+      {{- end -}}
+      {{- $srcset = $srcset | append (printf "%s %dw" $versio.RelPermalink $versio.Width) -}}
+      {{- $gran = $versio -}}
+    {{- end -}}
+<img src="{{ $gran.RelPermalink }}" srcset="{{ delimit ($srcset | uniq) ", " }}" sizes="{{ .mida | default "100vw" }}" width="{{ $gran.Width }}" height="{{ $gran.Height }}" alt="{{ $alt }}" class="{{ $classe }}" loading="{{ $carrega }}" decoding="async"{{ with $prioritat }} fetchpriority="{{ . }}"{{ end }}>
+  {{- end -}}
+{{- end -}}

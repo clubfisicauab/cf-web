@@ -1,0 +1,11 @@
+{{- /* Fitxer .ics d'una sola activitat (botó "Afegeix al calendari") */ -}}
+{{- $linies := slice
+  "BEGIN:VCALENDAR"
+  "VERSION:2.0"
+  "PRODID:-//Club de Física UAB//Agenda//CA"
+  "CALSCALE:GREGORIAN"
+  "METHOD:PUBLISH"
+-}}
+{{- $linies = $linies | append (partial "ics-esdeveniment.html" .) -}}
+{{- $linies = $linies | append "END:VCALENDAR" -}}
+{{- range $linies }}{{ partial "ics-plega.html" . }}{{ "\r\n" }}{{ end -}}

@@ -1,0 +1,16 @@
+{{- /* Hores d'una activitat de l'agenda.
+       Inici: la data del front matter. Fi: el camp "fi" si hi és; si no, 2 hores després
+       (o l'endemà si l'activitat no té hora, és a dir, dura tot el dia).
+       Retorna dict "inici" "fi" "totElDia". */ -}}
+{{- $inici := .Date -}}
+{{- $totElDia := eq (.Date.Format "15:04") "00:00" -}}
+{{- $fi := "" -}}
+{{- with .Params.fi }}{{ $fi = time.AsTime . }}{{ end -}}
+{{- if not $fi -}}
+  {{- if $totElDia -}}
+    {{- $fi = $inici.AddDate 0 0 1 -}}
+  {{- else -}}
+    {{- $fi = $inici.Add (time.ParseDuration "2h") -}}
+  {{- end -}}
+{{- end -}}
+{{- return (dict "inici" $inici "fi" $fi "totElDia" $totElDia) -}}

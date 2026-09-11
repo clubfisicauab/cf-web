@@ -2,13 +2,12 @@
 {{- $passat := lt (.Date.Format "2006-01-02") (now.Format "2006-01-02") -}}
 <article class="cf-targeta">
   <span class="cf-targeta-data{{ if $passat }} cf-targeta-data--passat{{ end }}">
-    {{- if $passat }}Finalitzat · {{ end }}{{ .Date.Format "02/01/2006" -}}
+    {{- if $passat }}Finalitzada · {{ end }}{{ .Date.Format "02/01/2006" -}}
   </span>
-  {{- $imatge := "" }}
-  {{- with .Params.image }}{{ if or (hasPrefix . "http") (fileExists (path.Join "static" .)) }}{{ $imatge = . }}{{ end }}{{ end }}
+  {{- $imatge := partial "imatge.html" (dict "src" .Params.image "amplades" (slice 480 800) "proporcio" "16:10" "mida" "(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" "classe" "nozoom") }}
   <div class="cf-targeta-imatge{{ if not $imatge }} cf-targeta-imatge--buida{{ end }}">
     {{- with $imatge }}
-    <img src="{{ . | relURL }}" alt="" loading="lazy" decoding="async" class="nozoom">
+    {{ . }}
     {{- else }}
     {{ partial "icona.html" "calendar" }}
     {{- end }}

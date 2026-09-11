@@ -1,0 +1,27 @@
+{{- /* Navegació entre pàgines d'un llistat. Ús: {{ partial "paginacio.html" $paginator }} */ -}}
+{{- $pag := . -}}
+{{- if gt $pag.TotalPages 1 }}
+<nav class="cf-paginacio" aria-label="Pàgines del llistat">
+  {{- with $pag.Prev }}
+  <a class="cf-paginacio-fletxa" href="{{ .URL }}" rel="prev">{{ partial "icona.html" "arrow-left" }} Més recents</a>
+  {{- else }}
+  <span class="cf-paginacio-fletxa" aria-hidden="true"></span>
+  {{- end }}
+  <ol class="cf-paginacio-numeros">
+    {{- range $pag.Pagers }}
+    <li>
+      {{- if eq .PageNumber $pag.PageNumber }}
+      <span aria-current="page">{{ .PageNumber }}</span>
+      {{- else }}
+      <a href="{{ .URL }}" aria-label="Pàgina {{ .PageNumber }}">{{ .PageNumber }}</a>
+      {{- end }}
+    </li>
+    {{- end }}
+  </ol>
+  {{- with $pag.Next }}
+  <a class="cf-paginacio-fletxa" href="{{ .URL }}" rel="next">Més antics {{ partial "icona.html" "arrow-right" }}</a>
+  {{- else }}
+  <span class="cf-paginacio-fletxa" aria-hidden="true"></span>
+  {{- end }}
+</nav>
+{{- end }}

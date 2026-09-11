@@ -4,18 +4,22 @@
 {{- $mes := index $mesos (sub .Date.Month 1) -}}
 {{- $de := cond (in (slice "abril" "agost" "octubre") $mes) "d'" "de " -}}
 {{- $dataLlarga := printf "%d %s%s de %d" .Date.Day $de $mes .Date.Year -}}
+{{- $passat := lt (.Date.Format "2006-01-02") (now.Format "2006-01-02") -}}
+{{- $cronica := "" -}}
+{{- with .Params.cronica }}{{ $cronica = site.GetPage (strings.TrimSuffix "/" .) }}{{ end -}}
 
 <article>
   <header class="cf-capcalera-pagina">
     <div class="cf-capcalera-pagina-contingut cf-capcalera-pagina-contingut--estret">
       <a class="cf-tornar" href="{{ "agenda/" | relURL }}">{{ partial "icona.html" "arrow-left" }} Tornar a l'agenda</a>
-      {{- with .Params.categories }}
       <ul class="cf-xips cf-xips--fosc">
-        {{- range . }}
+        {{- if $passat }}
+        <li class="cf-xip cf-xip--estat">Finalitzada</li>
+        {{- end }}
+        {{- range .Params.categories }}
         <li class="cf-xip">{{ . }}</li>
         {{- end }}
       </ul>
-      {{- end }}
       <h1 class="cf-capcalera-pagina-titol">{{ .Title }}</h1>
       <div class="cf-capcalera-meta">
         <span>{{ partial "icona.html" "calendar" }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ $dataLlarga }}</time></span>
@@ -30,9 +34,27 @@
   </header>
 
   <div class="cf-contenidor cf-contenidor--estret cf-pagina-cos">
-    {{- with .Params.image }}
-    <img class="cf-imatge-destacada" src="{{ . | relURL }}" alt="">
+    {{- if or (not $passat) $cronica }}
+    <div class="cf-accions-activitat">
+      {{- if not $passat }}
+        {{- with .Params.inscripcio }}
+      <a class="cf-boto cf-boto--or" href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ partial "icona.html" "check" }} Inscriu-t'hi</a>
+        {{- end }}
+        {{- with .OutputFormats.Get "calendar" }}
+      <a class="cf-boto cf-boto--fosc" href="{{ .RelPermalink }}" download>{{ partial "icona.html" "calendar-add" }} Afegeix al calendari</a>
+        {{- end }}
+      <a class="cf-boto cf-boto--contorn" href="{{ partial "enllac-google-calendar.html" . }}" target="_blank" rel="noopener noreferrer">{{ partial "icona.html" "calendar" }} Google Calendar</a>
+      {{- end }}
+      {{- with $cronica }}
+      <a class="cf-boto cf-boto--fosc" href="{{ .RelPermalink }}">{{ partial "icona.html" "document" }} Llegeix la crònica</a>
+      {{- end }}
+    </div>
     {{- end }}
+
+    {{- with partial "imatge.html" (dict "src" .Params.image "amplades" (slice 800 1400) "mida" "(min-width: 820px) 780px, 100vw" "classe" "cf-imatge-destacada") }}
+    {{ . }}
+    {{- end }}
+
     <div class="prose prose-lg max-w-none cf-prose">
       {{ .Content }}
     </div>

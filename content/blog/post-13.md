@@ -1,9 +1,11 @@
 ---
 title: "Ens preparem per la Fira de la Ciència del 29 de maig"
+description: "Organitzem els grups i el material per exposar els projectes a la Fira de la Ciència i obrim un debat sobre dos articles de física quàntica."
 meta_title: ""
 date: 2025-03-19T05:00:00Z
 image: "/images/gallery/post13.jpeg"
 categories: ["Reunions", "Club de Física"]
+cursos: ["2024-25"]
 author: "Júlia López"
 tags: ["clubdefisica", "reunions"]
 draft: false

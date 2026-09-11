@@ -52,6 +52,8 @@ carrusel:
 
 {{< ultims_blogs >}}
 
+{{< ultims_paperillos >}}
+
 {{< agenda >}}
 
 {{< crida >}}

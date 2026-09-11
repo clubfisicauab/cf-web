@@ -36,7 +36,7 @@ Som un grup divers en edats i recorreguts personals. El club està obert a totho
 * **Curses TFG, TFM o doctorat?** Ens pots ajudar a mentoritzar projectes i guiar els estudiants nous.
 * **Vols ajudar d'una altra manera?** També busquem gent per gestionar xarxes socials, organitzar esdeveniments o portar idees noves.
 
-> **ℹ️ En evolució:** *Aquesta web encara està en desenvolupament. Aviat inclourà més informació sobre esdeveniments, recursos i projectes actius.*
+Vols saber-ne més? Consulta les [preguntes freqüents](/preguntes-frequents/).
 
 ---
 

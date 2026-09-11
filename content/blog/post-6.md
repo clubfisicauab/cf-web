@@ -1,9 +1,11 @@
 ---
 title: "Donem la benvinguda als nous alumnes i tenim una sorpresa d'un estudiant molt especial!"
+description: "Saludem els futurs estudiants a la jornada de portes obertes i escoltem el Robert parlar de les àlgebres de Clifford."
 meta_title: ""
 date: 2025-02-05T05:00:00Z
 image: "/images/gallery/post6.jpeg"
 categories: ["Reunions", "Club de Física"]
+cursos: ["2024-25"]
 author: "Júlia López"
 tags: ["clubdefisica", "reunions"]
 draft: false

@@ -1,0 +1,2 @@
+{{- /* Escapa un text per a un fitxer de calendari (.ics, RFC 5545) */ -}}
+{{- return (replaceRE `\r?\n` `\n` (replace (replace (replace (string .) `\` `\\`) ";" `\;`) "," `\,`)) -}}

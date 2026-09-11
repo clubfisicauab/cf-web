@@ -1897,6 +1897,929 @@ button.cf-xip[aria-pressed="true"] {
 }
 
 /* ---------------------------------------------------------------------
+   16. Menú desplegable "El Club" i cercador
+   --------------------------------------------------------------------- */
+.cf-capcalera .main-menu nav.flex > .nested-menu > div > a {
+  position: relative;
+  gap: 0.2rem;
+  padding: 0.35rem 0;
+  color: var(--cf-tinta);
+}
+
+.cf-capcalera .main-menu nav.flex > .nested-menu > div > a > span:first-child {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.cf-capcalera .main-menu nav.flex > .nested-menu > div > a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--cf-or);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
+.cf-capcalera .main-menu nav.flex > .nested-menu:hover > div > a::after,
+.cf-capcalera .main-menu nav.flex > .nested-menu > div > a.actiu::after {
+  transform: scaleX(1);
+}
+
+.cf-capcalera .menuhide {
+  left: -0.9rem;
+  min-width: 240px;
+  padding-top: 0.6rem;
+}
+
+.cf-capcalera .menuhide > div {
+  margin-top: 0 !important;
+  padding: 0.45rem !important;
+  border: 1px solid var(--cf-linia);
+  border-radius: 14px !important;
+  background: #fff !important;
+  box-shadow: var(--cf-ombra-hover) !important;
+  backdrop-filter: none !important;
+}
+
+.cf-capcalera .menuhide a {
+  margin: 0 !important;
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+  color: var(--cf-tinta);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.cf-capcalera .menuhide a span {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.cf-capcalera .menuhide a:hover,
+.cf-capcalera .menuhide a.actiu {
+  background: var(--cf-fons-suau);
+  color: var(--cf-blau-nit);
+}
+
+.cf-capcalera #search-button,
+.cf-capcalera #search-button-mobile {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--cf-linia);
+  border-radius: 50%;
+  color: var(--cf-blau-nit);
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.cf-capcalera #search-button:hover,
+.cf-capcalera #search-button-mobile:hover {
+  border-color: var(--cf-or);
+  background: var(--cf-or-suau);
+}
+
+#search-wrapper {
+  background: rgba(11, 21, 56, 0.55) !important;
+}
+
+#search-modal {
+  overflow: hidden;
+  border: 0 !important;
+  border-radius: 18px !important;
+  background: #fff !important;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.55) !important;
+}
+
+#search-modal header {
+  padding: 0.35rem 1rem;
+  border-bottom: 1px solid var(--cf-linia);
+}
+
+#search-query {
+  font-size: 1.1rem;
+  color: var(--cf-tinta);
+}
+
+#search-results {
+  padding: 0.75rem 0.25rem;
+}
+
+#search-results a {
+  border: 1px solid transparent;
+  border-radius: 12px !important;
+  padding: 0.8rem 1rem !important;
+  background: var(--cf-fons-suau) !important;
+}
+
+#search-results a:hover,
+#search-results a:focus {
+  border-color: var(--cf-or);
+  background: #fff !important;
+}
+
+#search-results .text-lg {
+  font-size: 1.05rem;
+  color: var(--cf-tinta);
+}
+
+#search-results .text-primary-500 {
+  color: var(--cf-or) !important;
+}
+
+/* ---------------------------------------------------------------------
+   17. Galetes
+   --------------------------------------------------------------------- */
+.cf-galetes {
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 55;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 1.2rem 1.4rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 24px 60px -20px rgba(11, 21, 56, 0.5);
+}
+
+.cf-galetes-contingut {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+}
+
+.cf-galetes-contingut > div:first-child {
+  flex: 1 1 340px;
+}
+
+.cf-galetes-titol {
+  margin: 0 0 0.3rem;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--cf-tinta);
+}
+
+.cf-galetes-text {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--cf-text);
+}
+
+.cf-galetes-text a {
+  font-weight: 600;
+  color: var(--cf-blau);
+  text-decoration: underline;
+  text-decoration-color: var(--cf-or);
+  text-underline-offset: 3px;
+}
+
+.cf-galetes-accions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.cf-galetes-accions .cf-boto {
+  min-width: 110px;
+  padding: 0.65rem 1.3rem;
+}
+
+@media (max-width: 559px) {
+  .cf-galetes-accions {
+    width: 100%;
+  }
+
+  .cf-galetes-accions .cf-boto {
+    flex: 1;
+  }
+}
+
+.cf-preferencies-galetes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 1.2rem 1.4rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: var(--cf-radi);
+  background: var(--cf-fons-suau);
+}
+
+.cf-preferencies-galetes p {
+  margin: 0;
+}
+
+.cf-peu-boto {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.cf-peu-boto:hover {
+  color: var(--cf-or);
+}
+
+.cf-peu-nav ul {
+  display: block;
+  columns: 2;
+  column-gap: 1.5rem;
+}
+
+.cf-peu-nav li {
+  margin-bottom: 0.55rem;
+  break-inside: avoid;
+}
+
+.cf-prose table code {
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .cf-prose table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   18. Paginació i caixa "Segueix el blog"
+   --------------------------------------------------------------------- */
+.cf-paginacio {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--cf-linia);
+}
+
+.cf-paginacio-fletxa {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 8rem;
+  font-weight: 700;
+  color: var(--cf-blau-nit);
+  text-decoration: none;
+}
+
+a.cf-paginacio-fletxa:hover {
+  color: var(--cf-or-fosc);
+}
+
+.cf-paginacio-fletxa:last-child {
+  justify-content: flex-end;
+}
+
+.cf-paginacio-numeros {
+  display: flex;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cf-paginacio-numeros a,
+.cf-paginacio-numeros span {
+  min-width: 2.4rem;
+  height: 2.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--cf-linia);
+  border-radius: 999px;
+  font-weight: 700;
+  color: var(--cf-text);
+  text-decoration: none;
+  transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.cf-paginacio-numeros a:hover {
+  border-color: var(--cf-blau-nit);
+  color: var(--cf-blau-nit);
+}
+
+.cf-paginacio-numeros [aria-current="page"] {
+  border-color: var(--cf-blau-nit);
+  background: var(--cf-blau-nit);
+  color: #fff;
+}
+
+.cf-caixa--segueix {
+  background: var(--cf-or-suau);
+  border-color: #f3e3a4;
+}
+
+.cf-caixa--segueix p {
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--cf-text);
+}
+
+.cf-segueix-accions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.cf-segueix-accions .cf-boto {
+  padding: 0.55rem 1rem;
+  font-size: 0.88rem;
+}
+
+/* ---------------------------------------------------------------------
+   19. Agenda: subscripció, calendari del curs i accions
+   --------------------------------------------------------------------- */
+.cf-visualment-amagat {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.cf-subscripcio {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border: 1px solid #f3e3a4;
+  border-radius: var(--cf-radi);
+  background: var(--cf-or-suau);
+}
+
+.cf-subscripcio > div:first-child {
+  flex: 1 1 320px;
+}
+
+.cf-subscripcio-titol {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.35rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--cf-tinta);
+}
+
+.cf-subscripcio-titol .icona {
+  color: var(--cf-or-fosc);
+}
+
+.cf-subscripcio p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--cf-text);
+}
+
+.cf-subscripcio-accions,
+.cf-accions-activitat {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.cf-subscripcio-accions .cf-boto {
+  padding: 0.6rem 1.1rem;
+  font-size: 0.9rem;
+}
+
+.cf-accions-activitat {
+  margin-bottom: 2rem;
+}
+
+.cf-calendari {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .cf-calendari {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.cf-calendari-mes {
+  padding: 1.25rem 1.4rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: var(--cf-radi);
+  background: #fff;
+  box-shadow: var(--cf-ombra);
+}
+
+.cf-calendari-mes-titol {
+  margin: 0 0 0.9rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 2px solid var(--cf-or);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--cf-tinta);
+}
+
+.cf-calendari-llista {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cf-calendari-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.55rem 0;
+}
+
+.cf-calendari-item + .cf-calendari-item {
+  border-top: 1px dashed var(--cf-linia);
+}
+
+.cf-calendari-dia {
+  flex: none;
+  width: 3.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.05;
+}
+
+.cf-calendari-dia span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--cf-suau);
+}
+
+.cf-calendari-dia strong {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--cf-blau-nit);
+}
+
+.cf-calendari-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.cf-calendari-info a {
+  font-weight: 700;
+  color: var(--cf-tinta);
+  text-decoration: none;
+}
+
+.cf-calendari-info a:hover {
+  color: var(--cf-or-fosc);
+}
+
+.cf-calendari-detalls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--cf-suau);
+}
+
+.cf-calendari-detalls .icona {
+  width: 14px;
+  height: 14px;
+}
+
+.cf-calendari-estat {
+  flex: none;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: #e5e7eb;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--cf-text);
+}
+
+.cf-calendari-item--passat .cf-calendari-dia strong,
+.cf-calendari-item--passat .cf-calendari-info a {
+  color: var(--cf-suau);
+}
+
+.cf-xips--fosc .cf-xip--estat {
+  border-color: var(--cf-or);
+  background: var(--cf-or);
+  color: var(--cf-blau-nit);
+}
+
+.cf-cronica {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid #f3e3a4;
+  border-radius: var(--cf-radi);
+  background: var(--cf-or-suau);
+}
+
+.cf-cronica .icona {
+  width: 22px;
+  height: 22px;
+  margin-top: 0.15rem;
+  color: var(--cf-or-fosc);
+}
+
+.cf-cronica p {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.cf-cronica a {
+  font-weight: 700;
+  color: var(--cf-blau);
+}
+
+/* ---------------------------------------------------------------------
+   21. Preguntes freqüents
+   --------------------------------------------------------------------- */
+.cf-pregunta {
+  margin: 0 0 0.75rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: 14px;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.cf-pregunta[open] {
+  border-color: var(--cf-or);
+  box-shadow: var(--cf-ombra);
+}
+
+.cf-pregunta summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--cf-tinta);
+  list-style: none;
+  cursor: pointer;
+}
+
+.cf-pregunta summary::-webkit-details-marker {
+  display: none;
+}
+
+.cf-pregunta-signe {
+  position: relative;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--cf-or-suau);
+}
+
+.cf-pregunta-signe::before,
+.cf-pregunta-signe::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 2px;
+  margin: -1px 0 0 -6px;
+  border-radius: 2px;
+  background: var(--cf-or-fosc);
+  transition: transform 0.2s;
+}
+
+.cf-pregunta-signe::after {
+  transform: rotate(90deg);
+}
+
+.cf-pregunta[open] .cf-pregunta-signe::after {
+  transform: rotate(0deg);
+}
+
+.cf-pregunta-resposta {
+  padding: 0 1.25rem 1.1rem;
+  line-height: 1.7;
+  color: var(--cf-text);
+}
+
+.cf-pregunta-resposta p {
+  margin: 0 0 0.75rem;
+}
+
+.cf-pregunta-resposta p:last-child {
+  margin-bottom: 0;
+}
+
+.cf-pregunta-resposta a {
+  font-weight: 600;
+  color: var(--cf-blau);
+  text-decoration: underline;
+  text-decoration-color: var(--cf-or);
+  text-underline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------------
+   23. Paperillos: portades i cita
+   --------------------------------------------------------------------- */
+.cf-paperillo--portada {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  align-items: start;
+  gap: 1.5rem;
+}
+
+.cf-paperillo-portada,
+.cf-paper-portada {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--cf-linia);
+  background: #fff;
+}
+
+.cf-paperillo-portada {
+  border-radius: 8px;
+  box-shadow: 0 8px 20px -14px rgba(11, 21, 56, 0.5);
+}
+
+.cf-paperillo-portada img,
+.cf-paper-portada img {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  display: block;
+}
+
+@media (max-width: 559px) {
+  .cf-paperillo--portada {
+    grid-template-columns: 1fr;
+  }
+
+  .cf-paperillo-portada {
+    display: none;
+  }
+}
+
+.cf-paper-cap {
+  display: grid;
+  align-items: start;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .cf-paper-cap {
+    grid-template-columns: 240px minmax(0, 1fr);
+  }
+
+  .cf-paper-cap--sense-portada {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cf-paper-portada {
+  max-width: 260px;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: var(--cf-ombra-hover);
+  transition: transform 0.2s;
+}
+
+.cf-paper-portada:hover {
+  transform: translateY(-3px) rotate(-0.5deg);
+}
+
+.cf-paper-cap-cos .cf-resum-cientific {
+  margin-bottom: 1.5rem;
+}
+
+.cf-cita {
+  margin-top: 1.25rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.cf-cita summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.1rem;
+  font-weight: 700;
+  color: var(--cf-blau-nit);
+  cursor: pointer;
+}
+
+.cf-cita summary .icona {
+  color: var(--cf-or-fosc);
+}
+
+.cf-cita-cos {
+  padding: 0 1.1rem 1.1rem;
+}
+
+.cf-cita-etiqueta {
+  margin: 0.75rem 0 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cf-suau);
+}
+
+.cf-cita-bloc {
+  position: relative;
+}
+
+.cf-cita-bloc p,
+.cf-cita-bloc pre {
+  margin: 0;
+  padding: 0.85rem 5.5rem 0.85rem 1rem;
+  overflow-x: auto;
+  border-radius: 10px;
+  background: var(--cf-fons-suau);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--cf-text);
+}
+
+.cf-cita-bloc pre {
+  white-space: pre;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.cf-boto-copiar {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--cf-blau-nit);
+  cursor: pointer;
+}
+
+.cf-boto-copiar:hover {
+  border-color: var(--cf-or);
+}
+
+/* En mòbil el visor de PDF integrat no funciona bé: n'hi ha prou amb la portada i els botons */
+@media (max-width: 767px) {
+  .cf-visor-pdf {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   24. Portada: últims paperillos
+   --------------------------------------------------------------------- */
+.cf-targeta--paperillo .cf-targeta-imatge {
+  border-bottom: 1px solid var(--cf-linia);
+  background: #fff;
+}
+
+/* ---------------------------------------------------------------------
+   25. Filtre del blog per curs
+   --------------------------------------------------------------------- */
+.cf-filtre-cursos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 1.75rem;
+}
+
+.cf-filtre-cursos .cf-xip {
+  gap: 0.45rem;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.88rem;
+}
+
+.cf-filtre-cursos .cf-comptador {
+  min-width: 1.5rem;
+  padding: 0 0.35rem;
+  font-size: 0.7rem;
+}
+
+.cf-filtre-cursos .cf-xip[aria-current="page"] {
+  border-color: var(--cf-blau-nit);
+  background: var(--cf-blau-nit);
+  color: #fff;
+}
+
+.cf-filtre-cursos .cf-xip[aria-current="page"] .cf-comptador {
+  border-color: transparent;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+/* ---------------------------------------------------------------------
+   26. Recursos
+   --------------------------------------------------------------------- */
+.cf-recursos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0 2.75rem;
+}
+
+.cf-recurs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.2rem 1.3rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: var(--cf-radi);
+  background: #fff;
+  box-shadow: var(--cf-ombra);
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.cf-recurs:hover {
+  transform: translateY(-3px);
+  border-color: var(--cf-or);
+  box-shadow: var(--cf-ombra-hover);
+}
+
+.cf-recurs-tipus {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cf-or-fosc);
+}
+
+.cf-recurs-titol {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--cf-tinta);
+}
+
+.cf-recurs-titol .icona {
+  width: 14px;
+  height: 14px;
+  color: var(--cf-suau);
+}
+
+.cf-recurs-text {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--cf-text);
+}
+
+.cf-recurs-text strong {
+  color: var(--cf-tinta);
+}
+
+.cf-recurs-domini {
+  margin-top: auto;
+  padding-top: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--cf-suau);
+}
+
+/* ---------------------------------------------------------------------
    15. Accessibilitat i moviment reduït
    --------------------------------------------------------------------- */
 :where(a, button, summary, input):focus-visible {

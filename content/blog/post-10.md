@@ -1,9 +1,11 @@
 ---
 title: "Què és la càrrega?"
+description: "Si només quedés un electró a l’univers, tindria càrrega? Debat obert sobre què és realment la càrrega elèctrica."
 meta_title: ""
 date: 2025-03-05T05:00:00Z
 image: "/images/gallery/post10.jpeg"
 categories: ["Reunions", "Club de Física", "Presentacions"]
+cursos: ["2024-25"]
 author: "Júlia López"
 tags: ["clubdefisica", "reunions"]
 draft: false

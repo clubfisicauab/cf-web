@@ -3,13 +3,12 @@
 {{- $p := .pagina -}}
 {{- $nivell := .nivell | default 2 -}}
 {{- $categories := complement (slice "Club de Física") ($p.Params.categories | default (slice)) -}}
-{{- /* Si la imatge no existeix a static/, es mostra el fons per defecte en lloc d'una imatge trencada */ -}}
-{{- $imatge := "" -}}
-{{- with $p.Params.image }}{{ if or (hasPrefix . "http") (fileExists (path.Join "static" .)) }}{{ $imatge = . }}{{ end }}{{ end -}}
+{{- /* Si la imatge no existeix, es mostra un fons per defecte en lloc d'una imatge trencada */ -}}
+{{- $imatge := partial "imatge.html" (dict "src" $p.Params.image "amplades" (slice 480 800) "proporcio" "16:10" "mida" "(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" "classe" "nozoom") -}}
 <article class="cf-targeta">
   <div class="cf-targeta-imatge{{ if not $imatge }} cf-targeta-imatge--buida{{ end }}">
     {{- with $imatge }}
-    <img src="{{ . | relURL }}" alt="" loading="lazy" decoding="async" class="nozoom">
+    {{ . }}
     {{- else }}
     {{ partial "icona.html" "atom" }}
     {{- end }}

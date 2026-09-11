@@ -1,9 +1,11 @@
 ---
 title: "Existeix l'espaitemps?"
+description: "Debatem si existeix l’espaitemps i la Marta, estudiant de doctorat, ens mostra com funciona un detector de muons."
 meta_title: ""
 date: 2025-02-19T05:00:00Z
 image: "/images/gallery/post8.jpeg"
 categories: ["Reunions", "Club de Física"]
+cursos: ["2024-25"]
 author: "Júlia López"
 tags: ["clubdefisica", "reunions"]
 draft: false

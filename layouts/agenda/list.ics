@@ -1,0 +1,17 @@
+{{- /* Calendari de totes les activitats (per subscriure-s'hi des de Google Calendar, Apple, Outlook...) */ -}}
+{{- $linies := slice
+  "BEGIN:VCALENDAR"
+  "VERSION:2.0"
+  "PRODID:-//Club de Física UAB//Agenda//CA"
+  "CALSCALE:GREGORIAN"
+  "METHOD:PUBLISH"
+  (printf "X-WR-CALNAME:%s" (partial "ics-text.html" (printf "Agenda · %s" site.Title)))
+  (printf "X-WR-CALDESC:%s" (partial "ics-text.html" "Activitats del Club de Física de la Universitat Autònoma de Barcelona"))
+  "X-WR-TIMEZONE:Europe/Madrid"
+  "REFRESH-INTERVAL;VALUE=DURATION:PT12H"
+-}}
+{{- range .Pages.ByDate -}}
+  {{- $linies = $linies | append (partial "ics-esdeveniment.html" .) -}}
+{{- end -}}
+{{- $linies = $linies | append "END:VCALENDAR" -}}
+{{- range $linies }}{{ partial "ics-plega.html" . }}{{ "\r\n" }}{{ end -}}

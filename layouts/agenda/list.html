@@ -3,16 +3,40 @@
 {{ partial "capcalera-pagina.html" (dict "etiqueta" "Agenda i esdeveniments" "titol" .Title "subtitol" "Descobreix els propers seminaris, tallers, sortides i fires on participa el Club de Física de la UAB. T'hi esperem!") }}
 
 {{- $avui := now.Format "2006-01-02" -}}
+{{- /* El curs va de setembre a agost */ -}}
+{{- $any := now.Year -}}
+{{- if lt (int now.Month) 9 }}{{ $any = sub $any 1 }}{{ end -}}
+{{- $iniciCurs := time.AsTime (printf "%d-09-01T00:00:00+02:00" $any) -}}
+{{- $fiCurs := time.AsTime (printf "%d-09-01T00:00:00+02:00" (add $any 1)) -}}
+{{- $nomCurs := printf "%d-%02d" $any (mod (add $any 1) 100) -}}
+{{- $mesos := slice "gener" "febrer" "març" "abril" "maig" "juny" "juliol" "agost" "setembre" "octubre" "novembre" "desembre" -}}
+{{- $dies := slice "dg." "dl." "dt." "dc." "dj." "dv." "ds." -}}
+
 {{- $propers := slice -}}
-{{- $passats := slice -}}
-{{- range .Pages.ByDate -}}
-  {{- if ge (.Date.Format "2006-01-02") $avui }}{{ $propers = $propers | append . }}{{ end -}}
-{{- end -}}
-{{- range .Pages.ByDate.Reverse -}}
-  {{- if lt (.Date.Format "2006-01-02") $avui }}{{ $passats = $passats | append . }}{{ end -}}
-{{- end -}}
+{{- range .Pages.ByDate }}{{ if ge (.Date.Format "2006-01-02") $avui }}{{ $propers = $propers | append . }}{{ end }}{{ end -}}
+{{- $delCurs := where (where .Pages "Date" "ge" $iniciCurs) "Date" "lt" $fiCurs -}}
+{{- $anteriors := where .Pages "Date" "lt" $iniciCurs -}}
 
 <div class="cf-contenidor cf-pagina-cos">
+
+  {{- with .OutputFormats.Get "calendar" }}
+  {{- $webcal := replaceRE `^https?://` "webcal://" .Permalink }}
+  <div class="cf-subscripcio">
+    <div>
+      <h2 class="cf-subscripcio-titol">{{ partial "icona.html" "calendar-add" }} Porta l'agenda al teu calendari</h2>
+      <p>Subscriu-t'hi i les activitats del Club apareixeran soles al calendari del teu mòbil o ordinador, i s'actualitzaran quan n'afegim de noves.</p>
+    </div>
+    <div class="cf-subscripcio-accions">
+      <a class="cf-boto cf-boto--fosc" href="{{ printf "https://calendar.google.com/calendar/r?cid=%s" (urlquery $webcal) | safeURL }}" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+      <a class="cf-boto cf-boto--contorn" href="{{ $webcal | safeURL }}">Apple i Outlook</a>
+      <a class="cf-boto cf-boto--contorn" href="{{ .RelPermalink }}" download>Descarrega .ics</a>
+      {{- with site.Params.club.formulari }}
+      <a class="cf-boto cf-boto--or" href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ partial "icona.html" "mail" }} Vull rebre avisos</a>
+      {{- end }}
+    </div>
+  </div>
+  {{- end }}
+
   {{- if $propers }}
   <section class="cf-bloc">
     <h2 class="cf-bloc-titol">Properes activitats</h2>
@@ -26,11 +50,45 @@
   {{ partial "agenda-buida.html" . }}
   {{- end }}
 
-  {{- with $passats }}
   <section class="cf-bloc">
-    <h2 class="cf-bloc-titol">Activitats anteriors</h2>
+    <h2 class="cf-bloc-titol">Calendari del curs {{ $nomCurs }}</h2>
+    {{- if $delCurs }}
+    <div class="cf-calendari">
+      {{- range $delCurs.GroupByDate "2006-01" "asc" }}
+      {{- $primera := index .Pages 0 }}
+      <div class="cf-calendari-mes">
+        <h3 class="cf-calendari-mes-titol">{{ index $mesos (sub $primera.Date.Month 1) | strings.FirstUpper }} {{ $primera.Date.Year }}</h3>
+        <ol class="cf-calendari-llista">
+          {{- range .Pages.ByDate }}
+          {{- $passat := lt (.Date.Format "2006-01-02") $avui }}
+          <li class="cf-calendari-item{{ if $passat }} cf-calendari-item--passat{{ end }}">
+            <span class="cf-calendari-dia" aria-hidden="true"><span>{{ index $dies (int .Date.Weekday) }}</span><strong>{{ .Date.Day }}</strong></span>
+            <span class="cf-calendari-info">
+              <a href="{{ .RelPermalink }}"><time datetime="{{ .Date.Format "2006-01-02" }}" class="cf-visualment-amagat">{{ .Date.Day }} {{ index $mesos (sub .Date.Month 1) }}: </time>{{ .Title }}</a>
+              <span class="cf-calendari-detalls">
+                {{- with .Params.time }}{{ partial "icona.html" "clock" }}{{ . }}{{ end }}
+                {{- with .Params.location }} {{ partial "icona.html" "pin" }}{{ . }}{{ end -}}
+              </span>
+            </span>
+            {{- if $passat }}
+            <span class="cf-calendari-estat">Finalitzada</span>
+            {{- end }}
+          </li>
+          {{- end }}
+        </ol>
+      </div>
+      {{- end }}
+    </div>
+    {{- else }}
+    <p class="cf-intro-llistat">Encara no hi ha sessions programades per a aquest curs. Les anirem afegint a mesura que es concretin.</p>
+    {{- end }}
+  </section>
+
+  {{- with $anteriors }}
+  <section class="cf-bloc">
+    <h2 class="cf-bloc-titol">Activitats de cursos anteriors</h2>
     <div class="cf-graella-posts">
-      {{- range . }}
+      {{- range .ByDate.Reverse }}
       {{ partial "targeta-esdeveniment.html" . }}
       {{- end }}
     </div>

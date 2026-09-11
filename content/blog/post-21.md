@@ -1,9 +1,11 @@
 ---
 title: "Principi hologràfic: En quantes dimensions està escrit l'univers?"
+description: "Sessió sobre el principi hologràfic i la termodinàmica dels forats negres: pot estar escrit l’univers en una frontera de menys dimensions?"
 meta_title: ""
 date: 2026-06-03T05:00:00Z
 image: "/images/gallery/post21.jpeg"
 categories: ["Club de Física","Reunions","Presentacions"]
+cursos: ["2025-26"]
 author: "David Galan"
 tags: ["clubdefisica","presentacions","principi-holografic"]
 draft: false

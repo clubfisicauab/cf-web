@@ -27,6 +27,17 @@
       {{ .Content }}
     </div>
 
+    {{- /* Si aquest post és la crònica d'una activitat de l'agenda, s'hi enllaça */ -}}
+    {{- $aquest := strings.TrimSuffix "/" .RelPermalink }}
+    {{- range where site.RegularPages "Section" "agenda" }}
+      {{- if eq (strings.TrimSuffix "/" (.Params.cronica | default "")) $aquest }}
+    <aside class="cf-cronica">
+      {{ partial "icona.html" "calendar" }}
+      <p>Aquest post és la crònica de l'activitat <a href="{{ .RelPermalink }}">{{ .Title }}</a> del {{ .Date.Format "02/01/2006" }}.</p>
+    </aside>
+      {{- end }}
+    {{- end }}
+
     <footer class="cf-post-peu">
       {{- with .Params.tags }}
       <ul class="cf-xips">
@@ -54,6 +65,21 @@
       {{- end }}
     </footer>
   </div>
+  {{- with first 3 (where (site.RegularPages.Related .) "Section" "blog") }}
+  <section class="cf-seccio cf-seccio--suau" aria-labelledby="titol-relacionats">
+    <div class="cf-contenidor">
+      <div class="cf-seccio-cap">
+        <p class="cf-etiqueta">Continua llegint</p>
+        <h2 class="cf-seccio-titol" id="titol-relacionats">També et pot interessar</h2>
+      </div>
+      <div class="cf-graella-posts cf-graella-posts--3">
+        {{- range . }}
+        {{ partial "targeta-post.html" (dict "pagina" . "nivell" 3) }}
+        {{- end }}
+      </div>
+    </div>
+  </section>
+  {{- end }}
 </article>
 
 {{ end }}

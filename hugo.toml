@@ -3,11 +3,52 @@ locale = 'ca'
 title = 'Club de Física UAB'
 theme = 'blowfish'
 buildFuture = true
+enableRobotsTXT = true
 # Manté els noms de categories i etiquetes tal com s'escriuen (p. ex. "Club de Física", no "Club De Física")
 titleCaseStyle = "none"
 
-[services.googleAnalytics]
-  id = "G-99XSV6TSK4"
+# Les imatges de static/ també es poden processar (redimensionar, WebP) des de les plantilles.
+# Es continuen publicant igual que abans, així que cap enllaç existent es trenca.
+[module]
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "static"
+    target = "assets"
+
+[imaging]
+  quality = 78
+  resampleFilter = "Lanczos"
+
+[pagination]
+  pagerSize = 12
+
+# index.json: índex que fa servir el cercador de la web
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+# Categories, etiquetes i curs acadèmic dels posts (per filtrar el blog per curs)
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  curs = "cursos"
+
+# Posts relacionats que surten al final de cada post
+[related]
+  includeNewer = true
+  threshold = 60
+  toLower = true
+  [[related.indices]]
+    name = "tags"
+    weight = 100
+  [[related.indices]]
+    name = "categories"
+    weight = 60
+  [[related.indices]]
+    name = "date"
+    weight = 10
+    pattern = "2006"
 
 [params]
   logo = "logo.png"
@@ -15,7 +56,7 @@ titleCaseStyle = "none"
   copyright = "© { year } Club de Física UAB"
   defaultAppearance = "light"
   autoSwitchAppearance = false
-  enableSearch = false
+  enableSearch = true
     favicon = "favicon.ico"
     # Si el tema busca aquestes mides, posa-les també
     favicon16 = "favicon-16x16.png"
@@ -37,9 +78,41 @@ titleCaseStyle = "none"
   email = "clubdefisicauab@gmail.com"
   instagram = "clubfisicauab"
   x = "clubdefisicauab"
+  # Enllaços opcionals. Si estan buits, el botó corresponent no apareix.
+  formulari = ""  # Formulari "Vull rebre avisos" (p. ex. un Google Form)
+  butlleti = ""   # Pàgina d'alta d'un butlletí per correu (p. ex. Buttondown o Substack)
+
+  # Adreça per defecte de les activitats (per a Google i els calendaris)
+  [params.club.adreca]
+    lloc = "Facultat de Ciències, Universitat Autònoma de Barcelona"
+    localitat = "Bellaterra (Cerdanyola del Vallès)"
+    codiPostal = "08193"
+    regio = "Barcelona"
+    pais = "ES"
+
+# Galetes: Google Analytics només es carrega en producció i si el visitant ho accepta.
+[params.galetes]
+  googleAnalytics = "G-99XSV6TSK4"
+  # Si canvies la política de galetes, canvia aquesta versió i es tornarà a demanar el consentiment.
+  versio = "2026-09"
+
+# Comentaris dels paperillos (giscus, a partir de les Discussions de GitHub)
+[params.giscus]
+  repo = "clubfisicauab/cf-web"
+  repoId = "R_kgDONi9X0g"
+  category = "General"
+  categoryId = "DIC_kwDONi9X0s4DAnhs"
+  mapping = "pathname"
 
 [markup.goldmark.renderer]
   unsafe = true
+
+# Fórmules: el text entre \( \), \[ \] o $$ $$ arriba intacte a KaTeX
+[markup.goldmark.extensions.passthrough]
+  enable = true
+  [markup.goldmark.extensions.passthrough.delimiters]
+    block = [['\[', '\]'], ['$$', '$$']]
+    inline = [['\(', '\)']]
 
 [[menu.main]]
   identifier = "inici"
@@ -48,10 +121,24 @@ titleCaseStyle = "none"
   weight = 10
 
 [[menu.main]]
-  identifier = "qui"
-  name = "Qui Som"
+  identifier = "club"
+  name = "El Club"
   url = "/qui-som/"
   weight = 20
+
+[[menu.main]]
+  identifier = "qui"
+  parent = "club"
+  name = "Qui som"
+  url = "/qui-som/"
+  weight = 21
+
+[[menu.main]]
+  identifier = "faq"
+  parent = "club"
+  name = "Preguntes freqüents"
+  url = "/preguntes-frequents/"
+  weight = 24
 
 [[menu.main]]
   identifier = "blog"
@@ -59,13 +146,20 @@ titleCaseStyle = "none"
   url = "/blog/"
   weight = 30
 
-  [[menu.main]]
+[[menu.main]]
   identifier = "paperillos"
   name = "Paperillos"
   url = "/paperillos/"
   weight = 40
 
 [[menu.main]]
+  identifier = "recursos"
+  name = "Recursos"
+  url = "/recursos/"
+  weight = 45
+
+[[menu.main]]
+  identifier = "agenda"
   name = "Agenda"
   url = "/agenda/"
   weight = 50
@@ -77,23 +171,6 @@ titleCaseStyle = "none"
   weight = 60
 
 [[menu.footer]]
-  name = "Política de Privadesa"
+  name = "Política de privadesa i galetes"
   url = "/politica-privadesa/"
   weight = 10
-
-paginate = 30
-
-
-[article]
-  showComments = true
-
-[comments]
-  system = "giscus"
-
-[giscus]
-  repo = "clubfisicauab/cf-web" # El teu usuari i repo de GitHub
-  repoId = "R_kgDONi9X0g"      # El data-repo-id que has obtingut
-  category = "General" 
-  categoryId = "DIC_kwDONi9X0s4DAnhs" # El data-category-id que has obtingut
-  mapping = "pathname"
-  theme = "preferred_color_scheme"                     # Posa la interfície en català

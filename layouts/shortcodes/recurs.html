@@ -1,0 +1,11 @@
+{{- /* Un recurs recomanat. Ús: {{< recurs titol="Nom" url="https://..." tipus="Vídeos" >}}Descripció breu{{< /recurs >}} */ -}}
+{{- $url := .Get "url" -}}
+{{- $domini := replaceRE `^https?://(www\.)?([^/?#]+).*$` "$2" $url -}}
+<a class="cf-recurs" href="{{ $url }}" target="_blank" rel="noopener noreferrer">
+  {{- with .Get "tipus" }}
+  <span class="cf-recurs-tipus">{{ . }}</span>
+  {{- end }}
+  <span class="cf-recurs-titol">{{ .Get "titol" }}{{ partial "icona.html" "open" }}</span>
+  <span class="cf-recurs-text">{{ .Inner | .Page.RenderString }}</span>
+  <span class="cf-recurs-domini">{{ $domini }}</span>
+</a>

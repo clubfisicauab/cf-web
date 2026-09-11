@@ -26,11 +26,17 @@
       </div>
     </div>
 
-    <nav class="cf-peu-bloc" aria-label="Navegació del peu de pàgina">
+    <nav class="cf-peu-bloc cf-peu-nav" aria-label="Navegació del peu de pàgina">
       <h2 class="cf-peu-titol">Navegació</h2>
       <ul>
         {{- range site.Menus.main }}
+          {{- if .HasChildren }}
+            {{- range .Children }}
         <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+            {{- end }}
+          {{- else }}
+        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+          {{- end }}
         {{- end }}
       </ul>
     </nav>
@@ -48,6 +54,9 @@
         {{- with $club.x }}
         <li><a href="https://x.com/{{ . }}" target="_blank" rel="noopener noreferrer">X · @{{ . }}</a></li>
         {{- end }}
+        {{- with $club.butlleti }}
+        <li><a href="{{ . }}" target="_blank" rel="noopener noreferrer">Butlletí per correu</a></li>
+        {{- end }}
       </ul>
     </div>
   </div>
@@ -62,6 +71,7 @@
       {{- range site.Menus.footer }}
         <span aria-hidden="true">·</span> <a href="{{ .URL }}">{{ .Name }}</a>
       {{- end }}
+      <span aria-hidden="true">·</span> <button type="button" class="cf-peu-boto" data-galetes-obre>Configura les galetes</button>
     </p>
     {{- if site.Params.footer.showThemeAttribution | default true }}
     <p>

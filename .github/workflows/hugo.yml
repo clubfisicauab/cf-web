@@ -4,11 +4,20 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  # Mateixa versió que es fa servir en local (hugo version)
+  HUGO_VERSION: 0.163.3
 
 jobs:
   build:
@@ -23,11 +32,41 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.161.1'
+          hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
 
+      - name: Portades dels paperillos que falten
+        continue-on-error: true
+        run: |
+          falten=0
+          for pdf in content/paperillos/*/paper.pdf; do
+            [ -f "$(dirname "$pdf")/portada.png" ] || falten=1
+          done
+          if [ "$falten" = 1 ]; then
+            sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils > /dev/null
+            for pdf in content/paperillos/*/paper.pdf; do
+              carpeta="$(dirname "$pdf")"
+              if [ ! -f "$carpeta/portada.png" ]; then
+                pdftoppm -png -f 1 -singlefile -scale-to-x 1200 -scale-to-y -1 "$pdf" "$carpeta/portada"
+                echo "Portada generada: $carpeta"
+              fi
+            done
+          fi
+
+      - name: Memòria cau de les imatges processades
+        uses: actions/cache@v4
+        with:
+          path: resources/_gen
+          key: hugo-imatges-${{ hashFiles('static/**/*.jpg', 'static/**/*.jpeg', 'static/**/*.png', 'static/**/*.webp', 'content/**/*.png', 'layouts/partials/imatge.html') }}
+          restore-keys: hugo-imatges-
+
       - name: Build
-        run: hugo --minify
+        env:
+          HUGO_ENVIRONMENT: production
+        run: hugo --gc --minify
+
+      - name: Comprova enllaços i imatges
+        run: node scripts/comprova-enllacos.mjs public
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3

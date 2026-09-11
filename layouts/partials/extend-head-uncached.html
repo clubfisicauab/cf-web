@@ -1,0 +1,13 @@
+{{- /* KaTeX automàtic: a les pàgines amb "math: true" al front matter es carreguen les fórmules
+       sense haver d'afegir el shortcode {{< katex >}}. Els fitxers són locals (no depenen de cap CDN). */ -}}
+{{- if and .Params.math (not (.HasShortcode "katex")) -}}
+  {{- $alg := site.Params.fingerprintAlgorithm | default "sha512" -}}
+  {{- with resources.Get "lib/katex/katex.min.css" | resources.Fingerprint $alg }}
+  <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+  {{- end }}
+  {{- $katexJS := slice (resources.Get "lib/katex/katex.min.js") (resources.Get "lib/katex/auto-render.min.js") | resources.Concat "js/katex.bundle.js" | resources.Fingerprint $alg }}
+  <script defer src="{{ $katexJS.RelPermalink }}" integrity="{{ $katexJS.Data.Integrity }}" id="katex-render"></script>
+  {{- range resources.Match "lib/katex/fonts/*" }}
+  <!-- {{ .RelPermalink }} -->
+  {{- end }}
+{{- end -}}

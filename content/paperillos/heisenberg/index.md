@@ -4,7 +4,7 @@ description: "Desenvolupament rigorós del principi d’incertesa a partir dels 
 icon: "🚧 No acabat"
 color: "black"
 boxcolor: "#f7837a"
-date: 2026-05-19
+date: 2025-05-19
 author: "Roger Garcia Sirerol"
 tags: ["Quàntica", "Principi d'Incertesa", "Àlgebra"]
 ---

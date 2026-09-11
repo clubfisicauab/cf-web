@@ -1,0 +1,21 @@
+{{- /* Portada: els 3 últims paperillos */ -}}
+{{- $paperillos := (where site.RegularPages "Section" "paperillos").ByDate.Reverse -}}
+{{- with $paperillos }}
+<section class="cf-seccio">
+  <div class="cf-contenidor">
+    <div class="cf-seccio-cap cf-seccio-cap--fila">
+      <div>
+        <p class="cf-etiqueta">Paperillos</p>
+        <h2 class="cf-seccio-titol">Recerca feta pels membres</h2>
+        <p class="cf-seccio-subtitol">Articles, assajos i treballs de recerca escrits pels membres del Club.</p>
+      </div>
+      <a class="cf-boto cf-boto--contorn" href="{{ "paperillos/" | relURL }}">Veure tots els paperillos {{ partial "icona.html" "arrow-right" }}</a>
+    </div>
+    <div class="cf-graella-posts cf-graella-posts--3">
+      {{- range first 3 . }}
+      {{ partial "targeta-paperillo.html" . }}
+      {{- end }}
+    </div>
+  </div>
+</section>
+{{- end }}

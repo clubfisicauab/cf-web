@@ -1,0 +1,25 @@
+{{- /* Línies VEVENT d'una activitat per als fitxers .ics */ -}}
+{{- $hores := partial "esdeveniment-hores.html" . -}}
+{{- $utc := "20060102T150405Z" -}}
+{{- $adreca := site.Params.club.adreca -}}
+{{- $lloc := printf "%s, %s" (.Params.location | default $adreca.lloc) $adreca.localitat -}}
+{{- $descripcio := printf "%s\n\n%s" (partial "descripcio.html" .) .Permalink -}}
+{{- $linies := slice
+  "BEGIN:VEVENT"
+  (printf "UID:%s@clubdefisicauab.cat" (md5 .RelPermalink))
+  (printf "DTSTAMP:%s" (now.UTC.Format $utc))
+-}}
+{{- if $hores.totElDia -}}
+  {{- $linies = $linies | append (printf "DTSTART;VALUE=DATE:%s" ($hores.inici.Format "20060102")) (printf "DTEND;VALUE=DATE:%s" ($hores.fi.Format "20060102")) -}}
+{{- else -}}
+  {{- $linies = $linies | append (printf "DTSTART:%s" ($hores.inici.UTC.Format $utc)) (printf "DTEND:%s" ($hores.fi.UTC.Format $utc)) -}}
+{{- end -}}
+{{- $linies = $linies | append
+  (printf "SUMMARY:%s" (partial "ics-text.html" .Title))
+  (printf "DESCRIPTION:%s" (partial "ics-text.html" $descripcio))
+  (printf "LOCATION:%s" (partial "ics-text.html" $lloc))
+  (printf "URL:%s" .Permalink)
+  "STATUS:CONFIRMED"
+  "END:VEVENT"
+-}}
+{{- return $linies -}}

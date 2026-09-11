@@ -1,6 +1,25 @@
 {{ define "main" }}
 
 {{- $pdf := .Resources.GetMatch "*.pdf" -}}
+{{- $portada := .Resources.GetMatch "portada.*" -}}
+{{- $autor := .Params.author | default site.Title -}}
+{{- $revisat := and (.Lastmod.After .Date) (ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02")) -}}
+
+{{- /* Com citar-lo: text i BibTeX. S'assumeix "Nom Cognoms"; es pot canviar amb bibtex_autor: "Cognoms, Nom" */ -}}
+{{- $parts := split $autor " " -}}
+{{- $autorBib := $autor -}}
+{{- if gt (len $parts) 1 }}{{ $autorBib = printf "%s, %s" (delimit (after 1 $parts) " ") (index $parts 0) }}{{ end -}}
+{{- with .Params.bibtex_autor }}{{ $autorBib = . }}{{ end -}}
+{{- $senseAccents := `[^a-z]` -}}
+{{- /* Clau BibTeX: primer cognom (saltant partícules com "de" o "la") + any + primera paraula del títol */ -}}
+{{- $particules := slice "de" "la" "del" "dels" "les" "i" "y" "van" "von" "da" "di" -}}
+{{- $primerCognom := index $parts 0 -}}
+{{- range after 1 $parts }}{{ if and (eq $primerCognom (index $parts 0)) (not (in $particules (lower .))) }}{{ $primerCognom = . }}{{ end }}{{ end -}}
+{{- $cognom := $primerCognom | lower | replaceRE "[àá]" "a" | replaceRE "[èé]" "e" | replaceRE "[íï]" "i" | replaceRE "[òó]" "o" | replaceRE "[úü]" "u" | replaceRE "ç" "c" | replaceRE "ñ" "n" | replaceRE $senseAccents "" -}}
+{{- $paraula := index (split (.Title | lower | replaceRE "[àá]" "a" | replaceRE "[èé]" "e" | replaceRE "[íï]" "i" | replaceRE "[òó]" "o" | replaceRE "[úü]" "u" | replaceRE "ç" "c" | replaceRE `[^a-z ]` "") " ") 0 -}}
+{{- $any := .Date.Year -}}
+{{- $cita := printf "%s (%d). «%s». Paperillos del Club de Física UAB. %s" $autor $any .Title .Permalink -}}
+{{- $bibtex := printf "@misc{%s%d%s,\n  author       = {%s},\n  title        = {%s},\n  year         = {%d},\n  howpublished = {Paperillos del Club de Física UAB},\n  url          = {%s}\n}" $cognom $any $paraula $autorBib .Title $any .Permalink -}}
 
 <article>
   <header class="cf-capcalera-pagina">
@@ -11,8 +30,11 @@
       <p class="cf-capcalera-pagina-subtitol">{{ . }}</p>
       {{- end }}
       <div class="cf-capcalera-meta">
-        <span>{{ partial "icona.html" "user" }}{{ .Params.author | default "Club de Física UAB" }}</span>
+        <span>{{ partial "icona.html" "user" }}{{ $autor }}</span>
         <span>{{ partial "icona.html" "calendar" }}Publicat el {{ .Date.Format "02/01/2006" }}</span>
+        {{- if $revisat }}
+        <span>{{ partial "icona.html" "check" }}Revisat el {{ .Lastmod.Format "02/01/2006" }}</span>
+        {{- end }}
         {{- with .Params.icon }}
         <span class="cf-estat" style="background-color: {{ $.Params.boxcolor }}; color: {{ $.Params.color }};">{{ . }}</span>
         {{- end }}
@@ -28,19 +50,47 @@
   </header>
 
   <div class="cf-contenidor cf-paper cf-pagina-cos">
-    {{- with .Content }}
-    <section class="cf-resum-cientific">
-      <h2>Abstract</h2>
-      <div class="cf-prose">{{ . }}</div>
-    </section>
-    {{- end }}
+    <div class="cf-paper-cap{{ if not $portada }} cf-paper-cap--sense-portada{{ end }}">
+      {{- if and $portada $pdf }}
+      <a class="cf-paper-portada" href="{{ $pdf.RelPermalink }}" target="_blank" rel="noopener noreferrer">
+        {{ partial "imatge.html" (dict "recurs" $portada "amplades" (slice 300 600) "mida" "(min-width: 768px) 240px, 60vw" "classe" "nozoom" "alt" (printf "Portada del paperillo «%s» (obre el PDF)" .Title)) }}
+      </a>
+      {{- end }}
 
-    {{- with $pdf }}
-    <div class="cf-accions">
-      <a class="cf-boto cf-boto--fosc" href="{{ .RelPermalink }}" target="_blank" rel="noopener noreferrer">{{ partial "icona.html" "open" }} Obrir el PDF</a>
-      <a class="cf-boto cf-boto--contorn" href="{{ .RelPermalink }}" download>{{ partial "icona.html" "download" }} Descarregar</a>
+      <div class="cf-paper-cap-cos">
+        {{- with .Content }}
+        <section class="cf-resum-cientific">
+          <h2>Abstract</h2>
+          <div class="cf-prose">{{ . }}</div>
+        </section>
+        {{- end }}
+
+        {{- with $pdf }}
+        <div class="cf-accions">
+          <a class="cf-boto cf-boto--fosc" href="{{ .RelPermalink }}" target="_blank" rel="noopener noreferrer">{{ partial "icona.html" "open" }} Obrir el PDF</a>
+          <a class="cf-boto cf-boto--contorn" href="{{ .RelPermalink }}" download>{{ partial "icona.html" "download" }} Descarregar</a>
+        </div>
+        {{- end }}
+
+        <details class="cf-cita">
+          <summary>{{ partial "icona.html" "quote" }} Com citar aquest paperillo</summary>
+          <div class="cf-cita-cos">
+            <p class="cf-cita-etiqueta">Text</p>
+            <div class="cf-cita-bloc">
+              <p id="cita-text">{{ $cita }}</p>
+              <button type="button" class="cf-boto-copiar" data-copia="cita-text">{{ partial "icona.html" "copy" }}<span>Copia</span></button>
+            </div>
+            <p class="cf-cita-etiqueta">BibTeX</p>
+            <div class="cf-cita-bloc">
+              <pre id="cita-bibtex"><code>{{ $bibtex }}</code></pre>
+              <button type="button" class="cf-boto-copiar" data-copia="cita-bibtex">{{ partial "icona.html" "copy" }}<span>Copia</span></button>
+            </div>
+          </div>
+        </details>
+      </div>
     </div>
 
+    {{- with $pdf }}
     <div class="cf-visor-pdf">
       <object data="{{ .RelPermalink }}" type="application/pdf" aria-label="Document PDF: {{ $.Title }}">
         <div class="cf-visor-pdf-alternativa">
@@ -55,13 +105,14 @@
     <section class="cf-discussio">
       <h2>{{ partial "icona.html" "chat" }} Espai de discussió</h2>
       <p>Tens dubtes, comentaris o suggeriments sobre aquest paperillo? Deixa'ls aquí (cal un compte de GitHub).</p>
+      {{- with site.Params.giscus }}
       <div class="cf-caixa-giscus">
         <script src="https://giscus.app/client.js"
-          data-repo="clubfisicauab/cf-web"
-          data-repo-id="R_kgDONi9X0g"
-          data-category="General"
-          data-category-id="DIC_kwDONi9X0s4DAnhs"
-          data-mapping="pathname"
+          data-repo="{{ .repo }}"
+          data-repo-id="{{ .repoid }}"
+          data-category="{{ .category }}"
+          data-category-id="{{ .categoryid }}"
+          data-mapping="{{ .mapping | default "pathname" }}"
           data-strict="0"
           data-reactions-enabled="1"
           data-emit-metadata="0"
@@ -72,8 +123,36 @@
           async>
         </script>
       </div>
+      {{- end }}
     </section>
   </div>
 </article>
+
+<script>
+  // Botons "Copia" de la cita
+  document.querySelectorAll("[data-copia]").forEach(function (boto) {
+    boto.addEventListener("click", function () {
+      var text = document.getElementById(boto.getAttribute("data-copia")).innerText.trim();
+      var etiqueta = boto.querySelector("span");
+      function fet() {
+        etiqueta.textContent = "Copiat!";
+        setTimeout(function () { etiqueta.textContent = "Copia"; }, 2000);
+      }
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(fet);
+        return;
+      }
+      var area = document.createElement("textarea");
+      area.value = text;
+      area.setAttribute("readonly", "");
+      area.style.position = "absolute";
+      area.style.left = "-9999px";
+      document.body.appendChild(area);
+      area.select();
+      try { document.execCommand("copy"); fet(); } catch (e) {}
+      document.body.removeChild(area);
+    });
+  });
+</script>
 
 {{ end }}

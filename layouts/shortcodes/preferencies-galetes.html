@@ -1,0 +1,18 @@
+{{- /* Estat actual de les galetes i botó per canviar-lo (pàgina de privadesa) */ -}}
+<div class="cf-preferencies-galetes not-prose">
+  <p>Ara mateix: <strong data-galetes-estat>encara no has triat</strong>.</p>
+  <button type="button" class="cf-boto cf-boto--fosc" data-galetes-obre>Canvia les preferències de galetes</button>
+</div>
+<script>
+  (function () {
+    var text = document.querySelector("[data-galetes-estat]");
+    function pinta() {
+      var estat = window.cfGaletes && window.cfGaletes.estat();
+      text.textContent = estat === "acceptades" ? "has acceptat les galetes d'analítica"
+        : estat === "rebutjades" ? "has rebutjat les galetes d'analítica"
+        : "encara no has triat";
+    }
+    pinta();
+    document.addEventListener("cf-galetes", pinta);
+  })();
+</script>

@@ -1,0 +1,18 @@
+{{- /* Enllaç per afegir una activitat a Google Calendar */ -}}
+{{- $hores := partial "esdeveniment-hores.html" . -}}
+{{- $adreca := site.Params.club.adreca -}}
+{{- $dates := "" -}}
+{{- if $hores.totElDia -}}
+  {{- $dates = printf "%s/%s" ($hores.inici.Format "20060102") ($hores.fi.Format "20060102") -}}
+{{- else -}}
+  {{- $dates = printf "%s/%s" ($hores.inici.UTC.Format "20060102T150405Z") ($hores.fi.UTC.Format "20060102T150405Z") -}}
+{{- end -}}
+{{- $parametres := querify
+  "action" "TEMPLATE"
+  "text" .Title
+  "dates" $dates
+  "details" (printf "%s\n\n%s" (partial "descripcio.html" .) .Permalink)
+  "location" (printf "%s, %s" (.Params.location | default $adreca.lloc) $adreca.localitat)
+  "ctz" "Europe/Madrid"
+-}}
+{{- return (printf "https://calendar.google.com/calendar/render?%s" $parametres) -}}

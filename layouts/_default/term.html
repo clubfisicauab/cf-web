@@ -1,14 +1,21 @@
 {{ define "main" }}
 
-{{- $etiqueta := cond (eq .Data.Plural "tags") "Etiqueta" "Categoria" -}}
+{{- $etiqueta := index (dict "tags" "Etiqueta" "categories" "Categoria" "cursos" "Curs") .Data.Plural | default "Categoria" -}}
 {{- $n := len .Pages -}}
 {{ partial "capcalera-pagina.html" (dict "etiqueta" $etiqueta "titol" .Title "subtitol" (cond (eq $n 1) "1 publicació" (printf "%d publicacions" $n))) }}
+{{- $paginator := .Paginate .Pages -}}
 
 <div class="cf-contenidor cf-llistat">
-  <div class="cf-graella-posts">
-    {{- range .Pages }}
-    {{ partial "targeta-post.html" (dict "pagina" .) }}
+  <div>
+    {{- if eq .Data.Plural "cursos" }}
+    {{ partial "filtre-cursos.html" (dict "actual" .Title) }}
     {{- end }}
+    <div class="cf-graella-posts">
+      {{- range $paginator.Pages }}
+      {{ partial "targeta-post.html" (dict "pagina" .) }}
+      {{- end }}
+    </div>
+    {{ partial "paginacio.html" $paginator }}
   </div>
 
   <aside class="cf-lateral" aria-label="Categories i etiquetes">

@@ -2,22 +2,29 @@
 
 {{ partial "capcalera-pagina.html" (dict "etiqueta" "Notícies i activitats" "titol" .Title "subtitol" "Crònica de les reunions, xerrades, fires i sortides del Club de Física UAB.") }}
 
-{{- /* Categories i tags només dels posts d'aquesta secció */ -}}
+{{- /* Categories i tags de tots els posts de la secció (no només de la pàgina actual) */ -}}
 {{- $categories := slice -}}
 {{- $tags := slice -}}
 {{- range .Pages -}}
   {{- range .Params.categories }}{{ $categories = $categories | append . }}{{ end -}}
   {{- range .Params.tags }}{{ $tags = $tags | append (lower .) }}{{ end -}}
 {{- end -}}
+{{- $paginator := .Paginate .Pages -}}
 
 <div class="cf-contenidor cf-llistat">
-  <div class="cf-graella-posts">
-    {{- range .Pages }}
-    {{ partial "targeta-post.html" (dict "pagina" .) }}
-    {{- end }}
+  <div>
+    {{ partial "filtre-cursos.html" (dict "actual" "") }}
+    <div class="cf-graella-posts">
+      {{- range $paginator.Pages }}
+      {{ partial "targeta-post.html" (dict "pagina" .) }}
+      {{- end }}
+    </div>
+    {{ partial "paginacio.html" $paginator }}
   </div>
 
   <aside class="cf-lateral" aria-label="Categories i etiquetes del blog">
+    {{ partial "segueix-blog.html" . }}
+
     {{- with $categories | uniq }}
     {{- $llista := slice }}
     {{- range . }}

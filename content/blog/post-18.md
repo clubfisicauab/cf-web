@@ -1,9 +1,11 @@
 ---
 title: "Pot el Big Bang contradir l'existència de Déu?"
+description: "En Joan Ricart obre el cicle de sessions setmanals amb un debat sobre si la teoria del Big Bang és compatible amb l’existència de Déu."
 meta_title: ""
 date: 2026-02-11T05:00:00Z
 image: "/images/gallery/post18.jpeg"
 categories: ["Club de Física","Reunions","Presentacions"]
+cursos: ["2025-26"]
 author: "David Galan"
 tags: ["clubdefisica","presentacions"]
 draft: false

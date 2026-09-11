@@ -1,9 +1,11 @@
 ---
 title: "Arquitectura i física?"
+description: "La Núria, graduada en Arquitectura i estudiant de Física, ens parla dels radiadors selectius i de com connectar arquitectura i física."
 meta_title: ""
 date: 2025-02-26T05:00:00Z
 image: "/images/gallery/post9.jpeg"
 categories: ["Reunions", "Club de Física", "Presentacions"]
+cursos: ["2024-25"]
 author: "Júlia López"
 tags: ["clubdefisica", "reunions"]
 draft: false

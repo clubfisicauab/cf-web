@@ -1,9 +1,11 @@
 ---
 title: "Optimització: De capses a partícules"
+description: "La Carlota, en Pol i l’Hèctor presenten el seu projecte de la HackUPC 2026: optimitzar un magatzem amb mecànica analítica i hamiltonians."
 meta_title: ""
 date: 2026-05-13T05:00:00Z
 image: "/images/gallery/post19.jpeg"
 categories: ["Club de Física","Reunions","Presentacions"]
+cursos: ["2025-26"]
 author: "David Galan"
 tags: ["clubdefisica","presentacions"]
 draft: false

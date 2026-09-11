@@ -1,9 +1,11 @@
 ---
 title: "Tenim dos nous integrants al Club! Seguim pensant en els nostres projectes quàntics"
+description: "Donem la benvinguda a dos nous integrants, seguim debatent sobre física quàntica i pensem com organitzar la Fira del Club."
 meta_title: ""
 date: 2025-02-12T05:00:00Z
 image: "/images/gallery/post7.jpeg"
 categories: ["Reunions", "Club de Física"]
+cursos: ["2024-25"]
 author: "Júlia López"
 tags: ["clubdefisica", "reunions"]
 draft: false

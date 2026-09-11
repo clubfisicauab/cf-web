@@ -1,9 +1,11 @@
 ---
 title: "Nit de la Recerca 2025"
+description: "El Club participa a la Nit de la Recerca 2025 amb un projecte de la 1a Fira i un taller de LEGO sobre quàntica, partícules i cosmologia."
 meta_title: ""
 date: 2025-09-26T05:00:00Z
 image: "/images/gallery/post16.jpeg"
 categories: ["Club de Física","Nit de la Recerca","Fira"]
+cursos: ["2025-26"]
 author: "David Galan"
 tags: ["clubdefisica","fira","taller"]
 draft: false

@@ -1,0 +1,18 @@
+{{- /* Índex del cercador: només pàgines amb contingut (sense les pàgines d'etiquetes i categories) */ -}}
+{{- $index := slice -}}
+{{- range site.Pages -}}
+  {{- if and (in (slice "page" "section") .Kind) (not .Params.excludeFromSearch) -}}
+    {{- $seccio := "Pàgina" -}}
+    {{- with .Section }}{{ with site.GetPage . }}{{ $seccio = .Title }}{{ end }}{{ end -}}
+    {{- if eq .Kind "section" }}{{ $seccio = "Apartat" }}{{ end -}}
+    {{- $index = $index | append (dict
+      "title" .Title
+      "section" $seccio
+      "summary" (partial "descripcio.html" .)
+      "content" (.Plain | htmlUnescape)
+      "permalink" .RelPermalink
+      "date" (cond .Date.IsZero "" (.Date.Format "02/01/2006"))
+    ) -}}
+  {{- end -}}
+{{- end -}}
+{{- $index | jsonify -}}

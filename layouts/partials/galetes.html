@@ -1,0 +1,101 @@
+{{- /* Avís de galetes. Google Analytics només es carrega si el visitant ho accepta
+       (i només en producció). L'elecció es desa al navegador durant 12 mesos. */ -}}
+{{- $ga := "" -}}
+{{- if hugo.IsProduction }}{{ $ga = site.Params.galetes.googleAnalytics }}{{ end -}}
+<div class="cf-galetes" id="cf-galetes" role="dialog" aria-labelledby="cf-galetes-titol" aria-describedby="cf-galetes-text"
+  data-ga="{{ $ga }}" data-versio="{{ site.Params.galetes.versio | default "1" }}" hidden>
+  <div class="cf-galetes-contingut">
+    <div>
+      <p class="cf-galetes-titol" id="cf-galetes-titol">Galetes</p>
+      <p class="cf-galetes-text" id="cf-galetes-text">
+        Ens agradaria fer servir galetes de Google Analytics per saber, de manera agregada, quanta gent visita la web i quines pàgines són més útils.
+        Només les activarem si ho acceptes, i pots canviar d'opinió quan vulguis.
+        <a href="{{ "politica-privadesa/" | relURL }}#galetes">Més informació</a>
+      </p>
+    </div>
+    <div class="cf-galetes-accions">
+      <button type="button" class="cf-boto cf-boto--contorn" data-galetes="rebutjades">Rebutja</button>
+      <button type="button" class="cf-boto cf-boto--fosc" data-galetes="acceptades">Accepta</button>
+    </div>
+  </div>
+</div>
+<script>
+  (function () {
+    var CLAU = "cf-galetes";
+    var VALIDESA_DIES = 365;
+    var avis = document.getElementById("cf-galetes");
+    var gaId = avis.getAttribute("data-ga");
+    var versio = avis.getAttribute("data-versio");
+
+    function llegeix() {
+      try {
+        var desat = JSON.parse(localStorage.getItem(CLAU));
+        if (!desat || desat.versio !== versio) return null;
+        if (Date.now() - desat.data > VALIDESA_DIES * 864e5) return null;
+        return desat.estat;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function desa(estat) {
+      try {
+        localStorage.setItem(CLAU, JSON.stringify({ estat: estat, versio: versio, data: Date.now() }));
+      } catch (e) {}
+    }
+
+    function carregaAnalytics() {
+      if (!gaId || window.cfAnalyticsCarregat) return;
+      window.cfAnalyticsCarregat = true;
+      window["ga-disable-" + gaId] = false;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag("js", new Date());
+      window.gtag("config", gaId);
+      var script = document.createElement("script");
+      script.async = true;
+      script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(gaId);
+      document.head.appendChild(script);
+    }
+
+    // Si es retira el consentiment: s'atura Analytics i s'esborren les seves galetes
+    function retiraAnalytics() {
+      if (gaId) window["ga-disable-" + gaId] = true;
+      var host = location.hostname.replace(/^www\./, "");
+      var dominis = ["", location.hostname, "." + host];
+      document.cookie.split(";").forEach(function (galeta) {
+        var nom = galeta.split("=")[0].trim();
+        if (nom === "_ga" || nom.indexOf("_ga_") === 0 || nom === "_gid" || nom === "_gat") {
+          dominis.forEach(function (domini) {
+            document.cookie = nom + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/" + (domini ? "; domain=" + domini : "");
+          });
+        }
+      });
+    }
+
+    avis.querySelectorAll("[data-galetes]").forEach(function (boto) {
+      boto.addEventListener("click", function () {
+        var estat = boto.getAttribute("data-galetes");
+        desa(estat);
+        avis.hidden = true;
+        if (estat === "acceptades") carregaAnalytics(); else retiraAnalytics();
+        document.dispatchEvent(new CustomEvent("cf-galetes", { detail: estat }));
+      });
+    });
+
+    // Qualsevol element amb data-galetes-obre torna a mostrar l'avís (peu de pàgina, política)
+    document.addEventListener("click", function (e) {
+      var obre = e.target.closest("[data-galetes-obre]");
+      if (!obre) return;
+      e.preventDefault();
+      avis.hidden = false;
+      avis.querySelector("button").focus();
+    });
+
+    window.cfGaletes = { estat: llegeix };
+
+    var estat = llegeix();
+    if (estat === "acceptades") carregaAnalytics();
+    else if (estat !== "rebutjades") avis.hidden = false;
+  })();
+</script>

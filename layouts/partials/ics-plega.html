@@ -1,0 +1,14 @@
+{{- /* Plega una línia de calendari a 75 octets (RFC 5545) sense trencar caràcters accentuats */ -}}
+{{- $sortida := "" -}}
+{{- $actual := "" -}}
+{{- $limit := 75 -}}
+{{- range split . "" -}}
+  {{- if gt (add (len $actual) (len .)) $limit -}}
+    {{- $sortida = printf "%s%s\r\n " $sortida $actual -}}
+    {{- $actual = . -}}
+    {{- $limit = 74 -}}
+  {{- else -}}
+    {{- $actual = printf "%s%s" $actual . -}}
+  {{- end -}}
+{{- end -}}
+{{- return (printf "%s%s" $sortida $actual) -}}

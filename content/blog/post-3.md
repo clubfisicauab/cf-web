@@ -1,9 +1,11 @@
 ---
 title: "Reprenem el Club després de les vacances de Nadal!"
+description: "Primera reunió després de Nadal: repassem els projectes de cada grup i les idees per a la Fira del Club de Física."
 meta_title: ""
 date: 2025-01-08T05:00:00Z
 image: "/images/gallery/post3.jpeg"
 categories: ["Reunions", "Club de Física"]
+cursos: ["2024-25"]
 author: "Júlia López"
 tags: ["clubdefisica", "reunions"]
 draft: false

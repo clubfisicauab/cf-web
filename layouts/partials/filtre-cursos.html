@@ -1,0 +1,11 @@
+{{- /* Botons per filtrar el blog per curs acadèmic.
+       Ús: {{ partial "filtre-cursos.html" (dict "actual" "2025-26") }}  ("actual" buit = tots els cursos) */ -}}
+{{- $actual := .actual -}}
+{{- with site.Taxonomies.cursos }}
+<nav class="cf-filtre-cursos" aria-label="Filtra els posts per curs">
+  <a class="cf-xip" href="{{ "blog/" | relURL }}"{{ if not $actual }} aria-current="page"{{ end }}>Tots els cursos</a>
+  {{- range .Alphabetical.Reverse }}
+  <a class="cf-xip" href="{{ .Page.RelPermalink }}"{{ if eq .Page.Title $actual }} aria-current="page"{{ end }}>Curs {{ .Page.Title }} <span class="cf-comptador">{{ .Count }}</span></a>
+  {{- end }}
+</nav>
+{{- end }}

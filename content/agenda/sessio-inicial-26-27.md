@@ -1,6 +1,8 @@
 ---
 title: "Sessió inicial del curs 26-27: el Club torna!"
+description: "Primera trobada del curs 26-27, oberta a tothom: què és el Club de Física, com treballem i quin calendari tenim. Porta el dinar!"
 date: 2026-09-16T13:00:00+02:00
+fi: 2026-09-16T15:00:00+02:00
 time: "13:00 - 15:00h"
 location: "Sala de Graus, Facultat de Ciències"
 categories: ["Club de Física", "Reunions"]

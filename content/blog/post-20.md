@@ -1,9 +1,11 @@
 ---
 title: "2a Fira del Club de Física: La relativitat des d'un altre punt de vista"
+description: "La 2a Fira del Club de Física repassa la relativitat des de moltes perspectives: Einstein, l’equació de Dirac, el principi hologràfic i la filosofia."
 meta_title: ""
 date: 2026-05-27T05:00:00Z
 image: "/images/gallery/post20.jpeg"
 categories: ["Club de Física","Presentacions","Fira"]
+cursos: ["2025-26"]
 author: "David Galan"
 tags: ["clubdefisica","presentacions","Fira"]
 draft: false

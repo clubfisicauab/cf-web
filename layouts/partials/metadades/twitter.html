@@ -1,0 +1,11 @@
+{{- /* Targetes de X (Twitter) pròpies */ -}}
+{{- $compartir := partial "imatge-compartir.html" . -}}
+<meta name="twitter:card" content="{{ cond (isset $compartir "url") "summary_large_image" "summary" }}">
+{{- with site.Params.club.x }}
+<meta name="twitter:site" content="@{{ . }}">
+{{- end }}
+<meta name="twitter:title" content="{{ cond .IsHome site.Title .Title }}">
+<meta name="twitter:description" content="{{ partial "descripcio.html" . }}">
+{{- with $compartir.url }}
+<meta name="twitter:image" content="{{ . }}">
+{{- end }}

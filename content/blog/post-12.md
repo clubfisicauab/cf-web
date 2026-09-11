@@ -1,9 +1,11 @@
 ---
 title: "Podem pensar en camp elèctric i camp magnètic per separat?"
+description: "Debat sobre la relació entre el camp elèctric, el camp magnètic i la relativitat, amb una presentació del Marc Félix sobre simetries."
 meta_title: ""
 date: 2025-03-19T05:00:00Z
 image: "/images/gallery/post12.jpeg"
 categories: ["Reunions", "Club de Física", "Presentacions"]
+cursos: ["2024-25"]
 author: "Júlia López"
 tags: ["clubdefisica", "reunions"]
 draft: false

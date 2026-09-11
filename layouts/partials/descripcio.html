@@ -1,0 +1,8 @@
+{{- /* Descripció d'una pàgina per a cercadors i xarxes: description > resum del contingut > descripció del lloc */ -}}
+{{- $descripcio := "" -}}
+{{- with .Description -}}
+  {{- $descripcio = . -}}
+{{- else -}}
+  {{- if .IsPage }}{{ $descripcio = .Summary | plainify | htmlUnescape }}{{ else }}{{ $descripcio = site.Params.description }}{{ end -}}
+{{- end -}}
+{{- return (trim (replaceRE `\s+` " " $descripcio) " " | truncate 200) -}}

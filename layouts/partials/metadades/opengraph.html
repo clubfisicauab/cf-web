@@ -1,0 +1,27 @@
+{{- /* Open Graph propi: fa servir la foto de cada post o la portada de cada paperillo */ -}}
+{{- $compartir := partial "imatge-compartir.html" . -}}
+{{- $descripcio := partial "descripcio.html" . -}}
+{{- $iso := "2006-01-02T15:04:05-07:00" -}}
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:title" content="{{ cond .IsHome site.Title .Title }}">
+<meta property="og:description" content="{{ $descripcio }}">
+<meta property="og:locale" content="ca_ES">
+<meta property="og:type" content="{{ cond .IsPage "article" "website" }}">
+{{- with $compartir.url }}
+<meta property="og:image" content="{{ . }}">
+<meta property="og:image:width" content="{{ $compartir.amplada }}">
+<meta property="og:image:height" content="{{ $compartir.alcada }}">
+{{- end }}
+{{- if .IsPage }}
+<meta property="article:section" content="{{ (site.GetPage .Section).Title }}">
+{{- with .PublishDate }}
+<meta property="article:published_time" content="{{ .Format $iso }}">
+{{- end }}
+{{- with .Lastmod }}
+<meta property="article:modified_time" content="{{ .Format $iso }}">
+{{- end }}
+{{- range .Params.tags }}
+<meta property="article:tag" content="{{ . }}">
+{{- end }}
+{{- end }}

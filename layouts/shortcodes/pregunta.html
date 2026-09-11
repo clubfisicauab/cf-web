@@ -1,0 +1,13 @@
+{{- /* Pregunta desplegable. Ús:
+       {{< pregunta "Cal saber molta física?" >}}
+       Resposta en Markdown.
+       {{< /pregunta >}} */ -}}
+<details class="cf-pregunta not-prose"{{ with .Get "oberta" }} open{{ end }}>
+  <summary>
+    <span>{{ .Get 0 }}</span>
+    <span class="cf-pregunta-signe" aria-hidden="true"></span>
+  </summary>
+  <div class="cf-pregunta-resposta">
+    {{ .Inner | .Page.RenderString (dict "display" "block") }}
+  </div>
+</details>

@@ -1,9 +1,11 @@
 ---
 title: "És possible pensar en un món hipotètic en què les constants de la física són diferents a les que coneixem? Quines serien les conseqüències?"
+description: "Què passaria si les constants de la física fossin diferents? Debat sobre les conseqüències i el paral·lelisme amb el nombre pi."
 meta_title: ""
 date: 2025-03-12T05:00:00Z
 image: "/images/gallery/post11.jpeg"
 categories: ["Reunions", "Club de Física"]
+cursos: ["2024-25"]
 author: "Júlia López"
 tags: ["clubdefisica", "reunions"]
 draft: false

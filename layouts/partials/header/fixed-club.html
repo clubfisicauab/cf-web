@@ -4,6 +4,7 @@
   {{ partial "barra-xarxes.html" . }}
   {{ partial "header/basic.html" . }}
 </div>
+{{ partial "galetes.html" . }}
 <script>
   // Marca l'apartat del menú on som (també dins dels posts: /blog/... activa "Blog").
   (function () {
@@ -14,6 +15,9 @@
       if (href === "/" ? path === "/" : path.indexOf(href) === 0) {
         a.classList.add("actiu");
         if (href === path) a.setAttribute("aria-current", "page");
+        // Dins del desplegable "El Club", marca també l'apartat principal
+        var desplegable = a.closest(".nested-menu");
+        if (desplegable) desplegable.querySelector("a").classList.add("actiu");
       }
     });
   })();
