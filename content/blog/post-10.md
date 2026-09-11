@@ -1,7 +1,6 @@
 ---
 title: "Què és la càrrega?"
 meta_title: ""
-description: "this is meta description"
 date: 2025-03-05T05:00:00Z
 image: "/images/gallery/post10.jpeg"
 categories: ["Reunions", "Club de Física", "Presentacions"]

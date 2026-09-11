@@ -39,7 +39,8 @@ Tota ajuda és benvinguda (disseny, codi, nous articles...):
 
 ## 📬 Contacte i Xarxes
 - 📸 **Instagram:** [@clubfisicauab](https://instagram.com/clubfisicauab)
-- 📧 **Correu:** [clubdefisicauab@gmail.com]
+- 🐦 **X (Twitter):** [@clubdefisicauab](https://x.com/clubdefisicauab)
+- 📧 **Correu:** [clubdefisicauab@gmail.com](mailto:clubdefisicauab@gmail.com)
 
 ---
 <div align="center">

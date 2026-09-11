@@ -1,7 +1,6 @@
 ---
 title: "És possible pensar en un món hipotètic en què les constants de la física són diferents a les que coneixem? Quines serien les conseqüències?"
 meta_title: ""
-description: "this is meta description"
 date: 2025-03-12T05:00:00Z
 image: "/images/gallery/post11.jpeg"
 categories: ["Reunions", "Club de Física"]

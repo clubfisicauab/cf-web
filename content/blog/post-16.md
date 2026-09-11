@@ -1,7 +1,6 @@
 ---
 title: "Nit de la Recerca 2025"
 meta_title: ""
-description: "this is meta description"
 date: 2025-09-26T05:00:00Z
 image: "/images/gallery/post16.jpeg"
 categories: ["Club de Física","Nit de la Recerca","Fira"]

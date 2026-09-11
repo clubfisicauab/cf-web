@@ -1,0 +1,23 @@
+{{- /* Barra fosca superior amb les xarxes del Club (dades a params.club de hugo.toml) */ -}}
+{{- $club := site.Params.club -}}
+<div id="barra-superior">
+  <div class="barra-superior-contingut">
+    <div class="xarxes-esquerra">
+      {{- with $club.instagram }}
+      <a href="https://www.instagram.com/{{ . }}/" target="_blank" rel="noopener noreferrer" aria-label="Instagram del Club (@{{ . }})" title="Instagram · @{{ . }}">
+        {{ partial "icona.html" "instagram" }}
+      </a>
+      {{- end }}
+      {{- with $club.x }}
+      <a href="https://x.com/{{ . }}" target="_blank" rel="noopener noreferrer" aria-label="X del Club (@{{ . }})" title="X · @{{ . }}">
+        {{ partial "icona.html" "x" }}
+      </a>
+      {{- end }}
+    </div>
+    {{- with $club.email }}
+    <a class="barra-correu" href="mailto:{{ . }}" aria-label="Correu del Club: {{ . }}">
+      {{ partial "icona.html" "mail" }}<span>{{ . }}</span>
+    </a>
+    {{- end }}
+  </div>
+</div>

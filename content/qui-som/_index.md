@@ -2,6 +2,7 @@
 title: "Qui som"
 type: "page"
 layout: "basic"
+etiqueta: "El Club"
 ---
 
 {{< lead >}}

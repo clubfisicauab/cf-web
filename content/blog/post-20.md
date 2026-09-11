@@ -1,7 +1,6 @@
 ---
 title: "2a Fira del Club de Física: La relativitat des d'un altre punt de vista"
 meta_title: ""
-description: "this is meta description"
 date: 2026-05-27T05:00:00Z
 image: "/images/gallery/post20.jpeg"
 categories: ["Club de Física","Presentacions","Fira"]

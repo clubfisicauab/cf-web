@@ -2,6 +2,7 @@
 title: "Política de Privadesa"
 type: "page"
 layout: "basic"
+etiqueta: "Informació legal"
 ---
 
 {{< lead >}}

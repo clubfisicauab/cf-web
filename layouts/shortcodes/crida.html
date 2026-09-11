@@ -1,0 +1,17 @@
+{{- /* Crida final de la portada per unir-se al Club */ -}}
+{{- $club := site.Params.club -}}
+<section class="cf-crida">
+  <div class="cf-crida-contingut">
+    <div>
+      <p class="cf-etiqueta">Uneix-te al Club</p>
+      <h2>Vols formar part del Club de Física?</h2>
+      <p>Vine d'oient a alguna de les nostres reunions per veure com treballem. Si tens curiositat, propostes o ganes d'aprendre, t'estem esperant.</p>
+    </div>
+    <div class="cf-crida-accions">
+      {{- with $club.email }}
+      <a class="cf-boto cf-boto--or" href="mailto:{{ . }}">{{ partial "icona.html" "mail" }} Escriu-nos</a>
+      {{- end }}
+      <a class="cf-boto cf-boto--fantasma" href="{{ "contacte/" | relURL }}">Contacte</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,22 @@
+{{- /* Fila d'una activitat de l'agenda (portada) */ -}}
+{{- $mesos := slice "Gen" "Feb" "Mar" "Abr" "Mai" "Jun" "Jul" "Ago" "Set" "Oct" "Nov" "Des" -}}
+<a href="{{ .RelPermalink }}" class="cf-event">
+  <span class="cf-event-data" aria-hidden="true">
+    <span class="cf-event-mes">{{ index $mesos (sub .Date.Month 1) }}</span>
+    <span class="cf-event-dia">{{ .Date.Format "02" }}</span>
+  </span>
+  <span class="cf-event-info">
+    <span class="cf-event-titol">{{ .Title }}</span>
+    <span class="cf-event-detalls">
+      <span>{{ partial "icona.html" "calendar" }}{{ .Date.Format "02/01/2006" }}</span>
+      {{- with .Params.time }}
+      <span>{{ partial "icona.html" "clock" }}{{ . }}</span>
+      {{- end }}
+      {{- with .Params.location }}
+      <span>{{ partial "icona.html" "pin" }}{{ . }}</span>
+      {{- end }}
+    </span>
+    <span class="cf-event-resum">{{ .Summary | plainify | truncate 140 }}</span>
+  </span>
+  <span class="cf-event-fletxa" aria-hidden="true">{{ partial "icona.html" "arrow-right" }}</span>
+</a>

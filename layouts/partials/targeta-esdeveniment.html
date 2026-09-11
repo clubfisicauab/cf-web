@@ -1,0 +1,32 @@
+{{- /* Targeta d'una activitat (pàgina d'Agenda) */ -}}
+{{- $passat := lt (.Date.Format "2006-01-02") (now.Format "2006-01-02") -}}
+<article class="cf-targeta">
+  <span class="cf-targeta-data{{ if $passat }} cf-targeta-data--passat{{ end }}">
+    {{- if $passat }}Finalitzat · {{ end }}{{ .Date.Format "02/01/2006" -}}
+  </span>
+  {{- $imatge := "" }}
+  {{- with .Params.image }}{{ if or (hasPrefix . "http") (fileExists (path.Join "static" .)) }}{{ $imatge = . }}{{ end }}{{ end }}
+  <div class="cf-targeta-imatge{{ if not $imatge }} cf-targeta-imatge--buida{{ end }}">
+    {{- with $imatge }}
+    <img src="{{ . | relURL }}" alt="" loading="lazy" decoding="async" class="nozoom">
+    {{- else }}
+    {{ partial "icona.html" "calendar" }}
+    {{- end }}
+  </div>
+  <div class="cf-targeta-cos">
+    {{- with .Params.categories }}
+    <p class="cf-targeta-categoria">{{ delimit . " · " }}</p>
+    {{- end }}
+    <h2 class="cf-targeta-titol"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+    <p class="cf-targeta-meta">
+      {{- with .Params.time }}
+      <span>{{ partial "icona.html" "clock" }}{{ . }}</span>
+      {{- end }}
+      {{- with .Params.location }}
+      <span>{{ partial "icona.html" "pin" }}{{ . }}</span>
+      {{- end }}
+    </p>
+    <p class="cf-targeta-resum">{{ .Summary | plainify | truncate 160 }}</p>
+    <span class="cf-enllac-fletxa cf-targeta-peu" aria-hidden="true">Veure detalls {{ partial "icona.html" "arrow-right" }}</span>
+  </div>
+</article>

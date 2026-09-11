@@ -1,0 +1,43 @@
+{{- /* Portada: carrusel de fotos (front matter "carrusel" de _index.md) amb text i botons.
+       Paràmetres: etiqueta, titol, destacat, text, boto, enllac, boto2, enllac2 */ -}}
+{{- $diapositives := .Page.Params.carrusel -}}
+{{- $total := len ($diapositives | default (slice)) -}}
+<section class="cf-hero" data-carrusel aria-label="Presentació del Club">
+  <div class="cf-hero-diapositives">
+    {{- range $i, $d := $diapositives }}
+    <img src="{{ $d.imatge | relURL }}" alt="{{ $d.alt }}" class="cf-hero-diapositiva nozoom{{ if eq $i 0 }} activa{{ end }}" {{ if eq $i 0 }}fetchpriority="high"{{ else }}loading="lazy"{{ end }} decoding="async">
+    {{- end }}
+  </div>
+
+  <div class="cf-hero-contingut">
+    {{- with .Get "etiqueta" }}
+    <p class="cf-etiqueta">{{ . }}</p>
+    {{- end }}
+    <h1 class="cf-hero-titol">{{ .Get "titol" | default site.Title }}{{ with .Get "destacat" }} <span>{{ . }}</span>{{ end }}</h1>
+    {{- with .Get "text" }}
+    <p class="cf-hero-text">{{ . }}</p>
+    {{- end }}
+    <div class="cf-hero-accions">
+      <a class="cf-boto cf-boto--or" href="{{ .Get "enllac" | default "/qui-som/" | relURL }}">{{ .Get "boto" | default "Coneix el Club" }} {{ partial "icona.html" "arrow-right" }}</a>
+      <a class="cf-boto cf-boto--fantasma" href="{{ .Get "enllac2" | default "/contacte/" | relURL }}">{{ .Get "boto2" | default "Uneix-te" }}</a>
+    </div>
+  </div>
+
+  {{- if gt $total 1 }}
+  <div class="cf-hero-controls">
+    <div class="cf-hero-punts" role="group" aria-label="Fotos del carrusel">
+      {{- range $i, $d := $diapositives }}
+      <button type="button" class="cf-hero-punt{{ if eq $i 0 }} actiu{{ end }}" aria-label="Foto {{ add $i 1 }} de {{ $total }}"{{ if eq $i 0 }} aria-current="true"{{ end }}></button>
+      {{- end }}
+    </div>
+    <div class="cf-hero-fletxes">
+      <button type="button" class="cf-hero-fletxa" data-carrusel-anterior aria-label="Foto anterior">{{ partial "icona.html" "chevron-left" }}</button>
+      <button type="button" class="cf-hero-fletxa" data-carrusel-seguent aria-label="Foto següent">{{ partial "icona.html" "chevron-right" }}</button>
+    </div>
+  </div>
+  {{- end }}
+</section>
+{{- /* El nom del fitxer porta un hash: si el JS canvia, els navegadors no fan servir la versió antiga de la memòria cau */ -}}
+{{- with resources.Get "js/carrusel.js" | minify | fingerprint }}
+<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
+{{- end }}

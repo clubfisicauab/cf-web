@@ -1,7 +1,6 @@
 ---
 title: "Pot el Big Bang contradir l'existència de Déu?"
 meta_title: ""
-description: "this is meta description"
 date: 2026-02-11T05:00:00Z
 image: "/images/gallery/post18.jpeg"
 categories: ["Club de Física","Reunions","Presentacions"]

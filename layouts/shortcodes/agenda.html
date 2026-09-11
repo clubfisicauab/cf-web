@@ -1,126 +1,32 @@
-<style>
-  /* Contenidor fons gris clar que ocupa tot l'ample */
-  .seccio-events-wrapper {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    background-color: #f9fafb; /* Fons lleugerament gris */
-    padding: 4rem 2rem;
-    box-sizing: border-box;
-  }
-
-  .seccio-events {
-    max-width: 1100px; /* Més ample */
-    margin: 0 auto;
-  }
-
-  .titol-events-container { text-align: center; margin-bottom: 3rem; }
-  .titol-events { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; color: #111827; }
-  .linia-events { width: 60px; height: 3px; background: #fbbf24; margin: 0 auto; }
-
-  .llista-events { list-style: none; padding: 0; }
-
-  /* Cada fila és un enllaç */
-  .item-event-link {
-    display: flex;
-    gap: 2rem;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    border-bottom: 1px solid #e5e7eb;
-    text-decoration: none;
-    color: inherit;
-    transition: background 0.2s ease, transform 0.2s ease;
-    border-radius: 12px;
-  }
-
-  .item-event-link:hover {
-    background: white;
-    transform: translateX(10px);
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-  }
-
-  .data-event { text-align: center; min-width: 50px; }
-  .mes-event { font-size: 0.8rem; text-transform: uppercase; font-weight: bold; color: #6b7280; }
-  .dia-event { font-size: 1.75rem; font-weight: 800; line-height: 1; color: #111827; }
-
-  .detall-event { flex: 1; text-align: justify; } /* Text justificat */
-  .hora-event { font-size: 0.85rem; color: #6b7280; margin-bottom: 0.25rem; font-weight: 500; }
-  .titol-event-item { font-weight: 700; font-size: 1.25rem; color: #111827; margin-bottom: 0.5rem; }
-  .desc-event { font-size: 0.95rem; color: #4b5563; line-height: 1.5; }
-
-  .boto-ver-mas {
-    display: block;
-    width: max-content;
-    margin: 3rem auto 0 auto;
-    padding: 0.75rem 2rem;
-    border: 1px solid #111827;
-    border-radius: 8px;
-    font-weight: 600;
-    text-decoration: none;
-    color: #111827;
-    transition: all 0.2s;
-  }
-  .boto-ver-mas:hover { background: #111827; color: white; }
-</style>
-
-<div class="seccio-events-wrapper">
-  <section class="seccio-events">
-    <div style="text-align: center; margin-bottom: 4rem;">
-      <h2 style="font-size: 2.8rem; font-weight: 900; color: #222; margin-bottom: 0.8rem;" class="dark:text-white">Agenda</h2>
-      <div style="width: 70px; height: 3px; background-color: #Eab308; margin: 0 auto;"></div>
+{{- /* Portada: properes activitats de l'agenda (a partir d'avui, per data) */ -}}
+{{- $esdeveniments := where site.RegularPages "Section" "agenda" -}}
+{{- $avui := now.Format "2006-01-02" -}}
+{{- $propers := slice -}}
+{{- range $esdeveniments.ByDate -}}
+  {{- if ge (.Date.Format "2006-01-02") $avui -}}
+    {{- $propers = $propers | append . -}}
+  {{- end -}}
+{{- end -}}
+<section class="cf-seccio">
+  <div class="cf-contenidor">
+    <div class="cf-seccio-cap cf-seccio-cap--fila">
+      <div>
+        <p class="cf-etiqueta">Agenda</p>
+        <h2 class="cf-seccio-titol">Properes activitats</h2>
+        <p class="cf-seccio-subtitol">Seminaris, tallers, sortides i fires on participa el Club.</p>
+      </div>
+      {{- if $esdeveniments }}
+      <a class="cf-boto cf-boto--contorn" href="{{ "agenda/" | relURL }}">Veure l'agenda {{ partial "icona.html" "arrow-right" }}</a>
+      {{- end }}
     </div>
-        
-    <ul class="llista-events">
-      
-      {{ $mesos := slice "Gen" "Feb" "Mar" "Abr" "Mai" "Jun" "Jul" "Ago" "Set" "Oct" "Nov" "Des" }}
-      
-      {{ $agenda := where site.RegularPages "Section" "agenda" }}
-      {{ $agenda = sort $agenda "Date" "desc" }}
-      
-      {{ if gt (len $agenda) 0 }}
-        {{ range first 3 $agenda }}
-        <li>
-          <a href="{{ .RelPermalink }}" class="item-event-link">
-            <div class="data-event">
-              <div class="mes-event">{{ index $mesos (sub .Date.Month 1) }}</div>
-              <div class="dia-event">{{ .Date.Format "02" }}</div>
-            </div>
-            <div class="detall-event">
-              <div class="hora-event">
-                {{ if .Params.time }}{{ .Params.time }}{{ else }}Pendent d'hora{{ end }}
-                {{ if .Params.location }} | {{ .Params.location }}{{ end }}
-              </div>
-              <div class="titol-event-item">{{ .Title }}</div>
-              <div class="desc-event">{{ .Summary | plainify | truncate 130 }}</div>
-            </div>
-          </a>
-        </li>
-        {{ end }}
-      {{ else }}
-        <li>
-          <a href="#" class="item-event-link" style="pointer-events: none;">
-            <div class="data-event">
-              <div class="mes-event">--</div>
-              <div class="dia-event">00</div>
-            </div>
-            <div class="detall-event">
-              <div class="hora-event">00:00 - 00:00</div>
-              <div class="titol-event-item">No hi ha cap activitat planejada encara</div>
-              <div class="desc-event">Estigues atent/a a les nostres xarxes socials per a properes actualitzacions.</div>
-            </div>
-          </a>
-        </li>
-      {{ end }}
-      
+    {{- if $propers }}
+    <ul class="cf-llista-events">
+      {{- range first 3 $propers }}
+      <li>{{ partial "fila-esdeveniment.html" . }}</li>
+      {{- end }}
     </ul>
-    
-    <div style="text-align: center; margin-bottom: 5rem; margin-top: 3rem;">
-      <a href="/agenda/" class="boto-gran-veure-mes">
-        Veure més activitats
-      </a>
-    </div>
-  </section>
-</div>
+    {{- else }}
+    {{ partial "agenda-buida.html" . }}
+    {{- end }}
+  </div>
+</section>

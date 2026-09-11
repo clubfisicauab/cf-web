@@ -1,0 +1,35 @@
+{{- /* Targeta d'un post del blog.
+       Ús: {{ partial "targeta-post.html" (dict "pagina" . "nivell" 3) }}  (nivell = h2 o h3 del títol) */ -}}
+{{- $p := .pagina -}}
+{{- $nivell := .nivell | default 2 -}}
+{{- $categories := complement (slice "Club de Física") ($p.Params.categories | default (slice)) -}}
+{{- /* Si la imatge no existeix a static/, es mostra el fons per defecte en lloc d'una imatge trencada */ -}}
+{{- $imatge := "" -}}
+{{- with $p.Params.image }}{{ if or (hasPrefix . "http") (fileExists (path.Join "static" .)) }}{{ $imatge = . }}{{ end }}{{ end -}}
+<article class="cf-targeta">
+  <div class="cf-targeta-imatge{{ if not $imatge }} cf-targeta-imatge--buida{{ end }}">
+    {{- with $imatge }}
+    <img src="{{ . | relURL }}" alt="" loading="lazy" decoding="async" class="nozoom">
+    {{- else }}
+    {{ partial "icona.html" "atom" }}
+    {{- end }}
+  </div>
+  <div class="cf-targeta-cos">
+    {{- with $categories }}
+    <p class="cf-targeta-categoria">{{ index . 0 }}</p>
+    {{- end }}
+    {{- if eq $nivell 3 }}
+    <h3 class="cf-targeta-titol"><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></h3>
+    {{- else }}
+    <h2 class="cf-targeta-titol"><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></h2>
+    {{- end }}
+    <p class="cf-targeta-meta">
+      <span>{{ partial "icona.html" "calendar" }}<time datetime="{{ $p.Date.Format "2006-01-02" }}">{{ $p.Date.Format "02/01/2006" }}</time></span>
+      {{- with $p.Params.author }}
+      <span>{{ partial "icona.html" "user" }}{{ . }}</span>
+      {{- end }}
+    </p>
+    <p class="cf-targeta-resum">{{ $p.Summary | plainify | truncate 200 }}</p>
+    <span class="cf-enllac-fletxa cf-targeta-peu" aria-hidden="true">Llegir més {{ partial "icona.html" "arrow-right" }}</span>
+  </div>
+</article>

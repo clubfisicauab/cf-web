@@ -1,7 +1,6 @@
 ---
 title: "Reprenem el Club després de les vacances de Nadal!"
 meta_title: ""
-description: "this is meta description"
 date: 2025-01-08T05:00:00Z
 image: "/images/gallery/post3.jpeg"
 categories: ["Reunions", "Club de Física"]

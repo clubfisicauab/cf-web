@@ -1,0 +1,20 @@
+{{- /* Capçalera del Club: barra fosca de xarxes + menú principal de Blowfish.
+       S'activa amb params.header.layout = "fixed-club" a hugo.toml. */ -}}
+<div class="cf-capcalera">
+  {{ partial "barra-xarxes.html" . }}
+  {{ partial "header/basic.html" . }}
+</div>
+<script>
+  // Marca l'apartat del menú on som (també dins dels posts: /blog/... activa "Blog").
+  (function () {
+    var path = window.location.pathname;
+    document.querySelectorAll(".cf-capcalera .main-menu a[href]").forEach(function (a) {
+      var href = a.getAttribute("href");
+      if (!href || href.charAt(0) !== "/") return;
+      if (href === "/" ? path === "/" : path.indexOf(href) === 0) {
+        a.classList.add("actiu");
+        if (href === path) a.setAttribute("aria-current", "page");
+      }
+    });
+  })();
+</script>

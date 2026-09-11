@@ -1,0 +1,28 @@
+{{- /* Targetes de contacte (dades a params.club de hugo.toml) */ -}}
+{{- $club := site.Params.club -}}
+<div class="cf-contacte not-prose">
+  {{- with $club.email }}
+  <a href="mailto:{{ . }}">
+    <span class="cf-contacte-icona">{{ partial "icona.html" "mail" }}</span>
+    <span class="cf-contacte-titol">Correu</span>
+    <span class="cf-contacte-valor">{{ replace . "@" "<wbr>@" | safeHTML }}</span>
+    <span class="cf-contacte-text">Col·laboracions, dubtes sobre els projectes o per venir d'oient a una reunió.</span>
+  </a>
+  {{- end }}
+  {{- with $club.instagram }}
+  <a href="https://www.instagram.com/{{ . }}/" target="_blank" rel="noopener noreferrer">
+    <span class="cf-contacte-icona">{{ partial "icona.html" "instagram" }}</span>
+    <span class="cf-contacte-titol">Instagram</span>
+    <span class="cf-contacte-valor">@{{ . }}</span>
+    <span class="cf-contacte-text">Fotos i novetats de les reunions i activitats.</span>
+  </a>
+  {{- end }}
+  {{- with $club.x }}
+  <a href="https://x.com/{{ . }}" target="_blank" rel="noopener noreferrer">
+    <span class="cf-contacte-icona">{{ partial "icona.html" "x" }}</span>
+    <span class="cf-contacte-titol">X (Twitter)</span>
+    <span class="cf-contacte-valor">@{{ . }}</span>
+    <span class="cf-contacte-text">Avisos de reunions, xerrades i esdeveniments.</span>
+  </a>
+  {{- end }}
+</div>

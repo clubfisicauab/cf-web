@@ -1,7 +1,6 @@
 ---
 title: "Logo del Club!"
 meta_title: ""
-description: "this is meta description"
 date: 2024-12-31T05:00:00Z
 image: "/images/gallery/logo_club.jpeg"
 categories: ["Merch", "Club de Física"]

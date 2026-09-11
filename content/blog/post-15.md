@@ -1,7 +1,6 @@
 ---
 title: "Vols unir-te al Club de Física de la UAB?"
 meta_title: ""
-description: "this is meta description"
 date: 2025-09-26T05:00:00Z
 image: "/images/gallery/post15.jpeg"
 categories: ["Club de Física"]

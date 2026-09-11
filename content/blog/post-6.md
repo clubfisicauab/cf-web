@@ -1,7 +1,6 @@
 ---
 title: "Donem la benvinguda als nous alumnes i tenim una sorpresa d'un estudiant molt especial!"
 meta_title: ""
-description: "this is meta description"
 date: 2025-02-05T05:00:00Z
 image: "/images/gallery/post6.jpeg"
 categories: ["Reunions", "Club de Física"]

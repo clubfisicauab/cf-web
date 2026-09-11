@@ -1,0 +1,15 @@
+{{- /* Missatge quan no hi ha activitats programades */ -}}
+{{- $club := site.Params.club -}}
+<div class="cf-buit">
+  <span class="cf-buit-icona">{{ partial "icona.html" "calendar" }}</span>
+  <p class="cf-buit-titol">Ara mateix no hi ha activitats programades</p>
+  <p>Estigues atent/a a les nostres xarxes socials: hi anunciem les properes reunions, xerrades i sortides.</p>
+  <div class="cf-buit-accions">
+    {{- with $club.instagram }}
+    <a class="cf-boto cf-boto--fosc" href="https://www.instagram.com/{{ . }}/" target="_blank" rel="noopener noreferrer">{{ partial "icona.html" "instagram" }} Instagram</a>
+    {{- end }}
+    {{- with $club.x }}
+    <a class="cf-boto cf-boto--contorn" href="https://x.com/{{ . }}" target="_blank" rel="noopener noreferrer">{{ partial "icona.html" "x" }} X</a>
+    {{- end }}
+  </div>
+</div>

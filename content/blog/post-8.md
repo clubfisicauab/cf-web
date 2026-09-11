@@ -1,7 +1,6 @@
 ---
 title: "Existeix l'espaitemps?"
 meta_title: ""
-description: "this is meta description"
 date: 2025-02-19T05:00:00Z
 image: "/images/gallery/post8.jpeg"
 categories: ["Reunions", "Club de Física"]

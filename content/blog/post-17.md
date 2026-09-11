@@ -1,7 +1,6 @@
 ---
 title: "Trobada 0 del Club de Física de 2025"
 meta_title: ""
-description: "this is meta description"
 date: 2025-10-26T05:00:00Z
 image: "/images/gallery/post17.jpeg"
 categories: ["Club de Física","Trobada","Presentacions"]

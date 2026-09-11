@@ -1,61 +1,42 @@
 {{ define "main" }}
 
-<div id="barra-superior">
-  <div class="xarxes-esquerra">
-    <a href="https://instagram.com/clubfisicauab" target="_blank" aria-label="Instagram">
-      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-    </a>
-    <a href="https://x.com/clubdefisicauab" target="_blank" aria-label="X">
-      <svg viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
-    </a>
-  </div>
-</div>
+{{- $mesos := slice "gener" "febrer" "març" "abril" "maig" "juny" "juliol" "agost" "setembre" "octubre" "novembre" "desembre" -}}
+{{- $mes := index $mesos (sub .Date.Month 1) -}}
+{{- $de := cond (in (slice "abril" "agost" "octubre") $mes) "d'" "de " -}}
+{{- $dataLlarga := printf "%d %s%s de %d" .Date.Day $de $mes .Date.Year -}}
 
-<article style="max-width: 900px; margin: 4rem auto 6rem auto; padding: 0 1.5rem;">
-
-  <div style="background-color: #f8f9fa; border-left: 4px solid #3b82f6; padding: 2.5rem 2rem; border-radius: 0 12px 12px 0; margin-bottom: 2rem; border: 1px solid #e5e7eb; border-left-width: 4px;">
-    
-    {{ if .Params.categories }}
-    <div style="display: flex; gap: 0.5rem; margin-bottom: 1.2rem; flex-wrap: wrap;">
-      {{ range .Params.categories }}
-      <span style="background-color: #ffffff; border: 1px solid #d1d5db; color: #555; padding: 0.2rem 0.8rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">
-        {{ . }}
-      </span>
-      {{ end }}
+<article>
+  <header class="cf-capcalera-pagina">
+    <div class="cf-capcalera-pagina-contingut cf-capcalera-pagina-contingut--estret">
+      <a class="cf-tornar" href="{{ "agenda/" | relURL }}">{{ partial "icona.html" "arrow-left" }} Tornar a l'agenda</a>
+      {{- with .Params.categories }}
+      <ul class="cf-xips cf-xips--fosc">
+        {{- range . }}
+        <li class="cf-xip">{{ . }}</li>
+        {{- end }}
+      </ul>
+      {{- end }}
+      <h1 class="cf-capcalera-pagina-titol">{{ .Title }}</h1>
+      <div class="cf-capcalera-meta">
+        <span>{{ partial "icona.html" "calendar" }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ $dataLlarga }}</time></span>
+        {{- with .Params.time }}
+        <span>{{ partial "icona.html" "clock" }}{{ . }}</span>
+        {{- end }}
+        {{- with .Params.location }}
+        <span>{{ partial "icona.html" "pin" }}{{ . }}</span>
+        {{- end }}
+      </div>
     </div>
-    {{ end }}
+  </header>
 
-    <h1 style="font-size: 2.4rem; font-weight: 800; color: #111; margin-bottom: 1.5rem; line-height: 1.2;">
-      {{ .Title }}
-    </h1>
-
-    <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
-      <div style="display: flex; align-items: center; gap: 10px; font-weight: 700; color: #1e3a8a;">
-        📅 {{ .Date.Format "02/01/2006" }}
-      </div>
-      {{ if .Params.time }}
-      <div style="display: flex; align-items: center; gap: 10px; font-weight: 700; color: #1e3a8a;">
-        🕒 {{ .Params.time }}
-      </div>
-      {{ end }}
-      {{ if .Params.location }}
-      <div style="display: flex; align-items: center; gap: 10px; font-weight: 700; color: #1e3a8a;">
-        📍 {{ .Params.location }}
-      </div>
-      {{ end }}
+  <div class="cf-contenidor cf-contenidor--estret cf-pagina-cos">
+    {{- with .Params.image }}
+    <img class="cf-imatge-destacada" src="{{ . | relURL }}" alt="">
+    {{- end }}
+    <div class="prose prose-lg max-w-none cf-prose">
+      {{ .Content }}
     </div>
   </div>
-
-  {{ if and .Params.image (ne .Params.image "") }}
-  <div style="margin-bottom: 3rem;">
-    <img src="{{ .Params.image }}" alt="{{ .Title }}" style="width: 100%; height: 350px; object-fit: cover; border-radius: 12px; border: 1px solid #e5e7eb;">
-  </div>
-  {{ end }}
-
-  <div class="prose prose-lg max-w-none dark:prose-invert prose-img:rounded-xl prose-a:text-yellow-600" style="color: #333; line-height: 1.7;">
-    {{ .Content }}
-  </div>
-
 </article>
 
 {{ end }}

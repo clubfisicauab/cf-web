@@ -1,7 +1,6 @@
 ---
 title: "Arquitectura i física?"
 meta_title: ""
-description: "this is meta description"
 date: 2025-02-26T05:00:00Z
 image: "/images/gallery/post9.jpeg"
 categories: ["Reunions", "Club de Física", "Presentacions"]

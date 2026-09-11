@@ -1,7 +1,6 @@
 ---
 title: "Podem pensar en camp elèctric i camp magnètic per separat?"
 meta_title: ""
-description: "this is meta description"
 date: 2025-03-19T05:00:00Z
 image: "/images/gallery/post12.jpeg"
 categories: ["Reunions", "Club de Física", "Presentacions"]

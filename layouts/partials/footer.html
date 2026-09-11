@@ -1,0 +1,88 @@
+{{- /* Peu de pàgina del Club (substitueix el de Blowfish) */ -}}
+{{- $club := site.Params.club -}}
+<footer id="site-footer" class="cf-peu print:hidden">
+  <div class="cf-peu-contingut">
+    <div class="cf-peu-bloc cf-peu-bloc--marca">
+      <a class="cf-peu-marca" href="{{ "" | relLangURL }}">
+        {{- with resources.Get site.Params.logo }}
+        <img src="{{ .RelPermalink }}" alt="" width="52" height="52" class="nozoom">
+        {{- end }}
+        <span>
+          <span class="cf-peu-nom">{{ site.Title }}</span>
+          <span class="cf-peu-lema">Universitat Autònoma de Barcelona</span>
+        </span>
+      </a>
+      {{ with site.Params.description }}<p>{{ . }}</p>{{ end }}
+      <div class="cf-peu-xarxes">
+        {{- with $club.instagram }}
+        <a href="https://www.instagram.com/{{ . }}/" target="_blank" rel="noopener noreferrer" aria-label="Instagram del Club (@{{ . }})">{{ partial "icona.html" "instagram" }}</a>
+        {{- end }}
+        {{- with $club.x }}
+        <a href="https://x.com/{{ . }}" target="_blank" rel="noopener noreferrer" aria-label="X del Club (@{{ . }})">{{ partial "icona.html" "x" }}</a>
+        {{- end }}
+        {{- with $club.email }}
+        <a href="mailto:{{ . }}" aria-label="Correu del Club">{{ partial "icona.html" "mail" }}</a>
+        {{- end }}
+      </div>
+    </div>
+
+    <nav class="cf-peu-bloc" aria-label="Navegació del peu de pàgina">
+      <h2 class="cf-peu-titol">Navegació</h2>
+      <ul>
+        {{- range site.Menus.main }}
+        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+        {{- end }}
+      </ul>
+    </nav>
+
+    <div class="cf-peu-bloc">
+      <h2 class="cf-peu-titol">Contacte</h2>
+      <ul>
+        {{- with $club.email }}
+        <li><a href="mailto:{{ . }}">{{ . }}</a></li>
+        {{- end }}
+        <li>Facultat de Ciències, UAB</li>
+        {{- with $club.instagram }}
+        <li><a href="https://www.instagram.com/{{ . }}/" target="_blank" rel="noopener noreferrer">Instagram · @{{ . }}</a></li>
+        {{- end }}
+        {{- with $club.x }}
+        <li><a href="https://x.com/{{ . }}" target="_blank" rel="noopener noreferrer">X · @{{ . }}</a></li>
+        {{- end }}
+      </ul>
+    </div>
+  </div>
+
+  <div class="cf-peu-baix">
+    <p>
+      {{- with replace site.Params.copyright "{ year }" now.Year }}
+        {{ . | markdownify }}
+      {{- else }}
+        &copy; {{ now.Format "2006" }} {{ site.Title }}
+      {{- end }}
+      {{- range site.Menus.footer }}
+        <span aria-hidden="true">·</span> <a href="{{ .URL }}">{{ .Name }}</a>
+      {{- end }}
+    </p>
+    {{- if site.Params.footer.showThemeAttribution | default true }}
+    <p>
+      {{ $hugo := `<a href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a>` }}
+      {{ $blowfish := `<a href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>` }}
+      {{ i18n "footer.powered_by" (dict "Hugo" $hugo "Theme" $blowfish) | safeHTML }}
+    </p>
+    {{- end }}
+  </div>
+
+  {{ if not .Site.Params.disableImageZoom | default true }}
+    <script>
+      mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+        margin: 24,
+        background: "rgba(0,0,0,0.5)",
+        scrollOffset: 0,
+      });
+    </script>
+  {{ end }}
+  {{/* Extend footer - eg. for extra scripts, etc. */}}
+  {{ if templates.Exists "partials/extend-footer.html" }}
+    {{ partialCached "extend-footer.html" . }}
+  {{ end }}
+</footer>

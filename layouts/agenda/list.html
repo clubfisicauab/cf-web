@@ -1,123 +1,41 @@
 {{ define "main" }}
 
-<!-- 1. BARRA FOSCA IFT -->
-<div id="barra-superior">
-  <div class="xarxes-esquerra">
-    <a href="https://instagram.com/clubfisicauab" target="_blank" aria-label="Instagram">
-      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-    </a>
-    <a href="https://x.com/clubdefisicauab" target="_blank" aria-label="X">
-      <svg viewBox="0 0 24 24"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
-    </a>
-  </div>
-</div>
+{{ partial "capcalera-pagina.html" (dict "etiqueta" "Agenda i esdeveniments" "titol" .Title "subtitol" "Descobreix els propers seminaris, tallers, sortides i fires on participa el Club de Física de la UAB. T'hi esperem!") }}
 
-<!-- 2. TÍTOL -->
-<div class="capcalera-blog">
-  <h1 class="titol-capcalera">{{ .Title }}</h1>
-</div>
+{{- $avui := now.Format "2006-01-02" -}}
+{{- $propers := slice -}}
+{{- $passats := slice -}}
+{{- range .Pages.ByDate -}}
+  {{- if ge (.Date.Format "2006-01-02") $avui }}{{ $propers = $propers | append . }}{{ end -}}
+{{- end -}}
+{{- range .Pages.ByDate.Reverse -}}
+  {{- if lt (.Date.Format "2006-01-02") $avui }}{{ $passats = $passats | append . }}{{ end -}}
+{{- end -}}
 
-<div style="max-width: 1200px; margin: -1.5rem auto 4rem auto; padding: 0 1rem;">
-  <div style="background-color: #f8f9fa; border-left: 4px solid #Eab308; padding: 1.5rem 2rem; border-radius: 0 8px 8px 0;">
-    <p style="font-size: 1.1rem; color: #111; font-weight: 600; margin-bottom: 0.5rem; line-height: 1.5;">
-      Agenda i Esdeveniments
-    </p>
-    <p style="font-size: 0.95rem; color: #555; margin: 0; line-height: 1.6;">
-      Descobreix els propers seminaris, tallers, sortides i fires on participa el Club de Física de la UAB. T'hi esperem!
-    </p>
-  </div>
-</div>
-
-<!-- 4. GRAELLA PRINCIPAL -->
-<div class="graella-layout-blog">
-  
-  <div class="columna-articles" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2.5rem;">
-    {{ range .Pages }}
-    
-    <!-- Efecte hover a tota la targeta -->
-    <article class="targeta-blog" style="border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; position: relative; background: #fff; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 10px 20px -5px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-      
-      <!-- Etiqueta flotant amb la data -->
-      <div style="position: absolute; top: 15px; right: 15px; background: #Eab308; color: #111; padding: 6px 14px; border-radius: 8px; font-weight: 800; font-size: 0.85rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 10;">
-        {{ .Date.Format "02/01/2006" }}
-      </div>
-
-      <!-- Imatge -->
-      <a href="{{ .RelPermalink }}">
-        {{ if and .Params.image (ne .Params.image "") }}
-          <img src="{{ .Params.image }}" alt="{{ .Title }}" style="width: 100%; height: 220px; object-fit: cover; display: block; border-bottom: 1px solid #eee;">
-        {{ else }}
-          <div style="width: 100%; height: 220px; background: #f3f4f6; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #eee;">
-            <svg style="width: 50px; fill: #d1d5db;" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 002 2h14c1.1 0 2-.9 2 2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
-          </div>
-        {{ end }}
-      </a>
-      
-      <div style="padding: 1.5rem;">
-        
-        <!-- Hora i Lloc -->
-        <div style="display: flex; gap: 15px; margin-bottom: 12px; font-size: 0.85rem; color: #666; font-weight: 600;">
-          {{ if .Params.time }}
-          <span style="display: flex; align-items: center; gap: 5px;">
-            <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
-            {{ .Params.time }}
-          </span>
-          {{ end }}
-          {{ if .Params.location }}
-          <span style="display: flex; align-items: center; gap: 5px;">
-            <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-            {{ .Params.location }}
-          </span>
-          {{ end }}
-        </div>
-
-        <h2 class="titol-article" style="margin-bottom: 0.8rem;"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-        
-        <p class="resum-article" style="margin-bottom: 1.5rem;">{{ .Summary | plainify | truncate 130 }}</p>
-        
-        <a href="{{ .RelPermalink }}" class="boto-llegir-mes" style="display: block; text-align: center; width: 100%;">Veure detalls</a>
-      </div>
-    </article>
-    {{ end }}
-  </div>
-
-  <aside class="columna-sidebar">
-    
-    <!-- Filtrem els tags perquè només surtin els d'Activitats -->
-    {{ $scratch := newScratch }}
-    {{ range .Pages }}
-      {{ range .Params.categories }}
-        {{ $scratch.Add "actCats" (slice .) }}
-      {{ end }}
-      {{ range .Params.tags }}
-        {{ $scratch.Add "actTags" (slice .) }}
-      {{ end }}
-    {{ end }}
-    
-    {{ $categories := ($scratch.Get "actCats") | uniq }}
-    {{ $tags := ($scratch.Get "actTags") | uniq }}
-
-    <div class="caixa-sidebar">
-      <h3 class="titol-sidebar">Tipus d'Activitat</h3>
-      <ul class="llista-categories">
-        {{ range $catName := $categories }}
-          {{ $count := 0 }}
-          {{ range $.Pages }}
-            {{ if in .Params.categories $catName }}
-              {{ $count = add $count 1 }}
-            {{ end }}
-          {{ end }}
-        <li>
-          <a href="{{ "/categories/" | relLangURL }}{{ $catName | urlize }}">{{ $catName }}</a>
-          <span>( {{ $count }} )</span>
-        </li>
-        {{ end }}
-      </ul>
+<div class="cf-contenidor cf-pagina-cos">
+  {{- if $propers }}
+  <section class="cf-bloc">
+    <h2 class="cf-bloc-titol">Properes activitats</h2>
+    <div class="cf-graella-posts">
+      {{- range $propers }}
+      {{ partial "targeta-esdeveniment.html" . }}
+      {{- end }}
     </div>
+  </section>
+  {{- else }}
+  {{ partial "agenda-buida.html" . }}
+  {{- end }}
 
-
-  </aside>
-
+  {{- with $passats }}
+  <section class="cf-bloc">
+    <h2 class="cf-bloc-titol">Activitats anteriors</h2>
+    <div class="cf-graella-posts">
+      {{- range . }}
+      {{ partial "targeta-esdeveniment.html" . }}
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
 </div>
 
 {{ end }}

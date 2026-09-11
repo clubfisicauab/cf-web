@@ -1,7 +1,6 @@
 ---
 title: "Fira del Club de Física, aquest dimecres a l'Eix central"
 meta_title: ""
-description: "this is meta description"
 date: 2025-03-19T05:00:00Z
 image: "/images/gallery/post14.jpeg"
 categories: ["Fira", "Club de Física"]

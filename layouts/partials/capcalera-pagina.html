@@ -1,0 +1,13 @@
+{{- /* Capçalera fosca de les pàgines interiors.
+       Ús: {{ partial "capcalera-pagina.html" (dict "etiqueta" "Blog" "titol" .Title "subtitol" "...") }} */ -}}
+<header class="cf-capcalera-pagina">
+  <div class="cf-capcalera-pagina-contingut">
+    {{- with .etiqueta }}
+    <p class="cf-etiqueta">{{ . }}</p>
+    {{- end }}
+    <h1 class="cf-capcalera-pagina-titol">{{ .titol }}</h1>
+    {{- with .subtitol }}
+    <p class="cf-capcalera-pagina-subtitol">{{ . }}</p>
+    {{- end }}
+  </div>
+</header>

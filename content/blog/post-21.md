@@ -1,7 +1,6 @@
 ---
 title: "Principi hologràfic: En quantes dimensions està escrit l'univers?"
 meta_title: ""
-description: "this is meta description"
 date: 2026-06-03T05:00:00Z
 image: "/images/gallery/post21.jpeg"
 categories: ["Club de Física","Reunions","Presentacions"]

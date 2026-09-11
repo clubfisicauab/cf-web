@@ -1,7 +1,6 @@
 ---
 title: "Optimització: De capses a partícules"
 meta_title: ""
-description: "this is meta description"
 date: 2026-05-13T05:00:00Z
 image: "/images/gallery/post19.jpeg"
 categories: ["Club de Física","Reunions","Presentacions"]

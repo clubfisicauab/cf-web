@@ -3,14 +3,19 @@ locale = 'ca'
 title = 'Club de Física UAB'
 theme = 'blowfish'
 buildFuture = true
+# Manté els noms de categories i etiquetes tal com s'escriuen (p. ex. "Club de Física", no "Club De Física")
+titleCaseStyle = "none"
 
 [services.googleAnalytics]
   id = "G-99XSV6TSK4"
 
 [params]
   logo = "logo.png"
+  description = "Club de Física de la Universitat Autònoma de Barcelona: un espai per aprendre, explorar i compartir la física."
+  copyright = "© { year } Club de Física UAB"
   defaultAppearance = "light"
   autoSwitchAppearance = false
+  enableSearch = false
     favicon = "favicon.ico"
     # Si el tema busca aquestes mides, posa-les també
     favicon16 = "favicon-16x16.png"
@@ -18,8 +23,20 @@ buildFuture = true
     appleTouchIcon = "apple-touch-icon.png"
 
 [params.header]
+  # Capçalera pròpia: barra fosca de xarxes + menú (layouts/partials/header/fixed-club.html)
+  layout = "fixed-club"
   themeToggle = false
   showTitle = true
+
+[params.footer]
+  showAppearanceSwitcher = false
+
+# Xarxes i correu del Club. Es fan servir a la barra superior, al peu de pàgina,
+# a la pàgina de Contacte i a la portada: només cal canviar-los aquí.
+[params.club]
+  email = "clubdefisicauab@gmail.com"
+  instagram = "clubfisicauab"
+  x = "clubdefisicauab"
 
 [markup.goldmark.renderer]
   unsafe = true

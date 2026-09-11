@@ -1,7 +1,6 @@
 ---
 title: "Ens preparem per la Fira de la Ciència del 29 de maig"
 meta_title: ""
-description: "this is meta description"
 date: 2025-03-19T05:00:00Z
 image: "/images/gallery/post13.jpeg"
 categories: ["Reunions", "Club de Física"]

@@ -1,307 +1,1920 @@
-/* 1. Oculta l'icona de la lupa amb el '+' */
-.pswp__button--zoom {
-    display: none !important;
+/* =====================================================================
+   CLUB DE FÍSICA UAB · Estils propis per sobre del tema Blowfish
+   ---------------------------------------------------------------------
+    0. Variables              8. Seccions de la portada
+    1. Base                   9. Targetes
+    2. Capçalera fixa        10. Llistats i laterals
+    3. Peu de pàgina         11. Posts
+    4. Capçaleres de pàgina  12. Agenda
+    5. Contingut (prose)     13. Paperillos
+    6. Botons i enllaços     14. Contacte
+    7. Portada (hero)        15. Accessibilitat i moviment
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   0. Variables
+   --------------------------------------------------------------------- */
+:root {
+  --cf-blau-nit: #0b1538;
+  --cf-blau-nit-2: #1a2a66;
+  --cf-blau-peu: #070d24;
+  --cf-blau: #1e3a8a;
+  --cf-or: #eab308;
+  --cf-or-hover: #facc15;
+  --cf-or-fosc: #a16207;
+  --cf-or-suau: #fef6d8;
+  --cf-tinta: #111827;
+  --cf-text: #374151;
+  --cf-suau: #6b7280;
+  --cf-linia: #e5e7eb;
+  --cf-fons-suau: #f5f6fa;
+
+  --cf-radi: 16px;
+  --cf-ombra: 0 1px 2px rgba(11, 21, 56, 0.05), 0 12px 32px -20px rgba(11, 21, 56, 0.35);
+  --cf-ombra-hover: 0 2px 6px rgba(11, 21, 56, 0.08), 0 28px 50px -24px rgba(11, 21, 56, 0.5);
+
+  --cf-contenidor: 1200px;
+  --cf-marge: clamp(1.25rem, 4vw, 2rem);
+  --cf-barra-h: 40px;
+  --cf-menu-h: 76px;
+  --cf-capcalera-h: calc(var(--cf-barra-h) + var(--cf-menu-h));
+
+  /* Òrbites (inspirades en el logo) per als fons foscos */
+  --cf-orbites: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400' fill='none' stroke='%23ffffff' stroke-opacity='0.13' stroke-width='1.5'%3E%3Cellipse cx='200' cy='200' rx='190' ry='72' transform='rotate(-30 200 200)'/%3E%3Cellipse cx='200' cy='200' rx='190' ry='72' transform='rotate(30 200 200)'/%3E%3Cellipse cx='200' cy='200' rx='190' ry='72' transform='rotate(90 200 200)'/%3E%3Ccircle cx='200' cy='200' r='10' fill='%23eab308' fill-opacity='0.85' stroke='none'/%3E%3C/svg%3E");
 }
 
-/* 2. Desactiva el comportament de l'enllaç que obre el Lightbox */
-/* Això farà que, en clicar la imatge, no passi absolutament res */
-.targeta-blog-home a[data-lightbox] {
-    pointer-events: none !important;
-    cursor: default !important;
+@media (max-width: 767px) {
+  :root {
+    --cf-barra-h: 36px;
+    --cf-menu-h: 64px;
+  }
 }
 
-/* 3. Opcional: Si l'icona surt flotant sobre la imatge (CSS Overlay), oculta-la */
+/* ---------------------------------------------------------------------
+   1. Base
+   --------------------------------------------------------------------- */
+[hidden] {
+  display: none !important;
+}
+
+html {
+  scroll-padding-top: calc(var(--cf-capcalera-h) + 1rem);
+}
+
+body {
+  padding-top: var(--cf-capcalera-h) !important;
+  padding-left: var(--cf-marge) !important;
+  padding-right: var(--cf-marge) !important;
+  overflow-x: clip;
+}
+
+/* Enllaç "Ves al contingut": invisible fins que s'hi arriba amb el teclat */
+#the-top {
+  position: fixed !important;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+
+/* Visor d'imatges del tema */
+.pswp__button--zoom,
 .lightbox-icon {
-    display: none !important;
+  display: none !important;
 }
 
-/* 1. Barra fosca IFT */
-#barra-superior {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background-color: #0B1538;
-    z-index: 9999;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0 2rem;
-}
-.xarxes-esquerra { display: flex; gap: 25px; align-items: center; }
-.xarxes-esquerra a { display: flex; align-items: center; }
-.xarxes-esquerra svg { height: 20px; fill: white; transition: fill 0.2s; }
-.xarxes-esquerra a:hover svg { fill: #Eab308 !important; }
-
-/* 2. Barra blanca del menú principal */
-.main-menu {
-    position: fixed !important;
-    top: 60px !important; /* A sota exacte de la teva primera barra */
-    left: 0 !important;
-    width: 100vw !important;
-    max-width: 100% !important;
-    transform: none !important; /* Bloqueja qualsevol animació de scroll del tema */
-    z-index: 100 !important;
-    background-color: rgba(255, 255, 255, 0.98) !important;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important;
-    padding: 15px 2rem !important;
-    box-sizing: border-box !important;
+.icona {
+  width: 1em;
+  height: 1em;
+  flex: none;
+  fill: currentColor;
 }
 
-/* 3. Ajustament de l'inici */
-body, main {
-    padding-top: 77px !important; /* Espai per a les dues barres juntes */
+.cf-contenidor {
+  width: 100%;
+  max-width: var(--cf-contenidor);
+  margin-inline: auto;
 }
 
-/* 4. Amagar elements innecessaris */
-#skip-to-content, .skip-link, a.sr-only, a[href^="#main"], a[href*="content"] { 
-    display: none !important; 
-    visibility: hidden !important;
-    opacity: 0 !important;
-    width: 0 !important;
-    height: 0 !important;
-    position: absolute !important;
-    top: -9999px !important;
-    pointer-events: none !important;
-}
-button[id^="appearance-switcher"], button[id^="search-button"], .search-button, article header { display: none !important; }
-.max-w-7xl, .max-w-prose { max-width: 95% !important; }
-
-/* 5. Mida del menú principal (Inici, Qui Som...) */
-span.text-base.font-medium.break-normal {
-    font-size: 1.3rem !important;
-    transition: color 0.2s !important;
+.cf-contenidor--estret {
+  max-width: 780px;
 }
 
-a:hover span.text-base.font-medium.break-normal {
-    color: #5f8bcc !important;
+.cf-pagina-cos {
+  padding-bottom: clamp(3.5rem, 8vw, 5.5rem);
 }
 
-/* 6. Títol del costat del logo (Club de Física UAB) */
-a.text-base.font-medium.truncate {
-    font-size: 1.7rem !important;
-    padding-left: 20px !important;
-}
-
-/* 7. Carrusel d'imatges */
-.carrusel-contenidor {
-    position: relative;
-    width: 100vw;
-    height: 70vh;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-    margin-bottom: -2rem;
-    margin-top: -1rem;
-    overflow: hidden;
-}
-
-.diapositiva {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    opacity: 0; /* Ho controla el JavaScript */
-}
-
-.fletxa-carrusel {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.3);
-    color: white;
-    border: none;
-    font-size: 2.5rem;
-    padding: 15px 25px;
-    cursor: pointer;
-    z-index: 10;
-    transition: background-color 0.3s;
-    user-select: none;
-}
-
-.fletxa-carrusel:hover {
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-.fletxa-esquerra { left: 0; }
-.fletxa-dreta { right: 0; }
-
-
-/* =========================================
-   PÀGINA DEL BLOG (Llista de posts)
-========================================= */
-
-/* Capçalera gris */
-.capcalera-blog {
-  background-color: #f4f5f7;
-  border-radius: 12px;
-  text-align: center;
-  padding: 3.5rem 1rem;
-  margin: 2rem auto 4rem auto;
-  max-width: 1200px;
-}
-.titol-capcalera {
-  font-size: 2.8rem;
-  font-weight: 800;
-  color: #111;
-  margin-bottom: 0.5rem;
-}
-.engrunes-capcalera {
-  font-size: 0.95rem;
-  color: #555;
-}
-.engrunes-capcalera a {
-  color: #111;
-  text-decoration: none;
-}
-
-/* Layout General */
-.graella-layout-blog {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-  max-width: 1200px;
-  margin: 0 auto 5rem auto;
-  padding: 0 1rem;
-}
-@media (min-width: 900px) {
-  .graella-layout-blog { flex-direction: row; }
-  .columna-articles { width: 65%; }
-  .columna-sidebar { width: 35%; }
-}
-
-/* Articles */
-.columna-articles {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
-  align-content: start;
-}
-@media (min-width: 768px) {
-  .columna-articles { grid-template-columns: 1fr 1fr; }
-}
-.targeta-blog {
-  display: flex;
-  flex-direction: column;
-}
-.titol-article {
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: #111;
-  margin-bottom: 0.8rem;
-  line-height: 1.25;
-}
-.titol-article a { color: inherit; text-decoration: none; }
-.titol-article a:hover { color: #Eab308; }
-
-.metadades-article {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 0.5rem;
-}
-.dada-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-.dada-meta svg { width: 16px; height: 16px; fill: currentColor; }
-
-.resum-article {
-  font-size: 0.95rem;
-  color: #444;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-  flex-grow: 1;
-}
-
-.boto-llegir-mes {
+.cf-etiqueta {
   display: inline-block;
-  padding: 0.5rem 1.2rem;
-  margin-top: 1rem;
-  border: 1px solid #111;
-  color: #111;
-  font-size: 0.85rem;
-  font-weight: 600;
-  border-radius: 4px;
-  text-decoration: none;
-  width: max-content;
-  transition: all 0.2s ease-in-out;
+  margin: 0 0 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cf-or-fosc);
 }
-.boto-llegir-mes:hover {
-  background-color: #111;
+
+/* ---------------------------------------------------------------------
+   2. Capçalera fixa (barra de xarxes + menú)
+   --------------------------------------------------------------------- */
+.cf-capcalera {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  background: #fff;
+  box-shadow: 0 1px 0 var(--cf-linia), 0 10px 24px -20px rgba(11, 21, 56, 0.45);
+}
+
+#barra-superior {
+  height: var(--cf-barra-h);
+  background: var(--cf-blau-nit);
   color: #fff;
 }
 
-/* Sidebar */
-.caixa-sidebar {
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  padding: 2.5rem 2rem;
-  margin-bottom: 2.5rem;
-}
-.titol-sidebar {
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: #111;
-  margin-bottom: 1.5rem;
-}
-.llista-categories {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.llista-categories li {
+.barra-superior-contingut {
+  height: 100%;
+  max-width: var(--cf-contenidor);
+  margin: 0 auto;
+  padding: 0 var(--cf-marge);
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.2rem;
-  font-size: 0.95rem;
+  gap: 1rem;
 }
-.llista-categories a { color: #555; text-decoration: none; }
-.llista-categories a:hover { color: #111; font-weight: 600; }
-.llista-categories span { color: #555; }
 
-.núvol-tags {
+.xarxes-esquerra {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
+  align-items: center;
+  gap: 1.1rem;
 }
-.boto-tag {
-  background-color: #fff;
-  border: 1px solid #e5e7eb;
-  color: #555;
-  padding: 0.4rem 0.8rem;
-  border-radius: 4px;
+
+.xarxes-esquerra a,
+.barra-correu {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.82);
   font-size: 0.85rem;
   text-decoration: none;
-  transition: all 0.2s;
-}
-.boto-tag:hover {
-  border-color: #111;
-  color: #111;
+  transition: color 0.2s;
 }
 
-.boto-gran-veure-mes {
-  display: inline-block;
-  padding: 1rem 2.5rem;
-  background-color: white;
-  border: 2px solid #111827; /* Color fosc a joc amb els títols */
-  border-radius: 12px; /* Arrodoniment modern */
-  font-weight: 700;
+.xarxes-esquerra .icona {
+  width: 17px;
+  height: 17px;
+}
+
+.barra-correu .icona {
+  width: 16px;
+  height: 16px;
+}
+
+.xarxes-esquerra a:hover,
+.barra-correu:hover {
+  color: var(--cf-or);
+}
+
+@media (max-width: 480px) {
+  .barra-correu span {
+    display: none;
+  }
+}
+
+.cf-capcalera .main-menu {
+  height: var(--cf-menu-h);
+  max-width: var(--cf-contenidor);
+  margin: 0 auto;
+  padding: 0 var(--cf-marge) !important;
+  gap: 0.9rem !important;
+}
+
+.cf-capcalera .main-menu .logo {
+  width: 52px !important;
+  height: 52px !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+
+.cf-capcalera .main-menu > a.truncate {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--cf-blau-nit);
+}
+
+.cf-capcalera .main-menu nav.flex {
+  column-gap: 1.6rem !important;
+}
+
+.cf-capcalera .main-menu nav.flex > a {
+  position: relative;
+  padding: 0.35rem 0;
+  color: var(--cf-tinta);
+}
+
+.cf-capcalera .main-menu nav.flex > a span {
   font-size: 1rem;
-  color: #111827;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  transition: color 0.2s;
 }
 
-.boto-gran-veure-mes:hover {
-  background-color: #111827;
-  color: white;
-  transform: translateY(-3px); /* Petit efecte d'elevació */
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+.cf-capcalera .main-menu nav.flex > a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--cf-or);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
+.cf-capcalera .main-menu nav.flex > a:hover span,
+.cf-capcalera .main-menu nav.flex > a.actiu span {
+  color: var(--cf-blau-nit);
+}
+
+.cf-capcalera .main-menu nav.flex > a:hover::after,
+.cf-capcalera .main-menu nav.flex > a.actiu::after {
+  transform: scaleX(1);
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cf-capcalera .main-menu > a.truncate {
+    font-size: 1.1rem;
+  }
+
+  .cf-capcalera .main-menu nav.flex {
+    column-gap: 1.1rem !important;
+  }
+
+  .cf-capcalera .main-menu nav.flex > a span {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .cf-capcalera .main-menu .logo {
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  .cf-capcalera .main-menu > a.truncate {
+    font-size: 1.1rem;
+  }
+}
+
+/* Menú mòbil a pantalla completa (per sobre de la barra fosca) */
+.cf-capcalera [role="dialog"] {
+  background: #fff !important;
+  padding-top: 6rem !important;
+}
+
+.cf-capcalera [role="dialog"] a span {
+  color: var(--cf-tinta);
+}
+
+.cf-capcalera [role="dialog"] a.actiu span {
+  color: var(--cf-or-fosc);
+}
+
+/* ---------------------------------------------------------------------
+   3. Peu de pàgina
+   --------------------------------------------------------------------- */
+.cf-peu {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding: clamp(3rem, 6vw, 4.5rem) var(--cf-marge) 1.75rem;
+  background-color: var(--cf-blau-peu);
+  background-image: var(--cf-orbites);
+  background-repeat: no-repeat;
+  background-position: right -120px top -80px;
+  background-size: 420px 420px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 767px) {
+  .cf-peu {
+    background-position: right -200px top -150px;
+    background-size: 360px 360px;
+  }
+}
+
+.cf-peu-contingut {
+  max-width: var(--cf-contenidor);
+  margin: 0 auto;
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .cf-peu-contingut {
+    grid-template-columns: 1.6fr 1fr 1fr;
+  }
+}
+
+.cf-peu-marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  text-decoration: none;
+}
+
+.cf-peu-marca img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.25);
+}
+
+.cf-peu-nom {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.cf-peu-lema {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.cf-peu-bloc--marca p {
+  max-width: 26rem;
+  margin: 1.1rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.cf-peu-titol {
+  margin: 0 0 1rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cf-or);
+}
+
+.cf-peu ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.95rem;
+}
+
+.cf-peu a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+.cf-peu a:hover {
+  color: var(--cf-or);
+}
+
+.cf-peu-xarxes {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+
+.cf-peu-xarxes a {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+}
+
+.cf-peu-xarxes a:hover {
+  background: var(--cf-or);
+  border-color: var(--cf-or);
+  color: var(--cf-blau-nit);
+}
+
+.cf-peu-xarxes .icona {
+  width: 18px;
+  height: 18px;
+}
+
+.cf-peu-baix {
+  max-width: var(--cf-contenidor);
+  margin: 2.75rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  font-size: 0.85rem;
+}
+
+.cf-peu-baix p {
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------------
+   4. Capçaleres de pàgina (fons fosc)
+   --------------------------------------------------------------------- */
+.cf-capcalera-pagina {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+  padding: clamp(2.75rem, 7vw, 4.5rem) var(--cf-marge);
+  background-color: var(--cf-blau-nit);
+  background-image: var(--cf-orbites),
+    radial-gradient(circle at 85% 30%, rgba(234, 179, 8, 0.16), transparent 38%),
+    linear-gradient(135deg, var(--cf-blau-nit) 0%, var(--cf-blau-nit-2) 100%);
+  background-repeat: no-repeat;
+  background-position: right max(-60px, calc(50% - 720px)) center, 0 0, 0 0;
+  background-size: 380px 380px, auto, auto;
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .cf-capcalera-pagina {
+    background-position: right -110px top -70px, 0 0, 0 0;
+    background-size: 280px 280px, auto, auto;
+  }
+}
+
+.cf-capcalera-pagina-contingut {
+  max-width: var(--cf-contenidor);
+  margin: 0 auto;
+}
+
+.cf-capcalera-pagina-contingut--estret {
+  max-width: 880px;
+}
+
+.cf-capcalera-pagina .cf-etiqueta {
+  color: var(--cf-or);
+}
+
+.cf-capcalera-pagina-titol {
+  max-width: 24ch;
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.3rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.cf-capcalera-pagina-subtitol {
+  max-width: 46rem;
+  margin: 1rem 0 0;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.cf-capcalera-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1.5rem;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.cf-capcalera-meta > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.cf-capcalera-meta .icona {
+  width: 17px;
+  height: 17px;
+  color: var(--cf-or);
+}
+
+.cf-tornar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.cf-tornar:hover {
+  color: var(--cf-or);
+}
+
+/* ---------------------------------------------------------------------
+   5. Contingut en Markdown (prose)
+   --------------------------------------------------------------------- */
+.cf-prose {
+  max-width: none;
+  color: var(--cf-text);
+}
+
+.cf-prose > :first-child {
+  margin-top: 0;
+}
+
+.cf-prose h2,
+.cf-prose h3,
+.cf-prose h4 {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--cf-tinta);
+}
+
+.cf-prose strong {
+  color: var(--cf-tinta);
+}
+
+.cf-prose a:not(:where(.not-prose a)) {
+  font-weight: 600;
+  color: var(--cf-blau);
+  text-decoration: underline;
+  text-decoration-color: var(--cf-or);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.cf-prose a:not(:where(.not-prose a)):hover {
+  color: var(--cf-or-fosc);
+}
+
+.cf-prose hr {
+  margin: 2.5em 0;
+  border-color: var(--cf-linia);
+}
+
+.cf-prose ul > li::marker {
+  color: var(--cf-or);
+}
+
+.cf-prose blockquote {
+  padding: 1rem 1.25rem;
+  border-left: 4px solid var(--cf-or);
+  border-radius: 0 12px 12px 0;
+  background: var(--cf-or-suau);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--cf-text);
+  quotes: none;
+}
+
+.cf-prose blockquote p {
+  margin: 0;
+}
+
+.cf-prose blockquote p::before,
+.cf-prose blockquote p::after {
+  content: none;
+}
+
+.cf-prose img {
+  border-radius: 14px;
+}
+
+.cf-prose figcaption {
+  text-align: center;
+  color: var(--cf-suau);
+}
+
+.cf-prose .lead {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: var(--cf-text);
+}
+
+/* ---------------------------------------------------------------------
+   6. Botons i enllaços
+   --------------------------------------------------------------------- */
+.cf-boto {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.8rem 1.4rem;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none !important;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.cf-boto .icona {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+.cf-boto:hover {
+  transform: translateY(-2px);
+}
+
+.cf-boto--or {
+  background: var(--cf-or);
+  color: var(--cf-blau-nit) !important;
+  box-shadow: 0 10px 24px -12px rgba(234, 179, 8, 0.9);
+}
+
+.cf-boto--or:hover {
+  background: var(--cf-or-hover);
+}
+
+.cf-boto--fantasma {
+  border-color: rgba(255, 255, 255, 0.55);
+  color: #fff !important;
+}
+
+.cf-boto--fantasma:hover {
+  background: #fff;
+  border-color: #fff;
+  color: var(--cf-blau-nit) !important;
+}
+
+.cf-boto--fosc {
+  background: var(--cf-blau-nit);
+  color: #fff !important;
+}
+
+.cf-boto--fosc:hover {
+  background: var(--cf-blau-nit-2);
+  box-shadow: var(--cf-ombra-hover);
+}
+
+.cf-boto--contorn {
+  border-color: var(--cf-blau-nit);
+  background: transparent;
+  color: var(--cf-blau-nit) !important;
+}
+
+.cf-boto--contorn:hover {
+  background: var(--cf-blau-nit);
+  color: #fff !important;
+}
+
+.cf-enllac-fletxa {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+  color: var(--cf-blau-nit);
+  text-decoration: none;
+}
+
+.cf-enllac-fletxa .icona,
+.cf-enllac-fletxa span {
+  transition: transform 0.2s;
+}
+
+.cf-enllac-fletxa:hover .icona,
+.cf-enllac-fletxa:hover span,
+.cf-targeta:hover .cf-enllac-fletxa .icona,
+.cf-paperillo:hover .cf-enllac-fletxa .icona {
+  transform: translateX(4px);
+}
+
+.cf-boto-text {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 700;
+  color: var(--cf-blau);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* ---------------------------------------------------------------------
+   7. Portada: hero amb carrusel
+   --------------------------------------------------------------------- */
+.cf-hero {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  height: clamp(460px, 80vh, 760px);
+  height: clamp(460px, calc(100svh - var(--cf-capcalera-h)), 760px);
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--cf-blau-nit);
+  color: #fff;
+}
+
+.cf-hero-diapositives {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.cf-hero-diapositiva {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100% !important;
+  margin: 0;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1.2s ease, transform 8s ease-out;
+}
+
+.cf-hero-diapositiva.activa {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cf-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(11, 21, 56, 0.92) 0%, rgba(11, 21, 56, 0.72) 38%, rgba(11, 21, 56, 0.18) 75%, rgba(11, 21, 56, 0.05) 100%),
+    linear-gradient(0deg, rgba(11, 21, 56, 0.7) 0%, rgba(11, 21, 56, 0) 35%);
+}
+
+.cf-hero-contingut {
+  height: 100%;
+  max-width: var(--cf-contenidor);
+  margin: 0 auto;
+  padding: 0 var(--cf-marge) 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cf-hero .cf-etiqueta {
+  color: var(--cf-or);
+}
+
+.cf-hero-titol {
+  margin: 0;
+  font-size: clamp(2.7rem, 7vw, 5rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.cf-hero-titol span {
+  color: var(--cf-or);
+}
+
+.cf-hero-text {
+  max-width: 36rem;
+  margin: 1.25rem 0 0;
+  font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cf-hero-accions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.cf-hero-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1.5rem;
+  z-index: 3;
+  max-width: var(--cf-contenidor);
+  margin: 0 auto;
+  padding: 0 var(--cf-marge);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.cf-hero-punts {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.cf-hero-punt {
+  width: 28px;
+  height: 20px;
+  padding: 8px 0;
+  border: 0;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.45);
+  background-clip: content-box;
+  cursor: pointer;
+  transition: width 0.3s, background-color 0.3s;
+}
+
+.cf-hero-punt:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.cf-hero-punt.actiu {
+  width: 44px;
+  background-color: var(--cf-or);
+}
+
+.cf-hero-fletxes {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.cf-hero-fletxa {
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  background: rgba(11, 21, 56, 0.35);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.cf-hero-fletxa:hover {
+  background: var(--cf-or);
+  border-color: var(--cf-or);
+  color: var(--cf-blau-nit);
+}
+
+.cf-hero-fletxa .icona {
+  width: 22px;
+  height: 22px;
+}
+
+@media (max-width: 767px) {
+  .cf-hero {
+    height: clamp(520px, calc(100svh - var(--cf-capcalera-h)), 680px);
+  }
+
+  .cf-hero::before {
+    background: linear-gradient(0deg, rgba(11, 21, 56, 0.95) 0%, rgba(11, 21, 56, 0.78) 45%, rgba(11, 21, 56, 0.25) 100%);
+  }
+
+  .cf-hero-contingut {
+    justify-content: flex-end;
+    padding-bottom: 5rem;
+  }
+
+  .cf-hero-fletxes {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   8. Seccions de la portada
+   --------------------------------------------------------------------- */
+.cf-seccio {
+  padding-block: clamp(3.5rem, 8vw, 6rem);
+}
+
+.cf-seccio--suau {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding-inline: var(--cf-marge);
+  background: var(--cf-fons-suau);
+}
+
+.cf-seccio-cap {
+  max-width: 44rem;
+  margin: 0 0 clamp(2rem, 4vw, 3rem);
+}
+
+.cf-seccio-cap--fila {
+  max-width: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+}
+
+.cf-seccio-cap--fila > div {
+  max-width: 44rem;
+}
+
+.cf-seccio-titol {
+  margin: 0;
+  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--cf-tinta);
+}
+
+.cf-seccio-subtitol {
+  margin: 0.75rem 0 0;
+  font-size: 1.08rem;
+  line-height: 1.6;
+  color: var(--cf-suau);
+}
+
+.cf-intro {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .cf-intro {
+    grid-template-columns: 1fr 1.15fr;
+  }
+}
+
+.cf-intro-text > p:not(.cf-etiqueta) {
+  margin: 1.1rem 0 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--cf-text);
+}
+
+.cf-que-fem {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 560px) {
+  .cf-que-fem {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cf-que-fem li {
+  padding: 1.4rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: var(--cf-radi);
+  background: #fff;
+  box-shadow: var(--cf-ombra);
+}
+
+.cf-que-fem-icona {
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.9rem;
+  border-radius: 12px;
+  background: var(--cf-or-suau);
+  font-size: 1.35rem;
+}
+
+.cf-que-fem h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: var(--cf-tinta);
+}
+
+.cf-que-fem p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--cf-suau);
+}
+
+.cf-crida {
+  max-width: var(--cf-contenidor);
+  margin: 0 auto clamp(3.5rem, 8vw, 5.5rem);
+  padding: clamp(2rem, 5vw, 3.5rem);
+  border-radius: 24px;
+  background-color: var(--cf-blau-nit);
+  background-image: var(--cf-orbites), linear-gradient(135deg, var(--cf-blau-nit) 0%, var(--cf-blau-nit-2) 100%);
+  background-repeat: no-repeat;
+  background-position: right -90px center, 0 0;
+  background-size: 340px 340px, auto;
+  color: #fff;
+}
+
+.cf-crida-contingut {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.75rem 3rem;
+}
+
+.cf-crida-contingut > div:first-child {
+  max-width: 40rem;
+}
+
+.cf-crida .cf-etiqueta {
+  color: var(--cf-or);
+}
+
+.cf-crida h2 {
+  margin: 0 0 0.6rem;
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.cf-crida p:not(.cf-etiqueta) {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.cf-crida-accions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* ---------------------------------------------------------------------
+   9. Targetes (posts i activitats)
+   --------------------------------------------------------------------- */
+.cf-graella-posts {
+  display: grid;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr));
+}
+
+@media (min-width: 1024px) {
+  .cf-graella-posts--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.cf-targeta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--cf-linia);
+  border-radius: var(--cf-radi);
+  background: #fff;
+  box-shadow: var(--cf-ombra);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s;
+}
+
+.cf-targeta:hover {
+  transform: translateY(-4px);
+  border-color: #d1d5db;
+  box-shadow: var(--cf-ombra-hover);
+}
+
+.cf-targeta:has(a:focus-visible) {
+  outline: 3px solid var(--cf-or);
+  outline-offset: 3px;
+}
+
+.cf-targeta-imatge {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--cf-fons-suau);
+}
+
+.cf-targeta-imatge img {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.cf-targeta:hover .cf-targeta-imatge img {
+  transform: scale(1.04);
+}
+
+.cf-targeta-imatge--buida {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--cf-blau-nit), var(--cf-blau-nit-2));
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.cf-targeta-imatge--buida .icona {
+  width: 52px;
+  height: 52px;
+}
+
+.cf-targeta-cos {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.35rem 1.5rem 1.5rem;
+}
+
+.cf-targeta-categoria {
+  margin: 0 0 0.45rem;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cf-or-fosc);
+}
+
+.cf-targeta-titol {
+  margin: 0 0 0.6rem;
+  font-size: 1.22rem;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--cf-tinta);
+}
+
+.cf-targeta-titol a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cf-targeta-titol a:focus-visible {
+  outline: none;
+}
+
+/* Tota la targeta és clicable */
+.cf-targeta-titol a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.cf-targeta-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1rem;
+  margin: 0 0 0.9rem;
+  font-size: 0.85rem;
+  color: var(--cf-suau);
+}
+
+.cf-targeta-meta > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.cf-targeta-meta .icona {
+  width: 15px;
+  height: 15px;
+  opacity: 0.8;
+}
+
+.cf-targeta-resum {
+  display: -webkit-box;
+  margin: 0 0 1.2rem;
+  overflow: hidden;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--cf-text);
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.cf-targeta-peu {
+  margin-top: auto;
+  font-size: 0.95rem;
+}
+
+.cf-targeta-data {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+  padding: 0.35rem 0.7rem;
+  border-radius: 8px;
+  background: var(--cf-or);
+  box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.45);
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--cf-blau-nit);
+}
+
+.cf-targeta-data--passat {
+  background: #e5e7eb;
+  color: var(--cf-text);
+}
+
+/* ---------------------------------------------------------------------
+   10. Llistats i laterals
+   --------------------------------------------------------------------- */
+.cf-llistat {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem);
+  padding-bottom: clamp(3.5rem, 8vw, 5.5rem);
+}
+
+@media (min-width: 1024px) {
+  .cf-llistat {
+    grid-template-columns: minmax(0, 1fr) 290px;
+    align-items: start;
+  }
+
+  .cf-lateral--fix {
+    position: sticky;
+    top: calc(var(--cf-capcalera-h) + 1.5rem);
+  }
+}
+
+.cf-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.cf-caixa {
+  padding: 1.5rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: var(--cf-radi);
+  background: var(--cf-fons-suau);
+}
+
+.cf-caixa-titol {
+  margin: 0 0 1rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cf-tinta);
+}
+
+.cf-llista-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cf-llista-categories a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: var(--cf-text);
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.cf-llista-categories a:hover,
+.cf-llista-categories a[aria-current="page"] {
+  background: #fff;
+  color: var(--cf-blau-nit);
+}
+
+.cf-comptador {
+  min-width: 1.9rem;
+  padding: 0.1rem 0.45rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--cf-suau);
+}
+
+.cf-xips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cf-xip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: 999px;
+  background: #fff;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--cf-text);
+  text-decoration: none;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+a.cf-xip:hover,
+button.cf-xip:hover {
+  border-color: var(--cf-blau-nit);
+  color: var(--cf-blau-nit);
+}
+
+button.cf-xip {
+  cursor: pointer;
+}
+
+button.cf-xip[aria-pressed="true"] {
+  border-color: var(--cf-blau-nit);
+  background: var(--cf-blau-nit);
+  color: #fff;
+}
+
+.cf-xips--fosc {
+  margin-bottom: 1.1rem;
+}
+
+.cf-xips--fosc .cf-xip {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.cf-xips--fosc a.cf-xip:hover {
+  border-color: var(--cf-or);
+  background: var(--cf-or);
+  color: var(--cf-blau-nit);
+}
+
+.cf-capcalera-pagina .cf-xips--fosc:last-child {
+  margin: 1.5rem 0 0;
+}
+
+.cf-intro-llistat {
+  max-width: 48rem;
+  margin: 0 0 2rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--cf-text);
+}
+
+.cf-bloc + .cf-bloc {
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+}
+
+.cf-bloc-titol {
+  margin: 0 0 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--cf-tinta);
+}
+
+.cf-buit {
+  padding: clamp(2rem, 5vw, 3rem) 1.5rem;
+  border: 1.5px dashed #d1d5db;
+  border-radius: var(--cf-radi);
+  background: #fff;
+  text-align: center;
+  color: var(--cf-suau);
+}
+
+.cf-buit-icona {
+  width: 60px;
+  height: 60px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  background: var(--cf-or-suau);
+  color: var(--cf-or-fosc);
+}
+
+.cf-buit-icona .icona {
+  width: 28px;
+  height: 28px;
+}
+
+.cf-buit p {
+  max-width: 34rem;
+  margin: 0 auto 1.5rem;
+  line-height: 1.6;
+}
+
+.cf-buit .cf-buit-titol {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--cf-tinta);
+}
+
+.cf-buit-accions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+/* ---------------------------------------------------------------------
+   11. Posts
+   --------------------------------------------------------------------- */
+.cf-post-peu {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--cf-linia);
+}
+
+.cf-post-nav {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .cf-post-nav {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cf-post-nav-seguent {
+    grid-column: 2;
+    text-align: right;
+  }
+}
+
+.cf-post-nav a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: var(--cf-radi);
+  background: #fff;
+  text-decoration: none;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.cf-post-nav a:hover {
+  transform: translateY(-2px);
+  border-color: var(--cf-or);
+  box-shadow: var(--cf-ombra);
+}
+
+.cf-post-nav-etiqueta {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cf-suau);
+}
+
+.cf-post-nav-titol {
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--cf-tinta);
+}
+
+/* ---------------------------------------------------------------------
+   12. Agenda
+   --------------------------------------------------------------------- */
+.cf-llista-events {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cf-event {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 1.75rem);
+  padding: 1.1rem 1.4rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: var(--cf-radi);
+  background: #fff;
+  box-shadow: var(--cf-ombra);
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.cf-event:hover {
+  transform: translateY(-3px);
+  border-color: var(--cf-or);
+  box-shadow: var(--cf-ombra-hover);
+}
+
+.cf-event-data {
+  flex: none;
+  width: 68px;
+  height: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--cf-blau-nit);
+  line-height: 1;
+  color: #fff;
+}
+
+.cf-event-mes {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cf-or);
+}
+
+.cf-event-dia {
+  margin-top: 0.3rem;
+  font-size: 1.75rem;
+  font-weight: 900;
+}
+
+.cf-event-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.cf-event-titol {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--cf-tinta);
+}
+
+.cf-event-detalls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  font-size: 0.88rem;
+  color: var(--cf-suau);
+}
+
+.cf-event-detalls > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.cf-event-resum {
+  font-size: 0.93rem;
+  line-height: 1.5;
+  color: var(--cf-text);
+}
+
+.cf-event-fletxa {
+  flex: none;
+  color: var(--cf-blau-nit);
+}
+
+.cf-event-fletxa .icona {
+  width: 22px;
+  height: 22px;
+}
+
+@media (max-width: 559px) {
+  .cf-event {
+    align-items: flex-start;
+  }
+
+  .cf-event-fletxa {
+    display: none;
+  }
+}
+
+.cf-imatge-destacada {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 0 0 2rem;
+  object-fit: cover;
+  border-radius: var(--cf-radi);
+}
+
+/* ---------------------------------------------------------------------
+   13. Paperillos
+   --------------------------------------------------------------------- */
+.cf-paperillos {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.cf-paperillo {
+  display: block;
+  padding: clamp(1.4rem, 3vw, 2rem);
+  border: 1px solid var(--cf-linia);
+  border-left: 4px solid var(--cf-blau-nit);
+  border-radius: var(--cf-radi);
+  background: #fff;
+  box-shadow: var(--cf-ombra);
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.cf-paperillo:hover {
+  transform: translateY(-3px);
+  border-left-color: var(--cf-or);
+  box-shadow: var(--cf-ombra-hover);
+}
+
+.cf-paperillo-cap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.9rem;
+  margin-bottom: 0.9rem;
+}
+
+.cf-estat {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  background: #e5e7eb;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--cf-tinta);
+}
+
+.cf-paperillo-data {
+  font-size: 0.85rem;
+  color: var(--cf-suau);
+}
+
+.cf-paperillo-titol {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--cf-tinta);
+}
+
+.cf-paperillo-desc {
+  margin: 0 0 1rem;
+  font-size: 1.02rem;
+  line-height: 1.55;
+  color: var(--cf-suau);
+}
+
+.cf-paperillo-autor {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 1.1rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--cf-blau-nit);
+}
+
+.cf-paperillo-peu {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.cf-etiquetes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.cf-etiqueta-petita {
+  padding: 0.15rem 0.6rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: 999px;
+  background: var(--cf-fons-suau);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--cf-suau);
+}
+
+.cf-filtre-estat {
+  margin: 1.1rem 0 0;
+  font-size: 0.85rem;
+  color: var(--cf-suau);
+}
+
+.cf-sense-resultats {
+  margin-top: 1.25rem;
+}
+
+.cf-paper {
+  max-width: 960px;
+}
+
+.cf-resum-cientific {
+  margin-bottom: 2rem;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border: 1px solid var(--cf-linia);
+  border-radius: var(--cf-radi);
+  background: var(--cf-fons-suau);
+}
+
+.cf-resum-cientific h2 {
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cf-or-fosc);
+}
+
+.cf-resum-cientific .cf-prose {
+  line-height: 1.7;
+  text-align: justify;
+}
+
+.cf-accions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0 0 1.5rem;
+}
+
+.cf-visor-pdf {
+  height: min(90vh, 1100px);
+  margin-bottom: 4rem;
+  overflow: hidden;
+  border: 1px solid var(--cf-linia);
+  border-radius: var(--cf-radi);
+  background: var(--cf-fons-suau);
+}
+
+.cf-visor-pdf object {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cf-visor-pdf-alternativa {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  text-align: center;
+  color: var(--cf-suau);
+}
+
+.cf-visor-pdf-alternativa > .icona {
+  width: 48px;
+  height: 48px;
+  color: var(--cf-blau-nit);
+}
+
+@media (max-width: 767px) {
+  .cf-visor-pdf {
+    height: 70vh;
+  }
+}
+
+.cf-discussio {
+  margin-bottom: 1rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--cf-linia);
+}
+
+.cf-discussio h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.5rem;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--cf-tinta);
+}
+
+.cf-discussio h2 .icona {
+  color: var(--cf-or);
+}
+
+.cf-discussio > p {
+  margin: 0 0 1.5rem;
+  color: var(--cf-suau);
+}
+
+.cf-caixa-giscus {
+  padding: clamp(1rem, 3vw, 2rem);
+  border: 1px solid var(--cf-linia);
+  border-radius: var(--cf-radi);
+  background: #fff;
+  box-shadow: var(--cf-ombra);
+}
+
+/* ---------------------------------------------------------------------
+   14. Contacte
+   --------------------------------------------------------------------- */
+.cf-contacte {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  gap: 1rem;
+  margin: 2rem 0 2.5rem;
+}
+
+.cf-contacte a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1.4rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: var(--cf-radi);
+  background: #fff;
+  box-shadow: var(--cf-ombra);
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.cf-contacte a:hover {
+  transform: translateY(-3px);
+  border-color: var(--cf-or);
+  box-shadow: var(--cf-ombra-hover);
+}
+
+.cf-contacte-icona {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.6rem;
+  border-radius: 12px;
+  background: var(--cf-blau-nit);
+  color: #fff;
+}
+
+.cf-contacte-icona .icona {
+  width: 22px;
+  height: 22px;
+}
+
+.cf-contacte-titol {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cf-suau);
+}
+
+.cf-contacte-valor {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--cf-tinta);
+  overflow-wrap: anywhere;
+}
+
+.cf-contacte-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--cf-suau);
+}
+
+/* ---------------------------------------------------------------------
+   15. Accessibilitat i moviment reduït
+   --------------------------------------------------------------------- */
+:where(a, button, summary, input):focus-visible {
+  outline: 3px solid var(--cf-or);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .cf-hero-diapositiva {
+    transform: none !important;
+  }
 }
