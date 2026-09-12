@@ -5,7 +5,7 @@ date: 2026-09-16T13:00:00+02:00
 fi: 2026-09-16T15:00:00+02:00
 time: "13:00 - 15:00h"
 location: "Sala de Graus, Facultat de Ciències"
-categories: ["Club de Física", "Reunions"]
+categories: ["Club de Física", "Trobada"]
 image: ""
 ---
 
