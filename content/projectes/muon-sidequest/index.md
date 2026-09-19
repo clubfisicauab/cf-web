@@ -5,7 +5,7 @@ date: 2026-09-19
 lastmod: 2026-09-19
 tipus: "Joc de taula de divulgació"
 estat: "Prototip v0.1"             # La versió l'actualitza scripts/web_club.py del projecte del joc
-equip: "Club de Física UAB"
+equip: "Regina Calsapeu, David Galan"
 tags: ["Relativitat", "Raigs còsmics", "Divulgació"]
 destacat: true
 schema: "Game"
