@@ -50,9 +50,9 @@ carrusel:
   </div>
 </section>
 
-{{< projecte_destacat >}}
-
 {{< ultims_blogs >}}
+
+{{< projecte_destacat >}}
 
 {{< ultims_paperillos >}}
 
