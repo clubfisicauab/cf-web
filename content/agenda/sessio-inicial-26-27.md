@@ -4,7 +4,7 @@ description: "Primera trobada del curs 26-27, oberta a tothom: què és el Club 
 date: 2026-09-16T13:00:00+02:00
 fi: 2026-09-16T15:00:00+02:00
 time: "13:00 - 15:00h"
-location: "Sala de Graus, Facultat de Ciències"
+location: "Sala de Josep Vendrell, Facultat de Ciències"
 categories: ["Club de Física", "Trobada"]
 image: ""
 ---
@@ -25,6 +25,6 @@ A la sessió explicarem:
 
 A tothom a qui li agradi la física, per poc que sigui. Si ja coneixes el Club, genial. Si no el coneixes, encara millor.
 
-> **ℹ️ Canvi de data:** la sessió estava prevista per al dimecres 9 de setembre, però per raons meteorològiques s'ha ajornat al **dimecres 16 de setembre, de 13 h a 15 h, a la Sala de Graus**.
+> **ℹ️ Canvi de data:** la sessió estava prevista per al dimecres 9 de setembre, però per raons meteorològiques s'ha ajornat al **dimecres 16 de setembre, de 13 h a 15 h, a la Sala de Josep Vendrell**.
 
 T'hi esperem!
