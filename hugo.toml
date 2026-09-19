@@ -147,6 +147,12 @@ titleCaseStyle = "none"
   weight = 30
 
 [[menu.main]]
+  identifier = "projectes"
+  name = "Projectes"
+  url = "/projectes/"
+  weight = 35
+
+[[menu.main]]
   identifier = "paperillos"
   name = "Paperillos"
   url = "/paperillos/"

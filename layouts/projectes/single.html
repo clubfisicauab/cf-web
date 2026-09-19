@@ -1,0 +1,96 @@
+{{ define "main" }}
+
+{{- $portada := .Resources.GetMatch "portada.*" -}}
+{{- $revisat := and (.Lastmod.After .Date) (ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02")) -}}
+
+{{- /* Posts o pàgines relacionades (front matter "relacionats": "/blog/post-16/", ...) */ -}}
+{{- $relacionats := slice -}}
+{{- range .Params.relacionats -}}
+  {{- with site.GetPage (strings.TrimSuffix "/" .) }}{{ $relacionats = $relacionats | append . }}{{ else }}{{ warnf "%s: no trobo la pàgina relacionada %q" $.File.Path . }}{{ end -}}
+{{- end -}}
+
+<article class="cf-projecte">
+  <header class="cf-capcalera-pagina cf-capcalera-projecte">
+    <div class="cf-capcalera-pagina-contingut{{ if $portada }} cf-capcalera-projecte-graella{{ end }}">
+      <div>
+        <a class="cf-tornar" href="{{ "projectes/" | relURL }}">{{ partial "icona.html" "arrow-left" }} Tornar als projectes</a>
+        {{- with .Params.tipus }}
+        <p class="cf-etiqueta">{{ . }}</p>
+        {{- end }}
+        <h1 class="cf-capcalera-pagina-titol">{{ .Title }}</h1>
+        {{- with .Description }}
+        <p class="cf-capcalera-pagina-subtitol">{{ . }}</p>
+        {{- end }}
+        {{ partial "dades-projecte.html" (dict "dades" .Params.dades "fosc" true) }}
+
+        {{- /* Botons: un fitxer de la carpeta del projecte, una ruta relativa (p. ex. "joc/") o una adreça */ -}}
+        {{- with .Params.enllacos }}
+        <div class="cf-accions cf-accions--capcalera">
+          {{- range $i, $e := . }}
+            {{- $url := $e.url }}
+            {{- $fitxer := $.Resources.Get $e.url }}
+            {{- with $fitxer }}{{ $url = .RelPermalink }}{{ else }}{{ if not (or (hasPrefix $url "/") (hasPrefix $url "http")) }}{{ $url = printf "%s%s" $.RelPermalink $url }}{{ end }}{{ end }}
+          <a class="cf-boto {{ cond (eq $i 0) "cf-boto--or" "cf-boto--fantasma" }}" href="{{ $url }}"{{ if hasPrefix $url "http" }} target="_blank" rel="noopener noreferrer"{{ end }}>
+            {{- if $fitxer }}{{ partial "icona.html" "document" }} {{ end }}{{ $e.text }}{{ if not $fitxer }} {{ partial "icona.html" "arrow-right" }}{{ end -}}
+          </a>
+          {{- end }}
+        </div>
+        {{- end }}
+
+        <div class="cf-capcalera-meta">
+          {{- with .Params.estat }}
+          <span class="cf-estat cf-estat--projecte">{{ . }}</span>
+          {{- end }}
+          <span>{{ partial "icona.html" "user" }}{{ .Params.equip | default site.Title }}</span>
+          {{- if $revisat }}
+          <span>{{ partial "icona.html" "calendar" }}Actualitzat el <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod.Format "02/01/2006" }}</time></span>
+          {{- else }}
+          <span>{{ partial "icona.html" "calendar" }}Publicat el <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02/01/2006" }}</time></span>
+          {{- end }}
+        </div>
+      </div>
+
+      {{- with $portada }}
+      <div class="cf-capcalera-projecte-imatge">
+        {{ partial "imatge.html" (dict "recurs" . "amplades" (slice 640 1100) "proporcio" "16:10" "mida" "(min-width: 1024px) 560px, 100vw" "classe" "nozoom" "carrega" "eager" "prioritat" "high" "alt" (printf "Imatge del projecte %s" $.Title)) }}
+      </div>
+      {{- end }}
+    </div>
+  </header>
+
+  <div class="cf-contenidor cf-contenidor--estret cf-pagina-cos">
+    <div class="prose prose-lg max-w-none cf-prose cf-projecte-cos">
+      {{ .Content }}
+    </div>
+
+    {{ partial "baixades-projecte.html" . }}
+
+    {{- with .Params.tags }}
+    <footer class="cf-post-peu">
+      <ul class="cf-xips" aria-label="Temes">
+        {{- range . }}
+        <li><a class="cf-xip" href="{{ printf "/tags/%s/" (. | urlize) | relLangURL }}">#{{ . | lower }}</a></li>
+        {{- end }}
+      </ul>
+    </footer>
+    {{- end }}
+  </div>
+
+  {{- with $relacionats }}
+  <section class="cf-seccio cf-seccio--suau" aria-labelledby="titol-relacionats">
+    <div class="cf-contenidor">
+      <div class="cf-seccio-cap">
+        <p class="cf-etiqueta">Continua llegint</p>
+        <h2 class="cf-seccio-titol" id="titol-relacionats">També et pot interessar</h2>
+      </div>
+      <div class="cf-graella-posts cf-graella-posts--3">
+        {{- range . }}
+        {{ partial "targeta-post.html" (dict "pagina" . "nivell" 3) }}
+        {{- end }}
+      </div>
+    </div>
+  </section>
+  {{- end }}
+</article>
+
+{{ end }}

@@ -1,0 +1,26 @@
+{{- /* Una fitxa amb imatge rodona (dins de {{< fitxes >}}). Ús:
+       {{< fitxa titol="Muó Macarra" imatge="personatges/1-macarra.webp" color="#7B45C0" etiqueta="Bonus de velocitat" nota="Frase curta en cursiva" >}}Text principal{{< /fitxa >}}
+       La imatge és un fitxer de la carpeta de la pàgina. Tots els camps són opcionals excepte el títol. */ -}}
+{{- $imatge := "" -}}
+{{- with .Get "imatge" -}}
+  {{- with $.Page.Resources.Get . }}{{ $imatge = . }}{{ else }}{{ warnf "%s: la fitxa %q no troba la imatge %q" $.Page.File.Path ($.Get "titol") . }}{{ end -}}
+{{- end -}}
+<article class="cf-fitxa"{{ with .Get "color" }} style="--c: {{ . | safeCSS }}"{{ end }}>
+  {{- with $imatge }}
+  <div class="cf-fitxa-imatge">
+    {{ partial "imatge.html" (dict "recurs" . "amplades" (slice 120 240) "mida" "120px" "classe" "nozoom") }}
+  </div>
+  {{- end }}
+  <h3 class="cf-fitxa-titol">{{ .Get "titol" }}</h3>
+  {{- with .Get "nota" }}
+  <p class="cf-fitxa-nota">{{ . }}</p>
+  {{- end }}
+  {{- with .Inner }}
+  <div class="cf-fitxa-caixa">
+    {{- with $.Get "etiqueta" }}
+    <p class="cf-fitxa-etiqueta"><span aria-hidden="true">★</span> {{ . }}</p>
+    {{- end }}
+    <p class="cf-fitxa-text">{{ . | $.Page.RenderString }}</p>
+  </div>
+  {{- end }}
+</article>

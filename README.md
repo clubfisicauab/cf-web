@@ -38,7 +38,7 @@ Per fer proves al teu ordinador, necessites tenir [Hugo instal·lat](https://goh
 
 | Carpeta / fitxer | Què hi ha |
 |---|---|
-| `content/` | Tot el contingut en Markdown: blog, agenda, paperillos i pàgines |
+| `content/` | Tot el contingut en Markdown: blog, agenda, paperillos, projectes i pàgines |
 | `static/images/gallery/` | Fotos dels posts i activitats |
 | `hugo.toml` | Configuració: menú, xarxes, correu, galetes, comentaris... |
 | `layouts/` | Plantilles HTML (disseny de cada tipus de pàgina) |
@@ -84,6 +84,37 @@ hugo new content paperillos/nom-del-paperillo
 3. Indica l'estat amb `icon` i `boxcolor` (`"🚧 No acabat"` / `"#f7837a"` o `"📄 Acabat"` / `"#e2e2e2"`) i actualitza `lastmod` cada vegada que el revisis.
 
 La pàgina del paperillo inclou el visor del PDF, la cita en text i en BibTeX i l'espai de comentaris.
+
+### 🧪 Un projecte
+```bash
+hugo new content projectes/nom-del-projecte
+```
+- Omple `title`, `description`, `tipus` (p. ex. `"Joc de taula"`), `estat` (`"En curs"`, `"Prototip"`, `"Acabat"`...), `equip` i `tags`.
+- Posa a la carpeta una imatge anomenada **`portada.jpg`** (millor en 16:10, p. ex. 1600 × 1000): surt a la targeta, a la capçalera del projecte i quan es comparteix l'enllaç.
+- `dades`: xifres curtes per a la capçalera (p. ex. `valor: "10"`, `text: "minuts"`).
+- `enllacos`: botons de la capçalera. Poden anar a un fitxer de la carpeta, a una ruta de la web o a una adreça externa.
+- `baixades`: fitxers de la carpeta per descarregar (PDF, SVG...), amb un títol i una frase. La mida es calcula sola.
+- `relacionats`: posts del blog relacionats, p. ex. `["/blog/post-23/"]`.
+- `destacat: true` perquè surti a la portada de la web. Si cap projecte ho és, hi surt el més recent.
+- El paràgraf d'abans de `<!--more-->` és el resum que surt a les pàgines d'etiquetes.
+
+Dins del text pots fer servir aquests blocs:
+```
+{{< xifres >}}
+{{< xifra valor="2,2 μs" >}}el que viu un muó en repòs{{< /xifra >}}
+{{< /xifres >}}
+
+{{< passos >}}
+1. **Paga** l'energia que toca.
+2. **Tira** els daus.
+{{< /passos >}}
+
+{{< fitxes >}}
+{{< fitxa titol="Nom" imatge="foto.webp" color="#7B45C0" etiqueta="Etiqueta" nota="Frase en cursiva" >}}Text principal{{< /fitxa >}}
+{{< /fitxes >}}
+```
+
+> **Muon Sidequest** s'actualitza des del projecte del joc: després de `build.py` i `pdf.py`, `python scripts/web_club.py <carpeta de la web>` hi copia els PDF, els retrats, la portada i la web del joc (`static/projectes/muon-sidequest/joc/`), i posa al dia la versió, les xifres i els personatges de `content/projectes/muon-sidequest/index.md`. No editeu a mà aquests fitxers ni el bloc marcat com a generat; la resta del text sí.
 
 ### 📚 Recursos
 Edita `content/recursos.md`. Els recursos van dins d'un bloc `{{< recursos >}} ... {{< /recursos >}}` i cadascun s'escriu així:

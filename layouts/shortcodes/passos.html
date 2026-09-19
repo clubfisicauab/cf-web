@@ -1,0 +1,8 @@
+{{- /* Passos numerats a partir d'una llista en Markdown. Ús:
+       {{< passos >}}
+       1. **Paga** ...
+       2. **Tira** ...
+       {{< /passos >}} */ -}}
+<div class="cf-passos not-prose">
+  {{ .Inner | .Page.RenderString (dict "display" "block") }}
+</div>

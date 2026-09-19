@@ -1,0 +1,35 @@
+{{ define "main" }}
+
+{{ partial "capcalera-pagina.html" (dict "etiqueta" "Fet pel Club" "titol" .Title "subtitol" .Params.subtitol) }}
+
+<div class="cf-contenidor cf-pagina-cos">
+  {{- with .Content }}
+  <div class="cf-intro-llistat">{{ . }}</div>
+  {{- end }}
+
+  {{- with .Pages }}
+  <div class="cf-projectes">
+    {{- range . }}
+    {{ partial "targeta-projecte.html" (dict "pagina" . "nivell" 2) }}
+    {{- end }}
+  </div>
+  {{- else }}
+  <p class="cf-buit">Encara no hi ha cap projecte publicat.</p>
+  {{- end }}
+
+  {{- $club := site.Params.club }}
+  <aside class="cf-proposa" aria-labelledby="titol-proposa">
+    <div>
+      <h2 class="cf-proposa-titol" id="titol-proposa">Tens una idea per a un projecte?</h2>
+      <p>Si en vols proposar un o afegir-te a algun dels que tenim en marxa, escriu-nos.</p>
+    </div>
+    <div class="cf-proposa-accions">
+      {{- with $club.email }}
+      <a class="cf-boto cf-boto--fosc" href="mailto:{{ . }}">{{ partial "icona.html" "mail" }} Escriu-nos</a>
+      {{- end }}
+      <a class="cf-boto cf-boto--contorn" href="{{ "contacte/" | relURL }}">Contacte</a>
+    </div>
+  </aside>
+</div>
+
+{{ end }}

@@ -5,6 +5,12 @@
 {{- $categories := complement (slice "Club de Física") ($p.Params.categories | default (slice)) -}}
 {{- /* Si la imatge no existeix, es mostra un fons per defecte en lloc d'una imatge trencada */ -}}
 {{- $imatge := partial "imatge.html" (dict "src" $p.Params.image "amplades" (slice 480 800) "proporcio" "16:10" "mida" "(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" "classe" "nozoom") -}}
+{{- /* Paperillos i projectes (p. ex. a les pàgines d'etiquetes): la portada de la seva carpeta */ -}}
+{{- if not $imatge -}}
+  {{- with $p.Resources.GetMatch "portada.*" -}}
+    {{- $imatge = partial "imatge.html" (dict "recurs" . "amplades" (slice 480 800) "proporcio" "16:10" "ancora" "Top" "mida" "(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" "classe" "nozoom") -}}
+  {{- end -}}
+{{- end -}}
 <article class="cf-targeta">
   <div class="cf-targeta-imatge{{ if not $imatge }} cf-targeta-imatge--buida{{ end }}">
     {{- with $imatge }}

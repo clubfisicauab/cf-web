@@ -1,11 +1,12 @@
 {{- /* Imatge per compartir una pàgina (xarxes, WhatsApp, Google).
-       Ordre: portada del paperillo > imatge del post/activitat > imatge per defecte (assets/img/compartir.png).
+       Ordre: portada del paperillo o del projecte > imatge del post/activitat > imatge per defecte (assets/img/compartir.png).
        Retorna dict "url" "amplada" "alcada" (buit si no n'hi ha cap). */ -}}
 {{- $imatge := "" -}}
 {{- $ancora := "Center" -}}
 {{- with .Resources.GetMatch "portada.*" -}}
   {{- $imatge = . -}}
-  {{- $ancora = "Top" -}}
+  {{- /* La portada d'un paperillo és la primera pàgina del PDF: se'n mostra la part de dalt */ -}}
+  {{- if eq $.Section "paperillos" }}{{ $ancora = "Top" }}{{ end -}}
 {{- end -}}
 {{- if not $imatge -}}
   {{- with .Params.image -}}

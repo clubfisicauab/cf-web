@@ -221,6 +221,11 @@ body {
   transition: color 0.2s;
 }
 
+/* Cap apartat del menú en dues línies */
+.cf-capcalera .main-menu nav.flex a {
+  white-space: nowrap;
+}
+
 .cf-capcalera .main-menu nav.flex > a::after {
   content: "";
   position: absolute;
@@ -245,7 +250,7 @@ body {
   transform: scaleX(1);
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1179px) {
   .cf-capcalera .main-menu > a.truncate {
     font-size: 1.1rem;
   }
@@ -256,6 +261,13 @@ body {
 
   .cf-capcalera .main-menu nav.flex > a span {
     font-size: 0.95rem;
+  }
+}
+
+/* Just després de passar al menú d'escriptori (853 px) no hi cap el nom del Club: queda el logo */
+@media (min-width: 853px) and (max-width: 919px) {
+  .cf-capcalera .main-menu > a.truncate {
+    display: none;
   }
 }
 
@@ -2817,6 +2829,584 @@ a.cf-paginacio-fletxa:hover {
   padding-top: 0.35rem;
   font-size: 0.8rem;
   color: var(--cf-suau);
+}
+
+/* ---------------------------------------------------------------------
+   27. Projectes
+   --------------------------------------------------------------------- */
+
+/* Xifres curtes del projecte (2–5 jugadors, 10 minuts...) */
+.cf-dades {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0 0 1.1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.cf-dades li {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: 999px;
+  background: var(--cf-fons-suau);
+  font-size: 0.85rem;
+  line-height: 1.3;
+  color: var(--cf-text);
+}
+
+.cf-dades b {
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--cf-blau-nit);
+}
+
+.cf-dades--fosc {
+  margin: 1.5rem 0 0;
+}
+
+.cf-dades--fosc li {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.cf-dades--fosc b {
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.cf-estat--projecte {
+  background: var(--cf-or);
+  color: var(--cf-blau-nit);
+}
+
+/* Llistat de projectes */
+.cf-projectes {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.cf-projecte-targeta {
+  position: relative;
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--cf-linia);
+  border-radius: var(--cf-radi);
+  background: #fff;
+  box-shadow: var(--cf-ombra);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s;
+}
+
+.cf-projecte-targeta:hover {
+  transform: translateY(-4px);
+  border-color: #d1d5db;
+  box-shadow: var(--cf-ombra-hover);
+}
+
+.cf-projecte-targeta:has(a:focus-visible) {
+  outline: 3px solid var(--cf-or);
+  outline-offset: 3px;
+}
+
+.cf-projecte-targeta-imatge {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--cf-blau-nit);
+}
+
+.cf-projecte-targeta-imatge img {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.cf-projecte-targeta:hover .cf-projecte-targeta-imatge img {
+  transform: scale(1.03);
+}
+
+@media (min-width: 768px) {
+  .cf-projecte-targeta {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+
+  /* La imatge omple tota l'alçada de la targeta */
+  .cf-projecte-targeta-imatge {
+    position: relative;
+    aspect-ratio: auto;
+    min-height: 320px;
+  }
+
+  .cf-projecte-targeta-imatge img {
+    position: absolute;
+    inset: 0;
+  }
+}
+
+.cf-projecte-targeta-cos {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+}
+
+.cf-projecte-targeta-titol {
+  margin: 0 0 0.6rem;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--cf-tinta);
+}
+
+.cf-projecte-targeta-titol a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cf-projecte-targeta-titol a:focus-visible {
+  outline: none;
+}
+
+/* Tota la targeta és clicable */
+.cf-projecte-targeta-titol a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.cf-projecte-targeta-desc {
+  margin: 0 0 1.1rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--cf-text);
+}
+
+.cf-projecte-targeta .cf-targeta-meta {
+  margin: 0 0 1.25rem;
+}
+
+.cf-proposa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border: 1px solid #f3e3a4;
+  border-radius: var(--cf-radi);
+  background: var(--cf-or-suau);
+}
+
+.cf-proposa > div:first-child {
+  flex: 1 1 320px;
+}
+
+.cf-proposa-titol {
+  margin: 0 0 0.35rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--cf-tinta);
+}
+
+.cf-proposa p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--cf-text);
+}
+
+.cf-proposa-accions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.cf-proposa-accions .cf-boto {
+  padding: 0.6rem 1.1rem;
+  font-size: 0.9rem;
+}
+
+/* Pàgina d'un projecte: capçalera amb imatge (les òrbites passen a l'esquerra, mig amagades) */
+.cf-capcalera-projecte {
+  background-position: left -260px center, 0 0, 0 0;
+}
+
+.cf-capcalera-projecte .cf-tornar {
+  display: flex;
+  width: fit-content;
+}
+
+.cf-capcalera-projecte-graella {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .cf-capcalera-projecte-graella {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+  }
+}
+
+.cf-capcalera-projecte-imatge img {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  display: block;
+  border-radius: 18px;
+  box-shadow: 0 30px 60px -28px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.cf-accions--capcalera {
+  margin: 1.75rem 0 0;
+}
+
+/* Blocs del contingut: xifres, passos i fitxes */
+.cf-xifres {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+  gap: 0.85rem;
+  margin: 1.75rem 0;
+}
+
+.cf-xifra {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--cf-linia);
+  border-top: 3px solid var(--cf-or);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: var(--cf-ombra);
+}
+
+.cf-xifra-valor {
+  font-size: 1.75rem;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--cf-blau-nit);
+  white-space: nowrap;
+}
+
+.cf-xifra-text {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--cf-suau);
+}
+
+.cf-passos ol {
+  counter-reset: pas;
+  display: grid;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cf-passos li {
+  counter-increment: pas;
+  position: relative;
+  padding: 1rem 1.25rem 1rem 4rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: 14px;
+  background: var(--cf-fons-suau);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--cf-text);
+}
+
+.cf-passos li::before {
+  content: counter(pas);
+  position: absolute;
+  left: 1.1rem;
+  top: 0.9rem;
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--cf-blau-nit);
+  font-weight: 900;
+  color: var(--cf-or);
+}
+
+.cf-passos strong {
+  color: var(--cf-tinta);
+}
+
+/* Tres per fila (dues en tauleta, una en mòbil); l'última fila queda centrada */
+.cf-fitxes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.75rem 0 2rem;
+}
+
+.cf-fitxa {
+  --c: var(--cf-blau-nit);
+  flex: 0 0 calc((100% - 2rem) / 3);
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1.2rem 1.2rem;
+  border: 1px solid var(--cf-linia);
+  border-top: 4px solid var(--c);
+  border-radius: var(--cf-radi);
+  background: #fff;
+  box-shadow: var(--cf-ombra);
+}
+
+.cf-fitxa-imatge {
+  width: 104px;
+  height: 104px;
+  margin: 0 0 0.9rem;
+  padding: 6px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--c) 14%, #fff);
+}
+
+.cf-fitxa-imatge img {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: contain;
+}
+
+.cf-fitxa-titol {
+  margin: 0 0 0.35rem;
+  font-size: 1.2rem;
+  font-weight: 900;
+  line-height: 1.2;
+  color: var(--cf-tinta);
+}
+
+.cf-fitxa-nota {
+  margin: 0 0 1rem;
+  font-size: 0.88rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--cf-suau);
+}
+
+.cf-fitxa-caixa {
+  margin-top: auto;
+  padding: 0.75rem 0.9rem;
+  border-left: 4px solid var(--c);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--c) 9%, #fff);
+}
+
+.cf-fitxa-etiqueta {
+  margin: 0 0 0.25rem;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--c) 70%, #000);
+}
+
+.cf-fitxa-text {
+  margin: 0;
+  font-size: 0.93rem;
+  line-height: 1.5;
+  color: var(--cf-tinta);
+}
+
+@media (max-width: 767px) {
+  .cf-fitxa {
+    flex-basis: calc((100% - 1rem) / 2);
+  }
+}
+
+@media (max-width: 519px) {
+  .cf-fitxa {
+    flex-basis: 100%;
+  }
+}
+
+/* Material per descarregar */
+.cf-baixades {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.cf-baixades-llista {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cf-baixada {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: 14px;
+  background: #fff;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.cf-baixada:hover {
+  transform: translateY(-2px);
+  border-color: var(--cf-or);
+  box-shadow: var(--cf-ombra);
+}
+
+.cf-baixada-icona {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: var(--cf-blau-nit);
+  color: #fff;
+}
+
+.cf-baixada-icona .icona {
+  width: 22px;
+  height: 22px;
+}
+
+.cf-baixada-cos {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.cf-baixada-titol {
+  font-weight: 800;
+  color: var(--cf-tinta);
+}
+
+.cf-baixada-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--cf-suau);
+}
+
+.cf-baixada-mida {
+  flex: none;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--cf-fons-suau);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--cf-suau);
+  white-space: nowrap;
+}
+
+@media (max-width: 559px) {
+  .cf-baixada {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .cf-baixada-mida {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+/* Portada: projecte destacat */
+.cf-destacat {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding: clamp(3.5rem, 8vw, 5.5rem) var(--cf-marge);
+  background-color: var(--cf-blau-nit);
+  background-image: var(--cf-orbites),
+    radial-gradient(circle at 80% 20%, rgba(234, 179, 8, 0.14), transparent 40%),
+    linear-gradient(135deg, var(--cf-blau-nit) 0%, var(--cf-blau-nit-2) 100%);
+  background-repeat: no-repeat;
+  background-position: left -290px center, 0 0, 0 0;
+  background-size: 420px 420px, auto, auto;
+  color: #fff;
+}
+
+.cf-destacat-contingut {
+  max-width: var(--cf-contenidor);
+  margin: 0 auto;
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .cf-destacat-contingut--imatge {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  }
+}
+
+.cf-destacat .cf-etiqueta {
+  color: var(--cf-or);
+}
+
+.cf-destacat-titol {
+  margin: 0;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.cf-destacat-desc {
+  max-width: 34rem;
+  margin: 1rem 0 0;
+  font-size: clamp(1.02rem, 1.5vw, 1.15rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.cf-destacat-accions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.cf-destacat-imatge {
+  display: block;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.cf-destacat-imatge:hover {
+  transform: translateY(-4px);
+}
+
+.cf-destacat-imatge img {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  display: block;
+}
+
+@media (max-width: 959px) {
+  .cf-destacat-imatge {
+    order: -1;
+  }
 }
 
 /* ---------------------------------------------------------------------

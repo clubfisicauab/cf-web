@@ -1,0 +1,1173 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Muon Sidequest · Club de Física UAB</title>
+<meta name="description" content="Joc de taula de divulgació sobre els muons dels raigs còsmics: regles, tauler, fitxes i preguntes.">
+<link rel="canonical" href="https://clubdefisicauab.cat/projectes/muon-sidequest/joc/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Club de Física UAB">
+<meta property="og:title" content="Muon Sidequest">
+<meta property="og:description" content="Joc de taula de divulgació sobre els muons dels raigs còsmics: regles, tauler, fitxes i preguntes.">
+<meta property="og:url" content="https://clubdefisicauab.cat/projectes/muon-sidequest/joc/">
+<meta property="og:image" content="https://clubdefisicauab.cat/projectes/muon-sidequest/portada.jpg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="1000">
+<meta property="og:locale" content="ca_ES">
+<meta name="twitter:card" content="summary_large_image">
+<!--
+  NO EDITEU web/index.html: es genera amb `python scripts/build.py`.
+  Editeu aquesta plantilla, docs/regles.md o els fitxers de data/.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Lexend:wght@300..700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --fons: #F6F2FB;
+    --fons-2: #EFE8F8;
+    --tinta: #241634;
+    --suau: #65557C;
+    --linia: #DDD1EC;
+    --superficie: #FFFFFF;
+    --violeta: #7438B3;
+    --violeta-fort: #5B2A93;
+    --lila: #D6B8F0;
+    --or: #F2C94C;
+    --cel: #170B29;
+    --paper: #FFFFFF;
+    --paper-tinta: #241634;
+    --ombra: 0 1px 2px rgba(36, 22, 52, .06), 0 8px 24px -12px rgba(36, 22, 52, .18);
+    --display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+    --text: "Lexend", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --fons: #120A1F;
+      --fons-2: #1A1029;
+      --tinta: #EEE6F8;
+      --suau: #B4A5CA;
+      --linia: #342549;
+      --superficie: #1C1230;
+      --violeta: #C49BF2;
+      --violeta-fort: #D9BCF8;
+      --lila: #4B3170;
+      --ombra: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 28px -14px rgba(0, 0, 0, .6);
+    }
+  }
+  :root[data-theme="dark"] {
+    --fons: #120A1F;
+    --fons-2: #1A1029;
+    --tinta: #EEE6F8;
+    --suau: #B4A5CA;
+    --linia: #342549;
+    --superficie: #1C1230;
+    --violeta: #C49BF2;
+    --violeta-fort: #D9BCF8;
+    --lila: #4B3170;
+    --ombra: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 28px -14px rgba(0, 0, 0, .6);
+  }
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-padding-top: 72px; scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    background: var(--fons);
+    color: var(--tinta);
+    font-family: var(--text);
+    font-size: 17px;
+    font-weight: 350;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  img, svg { max-width: 100%; }
+  a { color: var(--violeta); text-underline-offset: 3px; }
+  :focus-visible { outline: 3px solid var(--violeta); outline-offset: 3px; border-radius: 4px; }
+
+  /* ---------- Portada: el cel a 20 km ---------- */
+  .portada {
+    position: relative;
+    overflow: hidden;
+    min-height: 88vh;
+    min-height: 88svh;
+    background:
+      radial-gradient(120% 80% at 78% 0%, #3A1F66 0%, rgba(58, 31, 102, 0) 60%),
+      var(--cel);
+    color: #F1E9FA;
+    display: grid;
+    align-content: end;
+    padding: calc(clamp(28px, 6vw, 80px) + env(safe-area-inset-top, 0px)) clamp(20px, 6vw, 80px) clamp(36px, 6vw, 72px);
+  }
+  .pluja { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .pluja line { stroke: #B58BE8; stroke-linecap: round; }
+  .pluja circle { fill: var(--or); }
+  @media (prefers-reduced-motion: no-preference) {
+    .pluja line { stroke-dasharray: var(--l); stroke-dashoffset: var(--l); animation: caure 2.4s cubic-bezier(.3,.6,.3,1) forwards; animation-delay: var(--d); }
+    @keyframes caure { to { stroke-dashoffset: 0; } }
+  }
+  .portada-contingut { position: relative; max-width: 1040px; width: 100%; margin: 0 auto; }
+  .portada-etiqueta {
+    display: inline-flex; align-items: center; gap: 8px; margin: 0 0 22px;
+    font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #CDB6EE;
+  }
+  .portada-etiqueta::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--or); box-shadow: 0 0 0 4px rgba(242, 201, 76, .2); }
+  .portada h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-variation-settings: "wdth" 75, "opsz" 96;
+    font-size: clamp(64px, 15vw, 188px);
+    line-height: .84;
+    letter-spacing: -0.015em;
+    margin: 0 0 28px;
+  }
+  .portada h1 span { display: block; }
+  .portada h1 span + span { color: #C9A3F5; }
+  .lema { font-size: clamp(20px, 2.6vw, 27px); line-height: 1.35; max-width: 30ch; margin: 0 0 26px; }
+  .xips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0 0 32px; }
+  .xips li {
+    display: inline-flex; align-items: baseline; gap: 6px;
+    padding: 7px 14px; border-radius: 999px;
+    background: rgba(255, 255, 255, .07); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16);
+    font-size: 15px; color: #DCCDF1;
+  }
+  .xips b { font-family: var(--display); font-weight: 800; font-size: 18px; color: #fff; }
+  .accions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .boto {
+    display: inline-flex; align-items: center; gap: 10px; min-height: 48px;
+    padding: 0 22px; border-radius: 999px; text-decoration: none; font-weight: 700;
+    transition: transform .15s ease, background-color .15s ease;
+  }
+  .boto:hover { transform: translateY(-1px); }
+  .boto-principal { background: var(--or); color: #241634; }
+  .boto-principal:hover { background: #F7D873; }
+  .boto-secundari { color: #F1E9FA; box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .28); }
+  .boto-secundari:hover { background: rgba(255, 255, 255, .08); }
+
+  /* ---------- Barra de navegació ---------- */
+  .barra {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; gap: 18px;
+    padding: 0 clamp(16px, 4vw, 40px); padding-top: env(safe-area-inset-top, 0px);
+    min-height: 58px;
+    background: color-mix(in srgb, var(--fons) 86%, transparent);
+    backdrop-filter: saturate(1.4) blur(12px);
+    -webkit-backdrop-filter: saturate(1.4) blur(12px);
+    border-bottom: 1px solid var(--linia);
+  }
+  .barra-logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--tinta); font-family: var(--display); font-weight: 800; font-size: 18px; white-space: nowrap; }
+  .barra-logo i {
+    width: 30px; height: 30px; border-radius: 50%; background: var(--violeta); color: var(--fons);
+    display: grid; place-items: center; font-style: normal; font-size: 17px; padding-bottom: 2px;
+  }
+  .barra-enllacos { display: flex; gap: 4px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+  .barra-enllacos::-webkit-scrollbar { display: none; }
+  .barra-enllacos a {
+    flex: none; padding: 8px 12px; border-radius: 999px;
+    color: var(--suau); text-decoration: none; font-size: 15px; font-weight: 600;
+  }
+  .barra-enllacos a:hover { color: var(--tinta); background: var(--fons-2); }
+  @media (max-width: 640px) {
+    .barra { gap: 10px; padding-left: 12px; padding-right: 12px; }
+    .barra-logo span { display: none; }
+    .barra-enllacos { gap: 0; }
+    .barra-enllacos a { padding: 8px 6px; font-size: 14px; }
+  }
+
+  /* ---------- Altímetre (només pantalles grans) ---------- */
+  .altimetre {
+    position: fixed; right: 18px; top: 50%; transform: translateY(-50%);
+    height: 56vh; width: 56px; z-index: 5; pointer-events: none;
+    font-family: var(--display); font-size: 12px; color: var(--suau);
+    display: none;
+  }
+  @media (min-width: 1240px) { .altimetre { display: block; } }
+  .altimetre-escala { position: absolute; left: 26px; top: 0; bottom: 0; border-left: 2px solid var(--linia); }
+  .altimetre-marca { position: absolute; left: 0; transform: translateY(-50%); white-space: nowrap; }
+  .altimetre-marca::before { content: ""; position: absolute; left: 20px; top: 50%; width: 12px; border-top: 2px solid var(--linia); }
+  .altimetre-marca span { position: absolute; left: 36px; transform: translateY(-50%); }
+  .altimetre-mu {
+    position: absolute; left: 14px; width: 26px; height: 26px; margin-top: -13px;
+    border-radius: 50%; background: var(--violeta); color: var(--fons);
+    display: grid; place-items: center; font-weight: 800; font-size: 15px;
+  }
+  .altimetre-km { position: absolute; left: -52px; margin-top: -11px; padding: 1px 6px; border-radius: 6px; background: var(--fons); font-weight: 700; color: var(--tinta); font-variant-numeric: tabular-nums; }
+
+  /* ---------- Seccions ---------- */
+  .seccio { max-width: 1040px; margin: 0 auto; padding: clamp(64px, 9vw, 112px) clamp(20px, 5vw, 56px) 0; }
+  .seccio:last-of-type { padding-bottom: clamp(64px, 9vw, 112px); }
+  .prosa { max-width: 66ch; }
+  .kicker {
+    display: flex; align-items: center; gap: 10px; margin: 0 0 14px;
+    font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--violeta);
+  }
+  .kicker b { font-family: var(--display); font-size: 15px; letter-spacing: 0; }
+  .kicker::after { content: ""; flex: 0 0 48px; height: 2px; background: currentColor; opacity: .35; }
+  h2 {
+    font-family: var(--display); font-weight: 800; font-variation-settings: "wdth" 82, "opsz" 72;
+    font-size: clamp(38px, 5.6vw, 64px); line-height: 1; letter-spacing: -0.01em; margin: 0 0 24px;
+  }
+  h3 { font-family: var(--display); font-weight: 700; font-variation-settings: "wdth" 90; font-size: 26px; line-height: 1.15; margin: 44px 0 12px; }
+  .intro { font-size: 21px; color: var(--suau); max-width: 56ch; margin: -6px 0 28px; }
+
+  /* Context: el detector de l'Eix Central */
+  .fets { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 8px 0 28px; }
+  .fet {
+    background: var(--superficie); border: 1px solid var(--linia); border-radius: 20px; box-shadow: var(--ombra);
+    padding: 20px 22px;
+  }
+  .fet-num { display: block; font-family: var(--display); font-weight: 800; font-variation-settings: "wdth" 82; font-size: 34px; line-height: 1; color: var(--violeta); margin-bottom: 12px; }
+  .fet h3 { margin: 0 0 6px; font-size: 20px; }
+  .fet p { margin: 0; font-size: 16px; color: var(--suau); }
+
+  /* Física: la comparativa de distàncies */
+  .comparativa {
+    margin: 32px 0; display: grid; gap: 16px; max-width: 72ch;
+    padding: 22px 24px; border-radius: 20px; background: var(--superficie); box-shadow: var(--ombra); border: 1px solid var(--linia);
+  }
+  .fila-comp { display: grid; grid-template-columns: 11.5em 1fr; align-items: center; gap: 14px; }
+  .fila-comp .nom { font-weight: 700; font-size: 16px; line-height: 1.25; }
+  .fila-comp .nom small { display: block; font-weight: 400; font-size: 13px; color: var(--suau); }
+  .barra-comp { position: relative; height: 30px; }
+  .barra-comp i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 6px; }
+  .barra-comp b { position: absolute; top: 50%; transform: translateY(-50%); font-size: 15px; font-weight: 700; white-space: nowrap; }
+  .terra-marca { position: absolute; top: -8px; bottom: -8px; border-left: 2px dashed var(--suau); }
+  @media (max-width: 560px) { .fila-comp { grid-template-columns: 1fr; gap: 4px; } }
+
+  /* Regles (HTML generat des de docs/regles.md, un <section class="regla"> per apartat) */
+  .regles-cos { max-width: 780px; counter-reset: regla; }
+  .regla {
+    counter-increment: regla;
+    background: var(--superficie); border: 1px solid var(--linia); border-radius: 20px; box-shadow: var(--ombra);
+    padding: 22px clamp(18px, 3.5vw, 32px) 20px; margin: 0 0 16px;
+  }
+  .regla > h3 { display: flex; align-items: center; gap: 12px; margin: 0 0 10px; }
+  .regla > h3::before {
+    content: counter(regla, decimal-leading-zero);
+    font-size: 14px; font-weight: 800; color: var(--violeta);
+    padding: 4px 9px; border-radius: 8px; background: var(--fons-2);
+  }
+  .regla > p:last-child, .regla > ul:last-child, .regla > ol:last-child { margin-bottom: 0; }
+  .regles ol { counter-reset: pas; list-style: none; padding: 0; margin: 16px 0; }
+  .regles ol > li { counter-increment: pas; position: relative; padding-left: 48px; margin: 12px 0; }
+  .regles ol > li::before {
+    content: counter(pas); position: absolute; left: 0; top: -1px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--violeta); color: var(--fons);
+    display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 17px;
+  }
+  .regles ul { padding-left: 1.2em; }
+  .regles li { margin: 6px 0; }
+  .regles strong { font-weight: 700; }
+
+  /* Pista d'energia (fitxes i regles) */
+  .pista { --gap: 3px; }
+  .pista-franges, .pista-caselles { display: grid; grid-template-columns: repeat(var(--n, 13), minmax(0, 1fr)); gap: var(--gap); }
+  .pista-titol { margin: 0 0 4px; font-size: .74em; font-weight: 700; color: #65557C; }
+  .component .pista-titol { color: var(--suau); }
+  .pista-franges { margin-bottom: 4px; }
+  .pista-franja { text-align: center; line-height: 1.1; color: var(--f); white-space: nowrap; }
+  .pista-franja b { display: block; font-family: var(--display); font-size: 1.25em; font-weight: 800; }
+  .pista-franja small { display: block; font-size: .72em; font-weight: 700; }
+  .cel {
+    aspect-ratio: 1; display: grid; place-items: center;
+    border-radius: 5px; background: var(--f); color: #fff;
+    font-weight: 700; font-variant-numeric: tabular-nums; font-size: .82em;
+  }
+  .cel.zero { background: #3A2E48; }
+  .cel.inici { box-shadow: inset 0 0 0 3px #241634; }
+  .pista-inici { display: grid; grid-template-columns: repeat(var(--n, 13), minmax(0, 1fr)); gap: var(--gap); font-size: .68em; font-weight: 700; text-align: center; margin-top: 2px; }
+  .component .pista { font-size: clamp(12px, 3.1vw, 20px); max-width: 640px; margin: 18px 0 8px; }
+  .component .pista-franja { color: var(--tinta); }
+  .component .pista-franja b { color: var(--f); }
+
+  /* Llegenda de caselles */
+  .llegenda { display: grid; margin: 12px 0 8px; }
+  .llegenda-item { display: grid; grid-template-columns: 60px 1fr; gap: 16px; padding: 14px 0; border-top: 1px solid var(--linia); }
+  .llegenda-item:last-child { border-bottom: 1px solid var(--linia); }
+  .llegenda-item svg { width: 60px; height: 60px; }
+  .llegenda-item h4 { font-family: var(--display); font-size: 20px; font-weight: 700; margin: 0 0 2px; }
+  .llegenda-item p { margin: 0; }
+  .llegenda-item .deveritat { color: var(--suau); font-size: 15px; margin-top: 6px; }
+
+  /* Tauler: franja fosca a tota l'amplada */
+  .banda {
+    position: relative; color: #F1E9FA;
+    background: var(--cel);
+    box-shadow: 0 0 0 100vmax var(--cel);
+    clip-path: inset(0 -100vmax);
+    margin-top: clamp(64px, 9vw, 112px);
+    padding-bottom: clamp(56px, 8vw, 96px);
+  }
+  .banda .kicker { color: #C9A3F5; }
+  .banda .intro { color: #C7B8DC; }
+  .banda .nota { color: #B6A6CF; }
+  .tauler-marc { max-width: 780px; margin: 8px auto 0; filter: drop-shadow(0 24px 48px rgba(0, 0, 0, .45)); }
+  .tauler-marc svg { display: block; width: 100%; height: auto; }
+  .nota { color: var(--suau); font-size: 16px; max-width: 66ch; margin: 22px auto 0; text-align: center; }
+
+  /* Fitxes dels muons */
+  .graella-fitxes { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 22px; margin-top: 12px; }
+  @media (max-width: 380px) { .graella-fitxes { grid-template-columns: 1fr; } }
+  .fitxa {
+    --c: #7438B3;
+    background: var(--paper); color: var(--paper-tinta);
+    border: 2.5px solid var(--c); border-radius: 18px; overflow: hidden;
+    display: flex; flex-direction: column; font-size: 16px;
+    box-shadow: var(--ombra);
+  }
+  .fitxa-cap { background: var(--c); color: #fff; display: flex; align-items: center; gap: 14px; padding: 10px 16px 10px 12px; }
+  .fitxa-retrat {
+    flex: none; width: 76px; height: 76px; border-radius: 50%;
+    background: rgba(255,255,255,.2); box-shadow: inset 0 0 0 2px rgba(255,255,255,.45);
+    object-fit: contain; padding: 4px;
+  }
+  .fitxa-mu { display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 38px; line-height: 1; padding-bottom: 6px; }
+  .fitxa-num { font-size: 13px; font-weight: 700; opacity: .85; margin: 0; }
+  .fitxa-cap h3 { margin: 0; font-size: 26px; color: #fff; }
+  .pendent { font-style: italic; opacity: .78; }
+  .fitxa-descripcio { margin: 12px 16px 0; font-size: 14px; line-height: 1.45; font-style: italic; color: #5C4D72; }
+  .fitxa-bonus {
+    margin: 12px 16px 4px; padding: 10px 12px; border-radius: 12px;
+    background: color-mix(in srgb, var(--c) 12%, #fff); border-left: 4px solid var(--c);
+  }
+  .fitxa-bonus h4 { margin: 0 0 3px; font-size: 14px; color: var(--c); }
+  .fitxa-bonus p { margin: 0; font-size: 15px; line-height: 1.4; font-weight: 500; }
+  .fitxa .pista { padding: 8px 16px 6px; font-size: 14px; margin-top: auto; }
+  .fitxa-peu { display: flex; flex-wrap: wrap; gap: 6px 20px; padding: 8px 16px 12px; border-top: 1.5px dashed #DCD0EA; font-size: 14px; font-weight: 700; }
+  .marca { display: inline-flex; align-items: center; gap: 7px; }
+  .marca::before { content: ""; width: 15px; height: 15px; border: 2px solid var(--c); border-radius: 4px; }
+
+  /* Cartes de quiz */
+  .filtres { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; }
+  .filtre {
+    --n: var(--violeta);
+    display: inline-flex; align-items: center; gap: 8px; min-height: 42px; padding: 0 16px;
+    border: 1.5px solid var(--linia); border-radius: 999px; background: var(--superficie); color: var(--tinta);
+    font: inherit; font-size: 15px; font-weight: 600; cursor: pointer;
+  }
+  .filtre i { width: 10px; height: 10px; border-radius: 50%; background: var(--n); }
+  .filtre small { color: var(--suau); font-weight: 400; }
+  .filtre[aria-pressed="true"] { border-color: var(--n); box-shadow: inset 0 0 0 1.5px var(--n); }
+  .graella-quiz { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 18px; }
+  .carta-quiz {
+    --n: #7438B3;
+    background: var(--paper); color: var(--paper-tinta);
+    border: 2.5px solid var(--n); border-radius: 16px; padding: 12px 16px 12px;
+    display: flex; flex-direction: column; min-height: 330px; font-size: 16px;
+    box-shadow: var(--ombra);
+  }
+  .carta-quiz[hidden] { display: none; }
+  .carta-cap { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+  .carta-nivell {
+    display: inline-flex; align-items: center; gap: 7px; padding: 3px 10px 3px 8px; border-radius: 999px;
+    background: var(--n); color: #fff; font-size: 13px; font-weight: 700;
+  }
+  .carta-nivell span { letter-spacing: 2px; font-size: 10px; }
+  .carta-premi { font-family: var(--display); font-weight: 800; font-size: 26px; line-height: 1; color: var(--n); }
+  .carta-premi small { font-family: var(--text); font-size: 11px; font-weight: 700; margin-left: 3px; }
+  .carta-num { font-size: 12px; font-weight: 700; color: #8A7AA3; margin: 0 0 2px; }
+  .carta-quiz .pregunta { font-weight: 700; font-size: 17px; line-height: 1.35; margin: 0 0 12px; }
+  .carta-quiz ol { list-style: none; padding: 0; margin: 0 0 14px; display: grid; gap: 6px; }
+  .carta-quiz ol li { display: grid; grid-template-columns: 26px 1fr; gap: 6px; line-height: 1.3; }
+  .carta-quiz ol li::before { content: attr(data-lletra); font-family: var(--display); font-weight: 800; color: var(--n); }
+  .oberta { margin: 0 0 14px; font-size: 14px; font-style: italic; color: #65557C; }
+  /* La resposta es gira 180°: la vora "de sota" queda a dalt i separa la pregunta de la resposta */
+  .resposta {
+    margin-top: auto; padding-bottom: 10px; border-bottom: 1.5px dashed #CFC2E0;
+    transform: rotate(180deg); font-size: 13px; line-height: 1.35; color: #4F4166;
+  }
+  .resposta b { color: var(--n); }
+  .resposta span { display: block; margin-top: 4px; color: #6F6285; }
+
+  footer.peu {
+    max-width: 1040px; margin: 0 auto; padding: 28px clamp(20px, 5vw, 56px) 48px;
+    color: var(--suau); font-size: 15px; border-top: 1px solid var(--linia);
+    display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between;
+  }
+
+  /* ---------- Impressió (A4) ---------- */
+  @media print {
+    @page { size: A4; margin: 11mm; }
+    :root { padding: 0; --fons: #fff; --tinta: #241634; --suau: #5C4D72; --linia: #D9CCE8; --violeta: #7438B3; --superficie: #fff; --ombra: none; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    html { scroll-behavior: auto; }
+    body { font-size: 10.5pt; line-height: 1.45; background: #fff; }
+    .altimetre, .barra, .pluja, .accions, .xips, .filtres, .portada-etiqueta { display: none !important; }
+    .portada { min-height: 0; background: none; color: var(--violeta); padding: 0 0 6mm; }
+    .portada h1 { font-size: 64pt; margin-bottom: 5mm; }
+    .portada h1 span + span { color: #B07FE3; }
+    .lema { font-size: 15pt; color: var(--tinta); max-width: none; margin-bottom: 0; }
+    .seccio { max-width: none; padding: 0; break-before: page; }
+    .prosa, .comparativa { max-width: none; }
+    #detector { break-before: avoid; padding-top: 4mm; }
+    .fets { grid-template-columns: repeat(3, 1fr); gap: 4mm; margin: 3mm 0; }
+    .fet { padding: 3mm 4mm; border-radius: 3mm; box-shadow: none; break-inside: avoid; }
+    .fet-num { font-size: 18pt; margin-bottom: 1.5mm; }
+    .fet h3 { font-size: 11pt; margin: 0 0 1mm; }
+    .fet p { font-size: 9pt; }
+    .kicker { margin-bottom: 2mm; }
+    h2 { font-size: 28pt; margin-bottom: 4mm; }
+    h3 { font-size: 14pt; margin: 5mm 0 2mm; break-after: avoid; }
+    .intro { font-size: 12pt; margin: 0 0 3mm; }
+    .comparativa { padding: 0; border: 0; margin: 4mm 0; }
+    .regles-cos { max-width: none; }
+    .regla { background: none; border: 0; border-radius: 0; padding: 0; margin: 0 0 3mm; break-inside: avoid; }
+    .regla > h3 { margin: 4mm 0 1.5mm; }
+    .regles ol > li { padding-left: 9mm; margin: 1.5mm 0; }
+    .regles ol > li::before { width: 6mm; height: 6mm; font-size: 10pt; }
+    .component .pista { font-size: 13pt; max-width: 120mm; margin: 3mm 0; }
+    .llegenda { grid-template-columns: 1fr 1fr; column-gap: 8mm; }
+    .llegenda-item { grid-template-columns: 13mm 1fr; gap: 4mm; padding: 2mm 0; break-inside: avoid; }
+    .llegenda-item:nth-last-child(2) { border-bottom: 1px solid var(--linia); }
+    .llegenda-item svg { width: 13mm; height: 13mm; }
+    .llegenda-item h4 { font-size: 12pt; }
+    .llegenda-item .deveritat { font-size: 9.5pt; margin-top: 1mm; }
+    .banda { background: none; box-shadow: none; clip-path: none; color: var(--tinta); margin-top: 0; padding-bottom: 0; }
+    .banda .kicker { color: var(--violeta); }
+    .banda .intro { color: var(--suau); }
+    .tauler-marc { max-width: 188mm; filter: none; }
+    #tauler .nota { display: none; }
+    .graella-fitxes { grid-template-columns: repeat(2, 92mm); gap: 5mm; justify-content: center; }
+    .fitxa { height: 125mm; break-inside: avoid; border-radius: 4mm; box-shadow: none; }
+    .fitxa-cap { padding: 2.5mm 4mm 2.5mm 3mm; gap: 3mm; }
+    .fitxa-retrat { width: 20mm; height: 20mm; padding: 1mm; }
+    .fitxa-num { font-size: 8pt; }
+    .fitxa-cap h3 { font-size: 16pt; }
+    .fitxa-descripcio { margin: 3mm 4mm 0; font-size: 8.5pt; }
+    .fitxa-bonus { margin: 3mm 4mm 1mm; padding: 2.5mm 3mm; border-radius: 3mm; }
+    .fitxa-bonus h4 { font-size: 9pt; }
+    .fitxa-bonus p { font-size: 10pt; }
+    .fitxa .pista { padding: 1.5mm 4mm 1mm; font-size: 9pt; }
+    .fitxa-peu { padding: 2mm 4mm 2.5mm; font-size: 9pt; }
+    .graella-quiz { grid-template-columns: repeat(3, 59mm); gap: 4mm; justify-content: center; }
+    .carta-quiz, .carta-quiz[hidden] { display: flex; height: 88mm; min-height: 0; break-inside: avoid; font-size: 9.5pt; padding: 3mm 3.5mm; border-radius: 4mm; box-shadow: none; }
+    .carta-nivell { font-size: 8pt; }
+    .carta-premi { font-size: 15pt; }
+    .carta-num { font-size: 7.5pt; }
+    .carta-quiz .pregunta { font-size: 10.5pt; margin-bottom: 2.5mm; }
+    .carta-quiz ol { gap: 1mm; margin-bottom: 3mm; }
+    .carta-quiz ol li { grid-template-columns: 4mm 1fr; gap: 1mm; line-height: 1.25; }
+    .oberta { font-size: 8.5pt; }
+    .resposta { font-size: 8pt; }
+    footer.peu { display: none; }
+  }
+
+  /* ---------- Fulls per imprimir (index.html?imprimir=...) ---------- */
+  html.mode-imprimir body > *:not(#imprimir) { display: none !important; }
+  html.mode-imprimir body { background: #fff; color: #241634; font-size: 10pt; line-height: 1.4; }
+  @media screen {
+    html.mode-imprimir body { background: #E6E1EE; padding: 8mm 0; }
+    html.mode-imprimir .full { margin: 0 auto 8mm; box-shadow: 0 4px 24px rgba(36, 22, 52, .18); }
+  }
+  .full {
+    position: relative; width: 210mm; height: 297mm; overflow: hidden; background: #fff;
+    display: grid; place-content: center; break-after: page;
+  }
+  .full:last-child { break-after: auto; }
+  .full-peu { position: absolute; left: 0; right: 0; bottom: 5mm; margin: 0; text-align: center; font-size: 7.5pt; color: #8A7AA3; }
+  .graella-tall { display: grid; }
+  .graella-tall.cartes { grid-template-columns: repeat(3, 63mm); grid-auto-rows: 88mm; }
+  .graella-tall.fitxes { grid-template-columns: repeat(2, 99mm); grid-auto-rows: 137mm; }
+  .tall { position: relative; padding: 2mm; outline: .25mm dashed #B9AECB; outline-offset: -.125mm; }
+  .tall .carta-quiz {
+    height: 100% !important; min-height: 0; box-shadow: none; border-radius: 3mm;
+    padding: 2.6mm 3mm; font-size: 9pt; display: flex !important;
+  }
+  .tall .carta-nivell { font-size: 8pt; }
+  .tall .carta-premi { font-size: 15pt; }
+  .tall .carta-num { font-size: 7.5pt; }
+  .tall .carta-quiz .pregunta { font-size: 10pt; margin-bottom: 2mm; }
+  .tall .carta-quiz ol { gap: 1mm; margin-bottom: 3mm; }
+  .tall .carta-quiz ol li { grid-template-columns: 4mm 1fr; gap: 1mm; line-height: 1.25; }
+  .tall .oberta { font-size: 8.5pt; }
+  .tall .resposta { font-size: 8pt; }
+  .tall .fitxa { height: 100% !important; box-shadow: none; border-radius: 4mm; }
+  .tall .fitxa-cap { padding: 2.5mm 4mm 2.5mm 3mm; gap: 3mm; }
+  .tall .fitxa-retrat { width: 21mm; height: 21mm; padding: 1mm; }
+  .tall .fitxa-num { font-size: 8pt; }
+  .tall .fitxa-cap h3 { font-size: 17pt; }
+  .tall .fitxa-descripcio { margin: 3mm 4mm 0; font-size: 9pt; }
+  .tall .fitxa-bonus { margin: 3mm 4mm 1mm; padding: 2.5mm 3mm; border-radius: 3mm; }
+  .tall .fitxa-bonus h4 { font-size: 9.5pt; }
+  .tall .fitxa-bonus p { font-size: 10.5pt; }
+  .tall .fitxa .pista { padding: 1.5mm 4mm 1mm; font-size: 9pt; }
+  .tall .fitxa-peu { padding: 2mm 4mm 2.5mm; font-size: 9pt; }
+  /* Revers de les cartes: color del nivell fins a la línia de tall */
+  .tall.revers {
+    padding: 0; background: var(--n); color: #fff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5mm; text-align: center;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .revers-punts { font-size: 11pt; letter-spacing: 1.5mm; opacity: .9; }
+  .revers-interrogant {
+    width: 26mm; height: 26mm; border-radius: 50%; display: grid; place-items: center;
+    background: rgba(255, 255, 255, .16); box-shadow: inset 0 0 0 .8mm rgba(255, 255, 255, .5);
+    font-family: var(--display); font-weight: 800; font-size: 44pt; line-height: 1;
+  }
+  .revers-nivell { font-family: var(--display); font-weight: 800; font-size: 20pt; margin-top: 2mm; }
+  .revers-premi { font-weight: 700; font-size: 11pt; }
+  .revers-marca { position: absolute; bottom: 5mm; font-size: 7pt; letter-spacing: .12em; text-transform: uppercase; opacity: .8; }
+  /* Taula dels personatges */
+  .full-taula { place-content: stretch; padding: 14mm 16mm 16mm; }
+  .taula-cap { text-align: center; margin-bottom: 6mm; }
+  .taula-cap p { margin: 0; font-size: 9pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #7438B3; }
+  .taula-cap h1 { margin: 1mm 0 1mm; font-family: var(--display); font-weight: 800; font-variation-settings: "wdth" 82; font-size: 34pt; line-height: 1; }
+  .taula-cap span { font-size: 10.5pt; color: #5C4D72; }
+  .taula-personatges { display: grid; gap: 4mm; }
+  .fila-personatge {
+    display: grid; grid-template-columns: 32mm 1fr; gap: 5mm; align-items: center;
+    padding: 3mm 5mm 3mm 3mm; border: .7mm solid var(--c); border-radius: 5mm;
+    background: color-mix(in srgb, var(--c) 7%, #fff); break-inside: avoid;
+  }
+  .fila-personatge img { width: 32mm; height: 32mm; object-fit: contain; }
+  .fila-personatge h2 { margin: 0 0 1mm; font-family: var(--display); font-weight: 800; font-size: 18pt; color: var(--c); }
+  .fila-descripcio { margin: 0 0 1.5mm; font-size: 9.5pt; font-style: italic; color: #5C4D72; }
+  .fila-bonus { margin: 0; font-size: 11pt; }
+  .fila-bonus b { color: var(--c); }
+</style>
+</head>
+<body>
+
+<div class="altimetre" aria-hidden="true">
+  <div class="altimetre-escala"></div>
+  <div class="altimetre-marca" style="top:0%"><span>20 km</span></div>
+  <div class="altimetre-marca" style="top:25%"><span>15</span></div>
+  <div class="altimetre-marca" style="top:50%"><span>10</span></div>
+  <div class="altimetre-marca" style="top:75%"><span>5</span></div>
+  <div class="altimetre-marca" style="top:100%"><span>0</span></div>
+  <div class="altimetre-mu" style="top:0%">μ</div>
+  <div class="altimetre-km" style="top:0%">20,0</div>
+</div>
+
+<header class="portada" id="inici">
+  <svg class="pluja" aria-hidden="true" preserveAspectRatio="xMidYMin slice" viewBox="0 0 1200 900"></svg>
+  <div class="portada-contingut">
+    <p class="portada-etiqueta">Nit de la Recerca · UAB · joc de taula de divulgació</p>
+    <h1><span>Muon</span><span>Sidequest</span></h1>
+    <p class="lema">Ets un muó que acaba de néixer a 15 km d'altura. Arribaràs a terra abans de desintegrar-te?</p>
+    <ul class="xips" aria-label="Fitxa del joc">
+      <li><b>2–5</b> jugadors</li>
+      <li><b>10</b> minuts</li>
+      <li><b>2</b> daus</li>
+      <li><b id="n-preguntes">–</b> preguntes</li>
+    </ul>
+    <div class="accions">
+      <a class="boto boto-principal" href="#regles">Com es juga</a>
+      <a class="boto boto-secundari" href="#detector">El detector de l'Eix Central</a>
+    </div>
+  </div>
+</header>
+
+<nav class="barra" aria-label="Seccions">
+  <a class="barra-logo" href="#inici"><i aria-hidden="true">μ</i><span>Muon Sidequest</span></a>
+  <div class="barra-enllacos">
+    <a href="#detector">Detector</a>
+    <a href="#fisica">Física</a>
+    <a href="#regles">Regles</a>
+    <a href="#tauler">Tauler</a>
+    <a href="#fitxes">Fitxes</a>
+    <a href="#preguntes">Preguntes</a>
+  </div>
+</nav>
+
+<main>
+  <section class="seccio" id="detector">
+    <p class="kicker"><b>01</b> Nit de la Recerca</p>
+    <h2>Un detector de muons a l'Eix Central</h2>
+    <p class="intro">Per a la Nit de la Recerca hem instal·lat un detector de muons a l'Eix Central de la UAB. Cada vegada que un muó el travessa, el comptador puja. Venen del cel, i no haurien d'arribar-hi.</p>
+    <div class="fets">
+      <article class="fet">
+        <span class="fet-num">15 km</span>
+        <h3>D'on venen?</h3>
+        <p>Protons i altres nuclis que viatgen per l'espai, els raigs còsmics, xoquen amb l'aire a uns 15 km d'altura. Del xoc en surt una pluja de partícules, i entre elles hi ha els muons.</p>
+      </article>
+      <article class="fet">
+        <span class="fet-num">1 / cm² / min</span>
+        <h3>Quants n'arriben?</h3>
+        <p>A nivell del mar, aproximadament un per centímetre quadrat cada minut. Per la teva mà en passen un o dos cada segon, i no te n'adones. El detector els compta.</p>
+      </article>
+      <article class="fet">
+        <span class="fet-num">2,2 μs</span>
+        <h3>No haurien d'arribar</h3>
+        <p>Un muó viu, de mitjana, 2,2 microsegons. Fins i tot a la velocitat de la llum, en aquest temps no faria ni un quilòmetre. Arriben gràcies a la relativitat: t'ho expliquem a sota.</p>
+      </article>
+    </div>
+    <div class="prosa">
+      <p>A <strong>Muon Sidequest</strong> ets un d'aquests muons. Neixes a 15 km d'altura i has d'arribar al detector de l'Eix Central abans de desintegrar-te. Per simplificar, diem que la UAB és a 0 km: de fet és una mica més amunt del nivell del mar, però per als muons la diferència és molt petita.</p>
+      <p>Vine a jugar-hi a la paradeta del <a href="https://clubdefisicauab.cat/">Club de Física de la UAB</a>: una partida dura menys de 10 minuts.</p>
+    </div>
+  </section>
+
+  <section class="seccio" id="fisica">
+    <p class="kicker"><b>02</b> La física</p>
+    <h2>Per què arriben a terra?</h2>
+    <div class="prosa">
+      <p>Quan un raig còsmic xoca amb l'aire a uns 15 km d'altura, produeix una pluja de partícules. Entre elles hi ha els muons: parents pesats de l'electró que viuen, de mitjana, 2,2 microsegons.</p>
+      <p>Encara que anessin a la velocitat de la llum, en aquest temps només recorrerien uns 660 metres. I tot i així, a terra n'arriba aproximadament un per centímetre quadrat cada minut.</p>
+    </div>
+    <div class="comparativa" role="img" aria-label="Sense relativitat, un muó recorre uns 660 metres de mitjana. Fins a terra n'hi ha 15.000. Amb relativitat, un muó típic en recorre uns 20.000.">
+      <div class="fila-comp">
+        <span class="nom">Sense relativitat</span>
+        <div class="barra-comp"><i style="width:3.3%;background:#DD4B3A"></i><b style="left:calc(3.3% + 10px)">660 m</b></div>
+      </div>
+      <div class="fila-comp">
+        <span class="nom">Fins a terra</span>
+        <div class="barra-comp"><i style="width:75%;background:var(--violeta)"></i><b style="left:12px;color:var(--fons)">15.000 m</b></div>
+      </div>
+      <div class="fila-comp">
+        <span class="nom">Amb relativitat<small>un muó típic, γ ≈ 30</small></span>
+        <div class="barra-comp"><i style="width:100%;background:#2E9E73"></i><b style="left:12px;color:#fff">uns 20.000 m</b><span class="terra-marca" style="left:75%" aria-hidden="true"></span></div>
+      </div>
+    </div>
+    <div class="prosa">
+      <p>La clau és la relativitat especial. Vist des de la Terra, el rellotge d'un muó molt energètic va molt més lent: és la dilatació del temps. Un muó típic viu unes 30 vegades més i recorre, de mitjana, uns 20 km: prou per arribar a terra. Vist des del muó, és l'atmosfera la que s'encongeix: és la contracció de l'espai. Són dues maneres d'explicar el mateix.</p>
+      <p>Al joc, com més energia tens, més lent va el teu rellotge i menys et costa cada torn. Hem simulat 20.000 partides: amb relativitat arriben a terra uns 80 muons de cada 100, i sense, només 1 de cada 100.</p>
+    </div>
+  </section>
+
+  <section class="seccio regles" id="regles">
+    <p class="kicker"><b>03</b> Com es juga</p>
+    <h2>Regles</h2>
+    <div class="regles-cos">
+<section class="regla" id="regla-l-objectiu">
+<h3>L'objectiu</h3>
+<p>Ets un muó acabat de néixer a uns 15 km d'altura. Has d'arribar al detector, a terra, abans de desintegrar-te. Guanya qui hi arriba primer, però tothom que hi arriba queda detectat.</p>
+<p>De 2 a 5 jugadors, uns 10 minuts. Necessiteu el tauler, 2 daus, una fitxa de personatge i un marcador d'energia per jugador, i les cartes de quiz en tres piles (fàcils, mitjanes i difícils). Si pot ser, que les preguntes les llegeixi un explainer.</p>
+</section>
+<section class="regla" id="regla-preparacio">
+<h3>Preparació</h3>
+<ol>
+<li>Cada jugador tria un personatge i posa el marcador d'energia a <strong>10</strong>. Cada personatge té un bonus: el diu la seva fitxa.</li>
+<li>Tothom tira un dau i posa la fitxa a la sortida. Comença qui en tregui més (si empateu, torneu a tirar entre vosaltres). Qui tregui un <strong>1</strong> comença primer, però amb <strong>1 d'energia menys</strong> (9).</li>
+</ol>
+</section>
+<section class="regla" id="regla-el-torn">
+<h3>El torn</h3>
+<p>Seguiu en el sentit de les agulles del rellotge.</p>
+<ol>
+<li><strong>Paga</strong> l'energia que marca el color on tens el marcador.</li>
+<li><strong>Tira</strong> els dos daus i avança.</li>
+<li><strong>Resol</strong> la casella on has caigut.</li>
+</ol>
+<p>Si arribes al detector, ja has acabat, encara que et sobrin punts de la tirada.</p>
+</section>
+<section class="regla" id="regla-l-energia">
+<h3>L'energia</h3>
+<div class="component" data-component="barra-energia"></div>
+<p>L'energia va de 0 a 12 i no pot passar d'aquests límits. El cost de cada torn representa el temps que passa per al muó: com més energia té, més lent li va el rellotge (dilatació del temps) i menys paga. El moviment depèn només dels daus, així que la relativitat apareix en un sol lloc i no es compta dues vegades.</p>
+</section>
+<section class="regla" id="regla-ultima-oportunitat">
+<h3>Última oportunitat</h3>
+<p>Si al principi del torn no pots pagar, et desintegres (μ → e + 2 neutrins) i treus la fitxa del tauler. Però un cop per partida tens una última oportunitat: respon una pregunta del nivell que vulguis. Si l'encertes i amb l'energia que guanyes ja pots pagar, pagues i continues.</p>
+</section>
+<section class="regla" id="regla-les-caselles">
+<h3>Les caselles</h3>
+<div class="component" data-component="llegenda-caselles"></div>
+<p>Les caselles on arribes per l'efecte d'una altra casella no s'activen.</p>
+<p><strong>Scattering.</strong> Si caus en una casella on ja hi ha algú (excepte la sortida i el detector), feu pedra, paper o tisores. Qui guanya avança 2 caselles i qui perd en retrocedeix 2. El Muó Michi i el Muó Minyó canvien aquesta regla: mireu-ne la fitxa.</p>
+</section>
+<section class="regla" id="regla-les-preguntes">
+<h3>Les preguntes</h3>
+<p>Hi ha tres piles: <strong>fàcils (+1)</strong>, <strong>mitjanes (+2)</strong> i <strong>difícils (+3)</strong>. Qui cau a la casella tria la dificultat, abans de veure la pregunta. Si l'encertes, guanyes l'energia que marca la carta. Les preguntes sense opcions són obertes: l'explainer té la resposta escrita cap per avall i decideix si val.</p>
+<p><strong>Comodins.</strong> Cada jugador en té un per partida, per fer-lo servir en una pregunta: el de l'expert (un explainer t'ajuda fent-te preguntes, però mai et diu la resposta) o el del públic (preguntes a algú que passi per allà).</p>
+</section>
+<section class="regla" id="regla-el-final">
+<h3>El final</h3>
+<p>Quan algú arriba al detector, acabeu la ronda perquè tothom hagi tirat les mateixes vegades. Si n'hi ha arribat més d'un en aquesta ronda, guanya qui tingui més energia; si encara empateu, pedra, paper o tisores. Després seguiu fins que tothom hagi arribat o s'hagi desintegrat.</p>
+<p>Poseu una alarma als 10 minuts per si de cas: si sona, guanya qui estigui més a prop del detector.</p>
+</section>
+<section class="regla" id="regla-ronda-sense-einstein">
+<h3>Ronda sense Einstein</h3>
+<p>Una demostració d'un minut per abans de començar. Un jugador (o tothom alhora) juga com si la relativitat no existís: paga <strong>−3</strong> cada torn sigui quin sigui el color, les caselles i els bonus no fan res i no hi ha última oportunitat. Només n'arriba a terra 1 de cada 100, més o menys. Sense relativitat, un muó recorreria uns 660 m de mitjana abans de desintegrar-se, i n'ha de fer 15.000.</p>
+</section>
+<section class="regla" id="regla-llicencies-de-joc">
+<h3>Llicències de joc</h3>
+<p>Per ser honestos amb la física, això és el que el joc simplifica:</p>
+<ul>
+<li>Un muó real gairebé no guanya energia pel camí. El camp elèctric d'una tempesta pot accelerar els muons d'una càrrega, però frena els de l'altra; al joc, la tempesta sempre suma. El quiz és llicència de joc.</li>
+<li>El cost per torn barreja en un sol comptador dues coses reals: la pèrdua d'energia per ionització i el pas del temps propi del muó.</li>
+<li>Els personatges i els seus bonus són fantasia: tots els muons són iguals.</li>
+<li>Els muons no xoquen entre ells. L'scattering real és contra els nuclis de l'aire.</li>
+<li>Els muons reals tenen γ entre 20 i 40. Aquí els valors estan escalats perquè la partida duri 10 minuts.</li>
+</ul>
+</section>
+
+    </div>
+  </section>
+
+  <section class="seccio banda" id="tauler">
+    <p class="kicker"><b>04</b> Per imprimir</p>
+    <h2>El tauler</h2>
+    <p class="intro">Una espiral de fora cap a dins: comences a dalt de l'atmosfera, a la cantonada, i baixes fins al detector del centre. Cada casella marca la seva altitud.</p>
+    <div class="tauler-marc" id="tauler-svg"></div>
+    <p class="nota">Pensat per imprimir en quadrat, en A3 o en cartró ploma, i plastificar-lo. Descarrega'l en <a href="../tauler-a3.pdf">A3</a>, <a href="../tauler-a4.pdf">A4</a> o <a href="../tauler.svg">SVG</a>, o mira <a href="../#baixades">tot el material per imprimir</a>.</p>
+  </section>
+
+  <section class="seccio" id="fitxes">
+    <p class="kicker"><b>05</b> Per imprimir</p>
+    <h2>Fitxes dels muons</h2>
+    <p class="intro">Una per jugador. Marqueu l'energia amb un clip o una pinça i les caselles de sota amb un llapis.</p>
+    <div class="graella-fitxes" id="graella-fitxes"></div>
+  </section>
+
+  <section class="seccio" id="preguntes">
+    <p class="kicker"><b>06</b> Per imprimir</p>
+    <h2>Preguntes</h2>
+    <p class="intro">Tres piles: com més difícil, més energia. La resposta està escrita cap per avall, perquè la llegeixi l'explainer.</p>
+    <div class="filtres" id="filtres-quiz" role="group" aria-label="Filtra per nivell"></div>
+    <div class="graella-quiz" id="graella-quiz"></div>
+  </section>
+</main>
+
+<footer class="peu">
+  <span>Muon Sidequest, prototip v0.7. Un joc del <a href="https://clubdefisicauab.cat/">Club de Física de la UAB</a> per a la Nit de la Recerca.</span>
+  <span><a href="../">Sobre el projecte i material per imprimir</a>. Tot és millorable.</span>
+</footer>
+
+<div id="imprimir" hidden></div>
+
+<script id="dades" type="application/json">{"joc": {"versio": "0.7", "nom": "Muon Sidequest", "config": {"jugadors": [2, 5], "durada_objectiu_min": 10, "energia_inicial": 10, "energia_max": 12, "altitud_naixement_km": 15, "detector_lloc": "Eix Central · UAB", "inici": {"tirada_especial": 1, "energia_perduda": 1}, "ultima_oportunitat": {"usos_per_partida": 1}, "comodins_per_jugador": 1, "scattering": {"guanyador_avanca": 2, "perdedor_retrocedeix": 2}, "final": {"acabar_ronda": true, "desempat": "energia"}, "sense_einstein_cost": 3}, "franges": [{"id": "ultra", "nom": "Ultrarelativista", "min": 9, "max": 12, "cost": 1, "color": "#2E9E73"}, {"id": "rel", "nom": "Relativista", "min": 5, "max": 8, "cost": 2, "color": "#E9A92B"}, {"id": "lenta", "nom": "Lenta", "min": 1, "max": 4, "cost": 3, "color": "#DD4B3A"}], "nivells_quiz": [{"id": "facil", "nom": "Fàcil", "premi": 1, "color": "#1F9AA8"}, {"id": "mitja", "nom": "Mitjana", "premi": 2, "color": "#7438B3"}, {"id": "dificil", "nom": "Difícil", "premi": 3, "color": "#C2408F"}], "tipus_caselles": {"buida": {"nom": "Aire", "etiqueta": "", "efecte": "No passa res.", "fisica": "La major part del camí, el muó només travessa aire."}, "quiz": {"nom": "Quiz", "etiqueta": "Tria", "efecte": "Tu tries la dificultat de la pregunta: fàcil (+1), mitjana (+2) o difícil (+3). Si l'encertes, guanyes aquesta energia.", "fisica": "Llicència de joc: el coneixement et dona energia. Un muó real no en guanya pel camí.", "quiz": true}, "tempesta": {"nom": "Tempesta elèctrica", "etiqueta": "+2 energia", "efecte": "El camp elèctric del núvol t'accelera: +2 d'energia (màxim 12).", "fisica": "El camp elèctric d'un núvol de tempesta pot accelerar els muons. De veritat, accelera els d'una càrrega i frena els de l'altra: l'experiment GRAPES-3, a l'Índia, ho va fer servir per mesurar un núvol de 1.300 milions de volts.", "energia": 2}, "colisio": {"nom": "Col·lisió amb N₂", "etiqueta": "−2 energia", "efecte": "−2 d'energia (no baixa de 0).", "fisica": "El muó arrenca electrons de les molècules de l'aire (ionització). Travessant tota l'atmosfera perd uns 2 GeV.", "energia": -2}, "canfranc": {"nom": "Laboratori de Canfranc", "etiqueta": "4 enrere", "efecte": "Retrocedeix 4 caselles.", "fisica": "El Laboratori Subterrani de Canfranc és sota uns 850 m de roca precisament per amagar-se dels muons còsmics.", "avanca": -4}, "detector": {"nom": "Detector", "etiqueta": "Terra", "efecte": "Has arribat a terra: estàs detectat!", "fisica": "A nivell del mar arriba aproximadament un muó per centímetre quadrat cada minut. El detector de l'Eix Central de la UAB els compta."}}, "capes": [{"nom": "Estratosfera", "km": [15, 12]}, {"nom": "Tropopausa, on volen els avions", "km": [12, 9]}, {"nom": "Troposfera", "km": [9, 6]}, {"nom": "Núvols", "km": [6, 3]}, {"nom": "Muntanyes i terra", "km": [3, 0]}], "tauler": ["buida", "quiz", "buida", "colisio", "quiz", "buida", "quiz", "buida", "colisio", "quiz", "buida", "tempesta", "colisio", "tempesta", "buida", "colisio", "tempesta", "quiz", "buida", "tempesta", "quiz", "buida", "tempesta", "colisio", "tempesta", "quiz", "buida", "colisio", "buida", "canfranc", "buida", "detector"], "decoracions": [{"tipus": "avio", "km": 11, "text": "La tripulació dels avions rep més radiació còsmica que la gent a terra."}, {"tipus": "globus", "km": 5, "text": "1912: Victor Hess descobreix els raigs còsmics pujant en globus fins a uns 5 km."}], "personatges": [{"id": 1, "clau": "macarra", "nom": "Muó Macarra", "retrat": "1-macarra.webp", "color": "#7B45C0", "descripcio": "S'ha intentat saltar les normes còsmiques diverses vegades! Té antecedents penals per voler acostar-se massa a la velocitat de la llum.", "bonus": "Bonus de velocitat", "habilitat": "Si quan tires el teu marcador és a la franja verda, avances una casella més del que diuen els daus.", "original": "Sempre et mous una casella més del que t'indica al dau!", "adaptada": true, "retrat_url": "data:image/webp;base64,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"}, {"id": 2, "clau": "malicios", "nom": "Muó Maliciós", "retrat": "2-malicios.webp", "color": "#2E8B57", "descripcio": "És dels dolents! Vol aconseguir el màxim d'energia possible per causar un impacte negatiu a la Terra.", "bonus": "Bonus per avarícia", "habilitat": "Quan els teus daus sumen parell, robes 1 d'energia al rival que tinguis més a prop.", "original": "Li pots robar un 5% d'energia al rival que tinguis més a prop amb un 50% de probabilitats.", "adaptada": true, "retrat_url": "data:image/webp;base64,UklGRrIzAABXRUJQVlA4WAoAAAAQAAAAPwEAPwEAQUxQSO4PAAANCYdtGzkSNOPfcKH/gjfPXwER/Z8Avt/MgswqTJK2uLsvpaQYkJK04t01kBSElKSZeoCUpJEP90CxQT3FwCe33R0PYAbUMM+X5Mamt2EGKhFuA8oVwBpZgNzcEX5mYBEgDkEeB1QCeEflmHeQdMgHSDriE5zxBQVB0jZfQNImX0LStcM3IKWcV3x2BkgpBem+r271zt93lP9mKG7bxtHtP3a/9PwiYgKwfjQzgC0GA/YgQzBgjNvMElgLaE++sg2gNg7af+M80OZQnSRiAibA261NmuS22XaeEZlZPYD8o17/k2QTxAxA/953ANOZEXF+oF7YM91V5feImACV3/8fFvkbiCcIRQA0N+g3AEpwiCcFAXe4APi2ueG3rJXWHZJIWPFEIMxhrW9DBAij4beU1vJfrWidUDkI8dCxTCAJjMsGwGECEP/x/Zq/BQVARF3Th9USB0Q5APGIUWBfoEaPcssIyAoE1lLr5G/A0TKmCRQQsfrILO9AmYlHizJXB69l3TNCVMZqmwGqdAPxG1pruko+PGcJlPRavWnCjWbicaLM6OYFzQCKudK7hRtA3NIoieyeS95bvAKA1irK6TRa8QARcGOjUDMF5kx3uIF4mxSMEjhYgc3XlVKspNxdcICHhkBTJy04p2byQi434h2SLFpjhndfq2ZUV9CNDvCgEHA2OAozVhS6G/G+SQDsRiKvjLxC8EbLPCKkmRkBzZUr2d2I+0iDudE0gzUXjVdm5eFw616A5sopDXfcVRrMmWw2K2rNyFlVOhKNrRMrXrUCvTnuMK3MnA7MUGYhjHw+CGSzTTZf8xoY7rjfNFhT+sivLymkUToAZLNhyn+fC8Md954ErffO568Lqgho55Heumm9fg88OR6ksYFuzy9Vighox9HYBxA/vl/94sTjtDKi+fMXrxlVu41strHq39erXZx4qIJIDWwXVqqkPUZ070T8+L54ceIBy8Q2xlPnypR2F61vLePbj6tfnHjQZYHt46UzVga0qwg3A368Lr848chbI/RcSkL+/LKfzJrFjxl8cuKhE6QMX55LJcK0j0ins9a3uRnx+AWw4evnrGXcRWSzUfM1sBl2ogg0vvz8msb9Q3gfVjG/ZTPuBUAmI39aZpnQzmm9oX68xnDsyzJ4e/nEiMC+LXZeX2Nsxp0B0LZWlgss7hiiVi5uTuxP0j3lW6NS4B4hmmfkdQ4ndilJuD9/WkGrXYLWmuYUsWNpW6vfr3KltD+E3iqJXUt2KJ8/51ol7g7WDN9s34AAW8M/EMisPSEXlBGN3DkAYY7anixiR5BGLKFI7GFS7WnzCOxHG1vjnIXdTK9UbyS1D5p9dCsZtZ+wAsMaCtwDAmoVNyN2tErWUCT0+IyFWrMZsa8piNiBZo7MAoW9LZjA1hBZj4zso1YkiP3NImx0zUA9MMHJcux2Y7l5hepRyTIWL86dJstZ/vSECEkPiKKEWE7sdapWYWvWiEjp0QiESYU9L0iZ1T58aBkz9WiSMJC7DqAIdtfnTzOb2csjUa1qncIBNHNBP6lMTQ8Esao7oP1HUZD7158iWdLDEEgkcRTlg/WHopbqUbC5vR4ImBH25adaVdADcIDes4TDSFHerLx7LtXdYwfcCOFQkmZov+uISkD3rY1qzXA8KfNurZlW4q4TQGvi8QDpMn79x2uU7plZJ5DCQfXO9fsATHdLHN3stXBQCRP5j2bC3aZoP6sOC0R4Q5N4rwqoT4VDS4wOAAJ4h8iE/lE8NKA1sUpuuL+EOX5ahqNrVE15M94b0oZ/Xng5PkLMsEvD3SW52TVxfBWyX0yA7o3MeklHSPD2JbVwTwWAMhxkwfovymvelSo6cZzV7NME6n4oV/Z2oITMn6ni/ai11DYdJyiT/+Qh3Y2M6n3iSMsHmetusNT6ykNFNoxc0H0QvHVOHSqM3sxRuJPqm18Tx9oGWm/gXUjRu6SDBTO07riDxAzfDAfc0s3uAGFV5jpiMLLugQ/3WjjgpFmU3p+8PfWZh2wbylnvjYT0BOiIeeuMgt4ZFKALh9x8cqTwnolOk3DFQfdyI9639waryKNmxvYj2juizKxI6ag5GkoU3wuFDLEbDrvVpMvwPslmlWtmNx43LFMH+C5E60PXEHHsEyTeJ8toTBOOvQDiXRJUxuLmOGfNW0XMaOQpQ5p3zCXhnDVrUqmcOGUJ9pE/vmE7C4xVb6sIoyYacQ4OR1S9JUIVk5sR56DbsJypGkJkrXDDeTga3hAJCBROxET1zqgWudwgnIlcS92NUUKUd+JUlGbYaBodQlkf0KmAKtpIWAfKW0viZCQ24hrRIBKX18LZKJLibTRA/jymTgdE9iG5FQjmz7NwOpbQXZcRHKlXXzghS2VG8XZQEnFGYC20TtyeuTTrjMgUB6ibkaoYp4SBA3XF7dxey3RGyLpzqnQrDxEd52QaWxVuTPl1veKcLMXmyFsZeEU/KZTmTSXdpnw2OM8JOEi34m0wjZvqpChTa4YbS4WeOilAaz2VtwEEECclsRk0qRudmgYQLt5IBHVWyJYPE24qlBynBejNQ3kTTPqliicF4QZO6hbSBAdxVnqUqYG3gFtW+mmBCI1O3NLQ1pXmp0UFGm8DV2U12VkhAMSN3bKy6awAAek2ZlxXczstrCOkm4BcM3u3k8KHK+atDGuh+TlB0KiEEETq4sRJqXBdXWRUs700QCcFmCTgVXo2Fs+JIoy4tSL0QofOCAC0IiFkxeeGk9LIVSlKC3pxSGcEB3D1whL62QGeEJSJ/1EoTDy7SeeDOB2dtxMtP7sVzwdkqbeiUTBJz06dEEBzq6vgz2Q+m+GEJNSgCuzFJL4YU6eDEBhGMwrPNH31LJyPKfVRF8FfDPwi4YSkig1hGF5Q+dK8zgeV5D0iMH2W/qkZdDpAyUu3g2FAZt9oPB9gwz6xlt7Ass1oPB9gXT1VN1NGPZVTJwRg1sGbAZGXCecJIWo0x+1VgTAazwfQWlPqZsgFhknng6ENrqzbSS1j4oSU9ZKBt4MNzsgTAlS2brqdNXBecUYWrEOlW5GNmcYzArDmK+tWMEjVcEpKZpBuRGv24+o4JVXI0Ut1o21b36+NpwQwm7davJG55mg4J8U0o8dNaJrfufGsqNTWA0XA+f21HGel0q1HAWR3rmvnaUFv+Da5Ed5i0XBe0jHLSBjXvJwZoCDieVJzwXHe0rmuzlMHWe3MUUh0nLiVU4NnDipg544A4r91C+C5kwveeOJURnX3E0eVNBfPDBHUDehNC9KZEYvdbtGZuZxnxvqui98iseZofl7Qrt/yA28A5pS621mhwddvaLilwa7hzrMCF79+u/AmGKa5jDwnpMbX2HBTeseKMpwUM1eNdhuQfn315udE4tu/4cIbqebcPjackv50+fHPZrj5DP9ohM4HYvScHTdXJIYZ7HQgsZa2djsoFj63jvOh8ce/8sI3gFzxybrpbEDv8z+a4y1WVj1L5KlAs6qU8U2g0v5xeQNPBff1vQbxNgXNT2ymE4HofX3vhje7cjz5CvE0cCpLxhoVAHdAZ4GZ5/cYeMtaMZ5a4Cz00a7fm7+xGh/blToHrDlmGN6WgNEonIRmMy5vDFBW72Z2CjAjWsNbr5jWvLkdP0rrqm5vDjWDHJ06fIJqOfEOMvzD0MxjR3NUKGSjIPeGpTp0aN1WcKwACgJJUMdN5s40bGHNZR86so4bJZWZZKsq8aFj5lGjoFg1DIvgw7VKB02myiTxvkNGP2wgQLyzuhY2o+mAUQQgvHdlopsVqMMlQsT7F0SYu6KOFgXgHvxRH5bzYIkiJNxJ0oksHSoKIHgvpJSZAzpKBPBH7mfNaB96ZR0lN88s3FOF+qXHPE7DcuK+gHCySseI6CrjXQFUVQ2Og1yVZri3uiaHg8eHgNbCuD+VYiOow2Odta4E744ogAQoHZzRYhJ3mmDziEND0li4W0DvFrOOjDtepzXcb8JV0IGxjT9+DN4vVZQPOzIkw+yOIVf1D6alY0JTzvSGe65Uf7KY0DHxFj9ms/tGEEaleEDo3dfVwLsGJELWzVTHA3CUEfeeea3x0XPiaJLIld5w/xPqF1tRh6N7fFtuDwCCgZCoY+Hd64fhQeZU717QkWAZ0MCHgf7RI+pIQDOtC48C6BtjigeisNIND5QiZHUQjEBV4aEqllonDwJG0wrysdSSDxxD0VpT4NGWRCOhA0ARUn84oCiW7AAAudIekAhAJnHvUdAKs8fza5GiZNp1IiTiMYssEFbY7SwQIh42BZgKMnGXCRKMxGOXjJU0cH9RtRLDAT40EBnLbOwwsGbQBx5/RaB3cXeJJKxSj09uxaC4twAbfa3C4+fWMKdKRu4nERRbCXvQ2RB5ndx8P1EQKBA7kVCuMut7SVVkE/Yki82qJHEXVU4Md2hHiDYcEQVo96hKVehO7EqaGWKBAHeOEAuXwVzYm3KJUCbNuGeAmDY+rqjd8Uela1b3Du4UKWQXJ0PEPmXGWuzdsU+V10DfnjJK2KliY1wLJml/qFIqjVEi9mtrnTF/XJultDeqVm0fmCHsWKL1jvktWkdQe0KVEqw/ZdSuAUgniK+fHQ5pL0grwsdT4ypi/9KHhV5+8WaqnVAZC2N7ypSwh2iWRfs6vOj1+FQByMfgSuxmAhSeP1s383psqpXJ7ePmr1PaUc8EY9WXL7ahPzIpIpLb9kFLwr5WzbVcL1/oJJOPSZlr+nbpWIX9LawIIV++9AaVHpBqJc37pV+XtMMAKSyF+qURST0YFddSbh8u/TpL2OsiLZnPn83IgulhqELJwFP/oChhx7+8gIioL78QQDPpEUiKSHkb/YKZ2PsvL6iE6eUnNncBpjuniqSCbdsuNqe0+4Bn0KDS568ywAw03a9E5CJ73zraWiUcwpdnwGWon//xmTSaoZD3SLUErWbjcuFaJeFABlQrHE+Dw4FUlqQ7IoGqa5b3zTf6WomjKShXsZx9sHcJkQVI90DFKDVfUcOfNp9TEo6olMgSqvdmw7XQahXBfE8SpFyW1jrRO32tEg6rgEAq5RzuulBT3rKK70KSIaN6hbrT3EebUxKOraBSVoE2zCFuZiWkQDj5RiQZoCus1xW2wXzjCvdVwhEWEIxkq+SFdGxkAmg+qki3P0Lxz9KfKJHQKg7mytaaZL0ZYwmCcJgFJBjJ5jNtNIEAmiNhraEAgOYskEhR4K+kSGysGW0jBZh3q7AoCEdbhCQQK4v667//678B1vVvYGauEMh2GVTSK7MKf7yu0ZsTosw2ZlTPEiAcdBFSKYDNoFxlm4ECBVnbNAVRtlz8I4IVgdZarLKWJQDC0RdTDhA5wU011bpBhDwJhOyvAOpX9DZWJEaWAOFEFAFI1Yo15YNg5sQwX7P139UK/BGMTIjCaSkKKgcB5WSnAPG1pD8iCgDE8+JPi4BUnhCw8GeKvzpXif/3/8sxVlA4IJ4jAABQmwCdASpAAUABPj0cjESiIaSipXNauJAHiU3cLSXAVQdjMaa5Xgv8Z+ZPtt2b/A/jP5Uf0PgF1p5hHPH+0/tf+A/br5e/8z1Ofor/v+4F+mf/B/wf96/Yr6B/8P9sffd/Yv9/+Kvwd/n/+M/aP3kP+D+qvv+/tv+l9g7+Xf3n/2erj7FX97/4vsLfyz+/f/P2XP+V/3f8/8HX7Mf+3/Uf8j///QH/JP6T/3vz//5n0AegB6iP8A/dz3N+xX9j/Fj9e/KD/GflR+7vsf+L/Sv5X+3fuh+6HR/ev+/H8Xzn72fyP9t/5HqF/jP8g/y32/+9RC4550CfkH9s/4fiJa3N2b5N3hT+afsf8AX5g/339Z91L+//9fnI/Lv9P/5f8h8BH8i/qn/Z/wHtN+yj9kvYg/Wn7/ywohR5HRUhGu2I7s9jU+mVUs9lHxfSxiZsMs8FLeYRPQ1Jty6B6H/6QzIJvb4pXwA/KNj2NUrZv025r5be66vx3uljaEVVsLVZQ+n/HVG1WH0HSaZBlSEaejlFoc1Yzfr5O+2NrdnsapAXVWlzairtZEw/nGWRIhIG1SX9ZiL8F8LnCjyOipBadsI9KKXW7xRRX0D9LQdLAN3MPm7xRrtiO1HXjzXgtVluPjkAkWVJcJ1qCAAZywFeCLPOBVs+y/KVqPQvS/tYZUa5dT6vGf/XSlPwotUM3+/zjK3MYd86arMyLTvFg45gsSzllYSaWqZCs0BLgAdCRuzyH8umX/70rI//jLGRG32S7vYLMT0ZxmEgtb4QDVCLx9U6vi/opKkVm6J28mSu26CdrV9OF48EjlpnVvGNEMwkNyNpxuv1wnFtZj2AmrbD+i243nY+jf5vQabt1saxuwmX8r/Qns0szzpmNu/2J4Be02/oGoZ5FlxGZAkekBTrPIKzufj5hYnxbmdnoSZJmiivVyI6fpIM4Dzv0WLEr+51gnNQfnZ94IzBHlud3xjm+S8Amg6wbgCMMIEcC39CCxjos1szTxMr6tXSX7/9i/S34ACA+ZlHtEuOrUUurZ86QI621/uCDGGM9U6EnwR4t1dcj0WmIAQ+alPhst4ods/74byhi9wRBaWTz/phfqqB+8gaCClGiMyqDzN892iRpL1XFVsfZfX8HIGUzxd/PRniNmBTVQOLo9ZbEWct0OIinmxe6/+2IqsLlcsI1neQRGC4Dys4OaJc2OSd5AKU+H0hLatzUxmjJIn5ulO3hhtY2aKiQbYXCM/KZ728Fr7f4uzW/9/BYyTa3puPKe+ZEBmVjgOpdv/Vd4XRBZ1wKibqJjzAg0ew27Qm9uYDCRVZOWSAPPYdP2Bwqxj1L5IzB49ejdh3x+xuEf//z6jfiS8Y0XAsh0KYo5jAYIJqYs3RHEN0McBuMshTOEAZm030B7/txKwe1iIa7mFDdo3SZmw/Vf/lFRaMRrpF1MaTs5A8c0OpuVjtzd38ef52OXCVaMJPeANePMcX/n/+q0auao1aA7mdppkknxrJNOtokaSaHNc4e4ujjeqwfv2bjLgIVs9SUSjsG8sv/zDJd2eoPTVF9fITOJsm1/egyKcTVrPhjOb79pNnfxWhFuMyJrAiKqR0UcueGpNAsqf3X32jb0VKqlmvxL3tFUJdpGefYN00++hL2P1TtO2I7s9jVKb3k29h96O7NAAA/v9ZagAAAADj2WXpwWGGgWoADkksWSw9/aA/zpPdK7vhoYsR4ZcFqCh8m3FKUtqBAYomM3EHaDEnn46oqjFzsY5d5mEY6HgwXI7x2IyA92oJb575EeGlXp2bUPgpSSK5DEOkORfT9hlhfsLKOa/deX+92DQuxamzjniYXe0QXP7VVOvDe96Y95RExtc5KVVVU7GvrTTxo/Z7okFthwlaDfm2yQwbm1nQ0entFiZUpsbyd5Q7hT4BplQKQbM/TnSOy325UA5FXH5EcFJMhqdjHFIVWl4Fj8Z3RcTXoB5xkYaROXDYfLtamBWAiR54//jePWgwYcCxy5+I9QfuEVJEFqB92fHQpxCfBtlEJuwv59j9cyLDKaB77YAQxnJ3WU/i0K16EvBQG7jO+ZrilvdUFkLIn0GFaREtpuk7vWSHX6Q9VpIRdVAWwAR888MOQm8LouaEJSKStDxwOqsHjgH/5vcke9wDfgUuLzJo3B9znJOosiQV3WHKui4MSOeudfF9wqPuNKjb/ddYAWuooDDOcOFMD/D6Rm2W/gWu2OLiFoVy4wK304xJD8yA+D+2wUjQx7zOc60ZEc/x1NHNdYK/najUc0TezU9+vKB1X+MXCBRjUkAC63mO1PvWaXQM4AhMkzGBShJ50JedlAkaf6gJK93779BaCe4x/VCfm4tB1ld4bi0UH8DZJ4MJETUedTAHMzQb4H3oN7WKgj9WVFIYLm6nWzCUyWkHSAKqDMBwum9gKcED3953+tmVQNySG1Fn+eRQY7x3DSlLoZXt5uoBAQACcuBso+59XVgEBFolpkfswNa3lMNTv9hu/1q5WBlVWuu/81rJYMGCQb4JR07kr4XKq06+Iw9vHQ62+ZXB419C6eEock2Kya60XSMtidlzfw1ZEZMh815RFdoH+Axe8g/mCRjYJEutxbqCYHa6ZWI9GHVTnuGQ4pIP5ggiE4lOLP6qj2ktxEM/ZfN9i4bhwjHkjiJ2eeRtUge5GPelRd9Bg4RlXYHtNzq1CTKAK8EE2t/BeWzc5RW3bRqH7fNbtX3i8I9W7GQSWWbg1t9wV+BI5JA5yg6rnNYN/rkq6TLpg3CisXxCT5foCj85rEPCUpDNzm2quKtHvR2tOpoRhbRo7BsIeMBq0mrv5O9SWwmE3CZETACtQbThDJ0icYcS2p8tbjfGVAb95SkVb4uz3XXkwK6BaI8TrfjktR3u99m//fwjEmsnH+ITB/Ql8S9onuLOC95O4HwfPgLDH4xKz+X5hvnW1kUw/KPH90kpUGz+Vs0Vpo37hD4lm44+0AOPZW4P8xNMrvcc2AFzEX/PbAA7CBwDH+4beEo4mocvYOEnJbeaRVeIX4mvrrTp818tlKgG9T15GnJ3RlVsEf5zZ9HO/6domCrXMDZrXjG1MQ3uP+gSDNIC57Hgk/TlMVpgXEPENdHwKARc5pB5t7yPJao84Tkqmxmfl5x9aGIRNGJ3hRTpjlJa/6O4XoiaNa1sAASu9Y0RKEQYu/thuRhbWoQ+ioSK4PLqTc4CUo6I/CWw1P7S4xTXGmIJuyYPfcWPFCQVP8tmRRPEdDXGKJVUEs21ibx/QrgS56qit9JQJPG77ANGxMLc5LTcs2F+JGMTfmDL0lyF0DoUHnQKYYQX4nisqfRZHh9KN3Gl2Irfyr1PqD3tGIBP0igYx76oMIDl/u7s9BjyyyC0v+HhaEXzdAjoaZUKT6gHl1CbT2WpQZ/zXdZhQcrzVJ5HA1spCh5SX4Fx937ViY2UlN9xAaMi/j+h3ycWZb9hHF2NwQX9JwAr17fPMJPtr1AvdNtzWcGkdBzViitWMatWJknZwPgzHlB0TRaQrcLbJC62/8O4GgD6r6p71ypf2MVkJeGbe8AAAD3iVsZBFp50aVNVfsSF2+4QHNLlS7+fQBROZYmP/I4LKyiATUI7ENFMSVGG0Z5BWUUU6w68pNSqNWYwZ9E9x4x/Tiq0KaW9kX2UO1zjJrs3GQlNabSe1GeTNfRzZyyegRRfB0yZRAbcTWARW2RyvMms97ATII65sGpj3qUc9emEe3o7md5OJuh6Ba1jvZlIlinhlyIq+bNZEptyoFX12yl7dWZSlP3SC6HdZT0uDi5VJ0Cx36IMEH0xptUYRbWV4ayw1jzhvK/I9pM7a7wdvczSQ7EnG8L+W6SOYD1+WktnM5D0lAgO0NEsgMEoQT7eSCdRvY6vezKUu8f5B/sMCQLYImP4ILiy4X277guTHbCAABph1gmcrdILI9ch6e+rKR6N5usxJ/sdRV+vZvrlHj2egfzizBv4rEsFbYR6xJHuleuZTaUsqnM1pYcIABvOkP76Dhp3HeVZyAf1eoLFc0qFByd6TcveGY/0vXti6nlXB8nflkwrThgsbnFqmIQRHkGXEbJ8FoxD+rLrGCX5WYUNOQUMTK25zhZSFyjLbK1DO48ede58k0Nvfu3cU6kA1xsP9fWFyji3YR0c9tAJjQGPnQcv5b+7wvhJ27HCldc/6TIQ6XeY0PjP/jgllBXtM4kHsEE/cQ5VxxVoytUikXfUg3kBY0+syWjaijby5Cg61efBVDqvv37nv+SHCVywxaWVV2G5gdX8/2X4gMk53u4DCaF070Aoi/gPSSThlMgjc6G023RkA6EU8x0CCYoV4OFUCg2rN1yNhkKpXxEe1HhWLfZcmfER31vYC/y6nMQGm/tDKjr9nUBnoPG6sqmKBQCETYufi2RiZnRokBhWVQ6mbrXhlgjJY6P7rIYyySooNDXTuwEvlZNM+irX2jvXKSaeyRdMujrsyCObDzZtvlTddW512fWymNGZ5XVP40D5A39q25yecQJ6GKHnqHKr9Q/C0JeF0KFVsWLvR1Qg7zyf+/c9J2rtrXbr4CTOGYQooBdL1keJOLoXkwaRFvplR9TCaePYMVLVqUmfwiOUSn/2Zj5/RCbqzZ92J781XZzjhVng6nnUkLx/7m1qycm5mybxZIUwyqwYRw76dLGBCpgRCe2M5EqdqLjr2PW2+o8EOWskLqsSnHXKWBDCR+z8h6RMmOptPnh4RoS9ZznoJxbCwInO83q6/J5t/ohM0IE6993iF0B6Ideun013lKHuANMN3z+kdeJqRt7hck9nbfWhTsZu7G34msOHfVjEP224kMlLPQzFQ0z4/3FuGjHh/0aJxk5PFfmLDuLI3BsWWl1cyCd5a4vIjBoZBtzfQ7gU1sGmnZAU7DiZzQUTQMKjfUQai0aPkT4ITuBfFzvFJMTuJEhUZlYnDY/Uzv2DrOZUxbe/3Q51+II+IGwR6CMkonw23SIyZlLwz7pAet0RE8lq9vJ2YKnH11MAo6nm5x/uvCdiGvUa0SHDF/s8zl5YBg2fVts2qenCRFqcvTtrNPL2Gz4dBEXb1Oq+0spZXQAcFPP57zm/7dEyBZnmRrHQGPODcq/spoSR29csDl6tM94E0Jic1r0qkoyeMOX139e6vkX/fXW/MdSmdWn8LRBiqyv2ULawyQy5GjCIJ+f3reTNcWLnjHXJJGVhNKnlgN2Yquc0YJSXD6+CKfJ9W0XYByqRRYo1ASs/mlOH9sd/rYJKsYXLE3pe5N5alYjqGXioWLGJCtZUXzBh8qLF0M4SOvDRltR9ZHZxivNi+TS4xoqZk5HphQf3nd6UGMrv/J7RiODv/5AetBerYoAhrbInK6Fw3SHP1Ynoy9n/ID1rdWZvfuMpPw7HK+emmZwpwkEx8dKSCmCI3iKdkfPJQ/Ayz29eOEm9cp7Ze97mBXR6dyOiXHBBMx8zGPYoGPKjcAZKbPV9TFAmfr3KWhgADz16yyLbJFfuwaecTICofNIRoPjtvxFBdR2R/ZpeSIRfX7kuFMdMnECw1oT4EQJ9IzfYE+SsnZgFUT5UIHaxsiiVEVkYLmnF6qUGtZLkvTpUW/1Q+r3VDutgZO0fXtzdxe5iolCorgdR1zdVKvM9JwRvbumMCMEFr+fOk2Fff6lDXlRlnqriVENqXyxbvbC2+BIbRyMD1xtIj7mLO58vjsgv1KmlwlsTL5D+hK3AeT0exWxxhr7x0hSqglWcW6jweO9EoFzc0PPiDCQn/RWhRRhMV4jRDFQUeikMm/YrHO+tAfsZCmoRHAHlotf1B2iQw13fUZ0qPUWrQRdw5f8hSnE+H7mCTgFJ5zr28et29OkYT3/JsGBc5P28BxVApmtoNo+aX7A1JPs0yU1UEhKcGhD//uXJjypJvUD8f9Snqxnb2C5SHssTM3OVcOs+FaIzWrpPNZFQD93/UbHiDwumxEcVoQl+OUvro5LXL0aCQUTclR+YzC5K8yWbbOsEGPdtgVjbL4IwOaoP6LzpQFkI6oSbFjGj76/ngtGESTxIB5nOJkOOJLLTFwChXY/dfzt5bu0zmfKycHonYN/D9Wtuue/zNy5xA1fPnEZk1TTHVIGG6GYDEJBwSY0m5t1RwsBZimCaHjUmu7K1ZSyoXdqv4LtnzSc3dEMgfvFqh1aaDINQ33u7RSs9bkxR4zEw30UHU3g8fP5adOrOX77hPczjCJfCrBubDXhcxAZpgoxapNY9SwGQgDVd9egxIB82jzFQVgAwTLYwGDe/xQH/KeOhHnzrOqsUi3/hL0C24ol2L4d9nnU5cYhsPeiN+KsYH43bMKDbmlNsD9KktIvD6GEkpnQrZXazc6bST06lJco/pbOai7t9pTK4sEy10o29FDoeyAe3DOWCPw8BRJGid0o9wlamnsHbLhFVN3ClSY5RMXvErR/89LdBzQk5OY31Ll1pySpowJJeb8LGTlw13Da5WLAaX6Rk0Zpj1pWU0HLA+0mkVzdN6Y/4yylp7b/whZEVaa2hOu3sTS3/7v+JNGhJZ+yO6JBXhrAvfaOZxo2PfPaDW95L8klGe0EXfD6wXUjwlBBqRL7OI+NM2kykrXHUIjX8NwgVUDajFzJULyJqAUZwfONSa4C4yrhBF/aR93zvsu2+KJjBJXebGQXbpcg8hOOg2CNMnja2794eMbKSILleS5e3nMJ+eDzLtkEKFlj5jo/zcRlUD0ExI4ytEDCAnYQBgsbUu4LEsN/zU960+mtaRY+399valWX3iOEmqEgHHIdZlgEC3/JLnTJ5TbuFdGNykGcmJGxoNAGRXN+/H6qVKoU5ykM3ha6zEO0HgBdVlaeo22FG6k+0ikXTLmB/kKr304Nght8FamGXJ02a/WtK7C8xQTtrZ8r0kHeMqLkSQ/EVPA3I+Sq7bxDSPZlqXgmflCjrdcyfZzXTTDUSqhfxpkiP020eGvqJo51boEjnwXT3EDsx0UJyvUouKmha74OOeURbqbYPQXlaT9tvZFExcLkMV1GZ6L8yen9uPYFC7Aw2QsXD5g8SCEuIWabfwJpWYdAMszN+O8/iowDaBxGfgfU186ds3Vm7leeol3rRMBPBV9yvwssaFgevnuLQOKbCBVpNNvf2QfyAdlb+MA8H2J966Fc23Hn0YpLID5iw1IokW+HT/BaVo3YJ0UAtjB8Av4H6Gk72q72xCJrJenAtKsEekM39hsroHESLhNUR62fwwXJmYTT0olxa9OWK6XB0HL4DfhFlRNiMYW8w/CpIT+mfQganA6F62Tc97XHiYvOpcCiJDeHSs7He2sIiuITNWf1+xnGzRUqhVykn/zaaDzB1L1Kj63keuoTHd95xHBJXBOhjU+/7+/ZlCJmsboANXycOvrcxL6FlTIwxwH7hETzbfHOCuKuQkcd1Rvrd0JJL7XVNnDkDxVHYmgf4z8RSfJL7iyRCLPS0us8/tpL5Go9myjR11pDLe9TNLh7CCMndIsu3REbTpfM8Yhqnsa2KIDbHTzR82ZlKgz1pLozo6EpvgseR7lCSyt3ufy1Tc+GAFjWIq53a5BJwrLR8YR+sUvEuy7BeH9u/G9dbjL0HYRt+6Yhd+Iscft8SUwS2kABKRBIuIjSzF8t+1TnpHQ2k/5bVlAZHVhTIWyj8TbFhxnoGbr4tK5E8CYv/gMwdIAK/eRNYWNXDeKIMcSrBNX6xaBUPPK4T/XQ+Ix1SFOz9Jl4gYNKtgQJV0knkK1Al7WkZQdgqIaN4X5mO5DJLADmvJP6Ihiw6xCeEJSNli14mvRWzspCi8ek7Rn+p/josg07zAHZotybnllNpRaLsAj+GM1NNLy6x83pnrNLxGvbyhcceH3IOKPkPzUOX1L6CqG31pMbQa1qfNYoW4QsP2baVCS3NitUyJPbM0yPkYlfum6eB2i+rnMOHxzP49X4tBKZgGYi/87B8A+EENYf0NeXG6klliLiFbLGBSae/HOysJqwIOZwKYDyyF8Zaf3RJ9LmizbqTKGAJS1W3iAL22X8a46S4LUw6yEwnVG7F4bgfAKpXYs0E3XlxCoExA5lxuaPGz1jMZ8Vs0vJM3vs7RNiwfOyycVNTI2ZCZiE9BXRrdNyQX3ctHjfIB3pNsF4BiGgbanINQapksiXD1NlPN9+8SHF4znsq0Fs2l6vdbudIlYqNwABqQhpX4162Fo4gDeRdIdIz3FnPkBZc8ftil5xnrj4NZXZTEnKcSpOLtC3eIXmTZ4ly+c464+yB6H+yomS853pp95j3d9i2bsOPExw0J9kTCVAandv+oNbM2rxyV2AiLjSqeuRJYY+CJqFVcCZtjmXfrv6ZjgqOJG3a++8lBstFdD2CKG/poWLF8qLeH9oIueQf5g3qj8oRC/ay7nkH8dNYlUAtAIOFMFMvt7QnzezCDnHsVINacVqawhhwFcu9VUa02qZcikoPgN4kfhg0z5jSbp1nM8wFPOIwbWut8Mgy7tgG56IDYm04/98DDf+1w3cWZlwSKUdjk1Bni+gkZpjlKr0f6d1ZH/95u33JTXk6BYLDR3VSF1Tc2+2DSITw1YV7pnvLkB/pPcr6Kzn73XRFFvuIEkeD2JLrR3Tye8omX6oV8o5C4L4YqJbYHZLt/BJ8USf7z2AavxBfbCOiRECJ3dHc+GHJZeIl0uEtTFi39VDcT+cu5vTX9l4HACg1h5q8XIB8OhngC+KnDc5HYwW6M+dprBJw75Pof6Xa6jX6/1cD/Vxp/Lcoe6lq0sB6RVs6mWzwgAl5RqK9apsY+4DSSXsclBjNuPZiSB4m3LMJPpXn3lvOQSgAorW3/Umuu1tL3ruuv0BDUKBBAII6HO40J1xXzuecPharobGjEYFzn31k5M/p2+deELOGDye7WcBnFwn6IT1baVL6fKYdfrH06SRjPd1h0NoAJFmKk1KLQKXk6DVFSWqMi/h5hTgfQs5Ikcy1462oXDksjINVTIhXFsOopsBebBNe88H0N5zBeF7IUhjPV3nH+fFZfJ7INnjCOUFOpu2ZzX/4bc2MZk7l633JJhsPXvYWDazMMC7LglcIOW9BYLhKuosrNG+jH/3SlyPAZz8VMobLnQZ/+YuRcEgKyBYqgE1MJb2kzh2Jk2ToxB/nN+Q/tUbf+x/0doJDaPkDlaNsRGdVCdsV+BIdC17RAUo+XAP7CtGZbWOP7GbBshjLah18qyWdnC4bfQdnZj52UW28agemdctfs3l3b7R2tjqz1SvaO2pVzTAYp52vZu/tBvu+1xcZYQ/gxXIwDHzo6JcPCqjc8xUZSHIDbDCgvict0VhEs1dJudaUxkYNnuyVOsEUYcdS34QMxbpacKNk2AXehXK5FD274yOkedNHs6cVy0OEGBfXv4HSeDZMF7pfPbb/67hWIIwxydxGHvH/4xmWoAhPvihGKDybR8kweW7yYgAA+/3S5NxHf9lKVHkmTmY/5iu6IN2YulfY/l/XFKA1/+6kE7sCNmuNIfcr9aLQKv13+OJreo6s52Hhz8EvyYNiBdOLMP0CrPsIpgBh8DkyykuxlYlfNljUSHL4SX/XWRlrj6eezI4oit3Uycx8TPUieH0tv128uTf4uljYCTTsE88/UMzD2BOaBSBbiH8hMcKf4UL5vFtUucm5HLPO2SWPy0X1zGSjKqY08G1Vh5sToEB8pVbXdxDysSY/o101zpfDUL3nc6yl1N54s5Qa2fTdQcR6YGnpOC5Iy0574eMmZoK8eGheOwcI8+lCRVaC4YqDXu9e0YCOnIH15PP8J0nU56G14LLeVw8TF0GrpjzrleHo6QANkMfNNXOjeES9o+v2OcWZSFUqLM+1sYBy/ypCsMO5uXRw2GYKk4JuG5OtmBEHdIsuJ+uAn+pywu50yKG0dHQUD6kfJQ/w6wPM4OFnWKTJtX+RtIUOO/gDWgqwAgs8kDsf+////9yU//ceP//uKu5We6FFUmmQltQjcWuxMNSJSbNRauwsFQA/0db/donJgKCatnXl6jmDpUu6lV+90eTgGPHLuDxVH6zLol9BKMkUmWwWZ0+VajXZudWM1OoMjV0Pvb8L7rVRBtuenCvHp6bRwktSKNJqQLcLwBzhlmz4vgrOYoW5LLTMOFMRv9Ikd/Ar8lLxfwJXXT5sZ1OzvDCCrraaBBUXa0jE4yJqfhdgB2JSGzTMDiLgo5PvYldduOcm2aw1Ebw/pSeSELLx2prsLPFrJH+ZRxueUtG2i92GJVN5HWJmCS3wuoTn7M8Zx98kArvQEtOOemFm/DnBSXu0ABeVuW12aPAfTrzDisCBgtn8WwhR4JNg0LtxpppprL/KaNjImCwNjD3xRML6xzkPqJBj2qyz8Ade1GfQfN3xopCkTfxyNz37IT3t7HcG3Qeu02i4EDMkYYQqLZMxDkd2ClqOD/KyD8UJWaKELgEFW6olDEADEeEnMBIRmlESQCYINcef8NsQ/SiBgnXYFDoQNQtgJEEBVCWRVEquxNsOB2S5C5RYu+bbI13Lb/7NvB6RnD44037cqVeJv4gAVdkWp1Ql8oRsywWjgGJKo89nyUvReN42nG4r6Tosf/xA+xwdFYe0NOgiCFAA6CZ23aqCx0E0rYN5NaAMSCQCl7YdiLZcLyd2hMgTvKs0QdvQdBtj9sKf5wkwjRuyVzbMovBbygB754jXjJRcmHKcFR25E/o7du4y0z9tpVMB29wkl+7dEO5ixycBKJazy0AM/i/NuOxjEa4bCn7bfjHlE+PYC4lh/LQ2i3wojICSRHHrGwKt601kl+GG0nFeYHicBQRF3oULwhXxfXuJNDUq9aRwskuoJM2ARN/qqtckhwFrex5urbGUHTRjE1WYbWOwdcqqV2yGuaaV/NrMqrh99WTmoRfDTlCkMNU011dj20lW1QBHJNAoENlsCqfO+QDu+kxnIIk+ONyciW9hl3eGxA3Ztrkp7ZuXRlPtfO37NjzACE3tsTHOJR61+CYrDIobHmQC1JpVrl7rVe6IdAu9S+SMxsEF2F9pQAiQ1KNCsL+haAjm/tS66BQiQFFfi/TlrKh8bqXWM2WsM4IS4tl7Jdrvt7ZYj/tT7nGj38kyvrOAw/pZjCsm3IcyVHrsVyLHyBW9oIAGEog5HUk9tGpRh1IS6t2I1WzmcMM+NbUEn2Q5xHapD4qWaq6tLX4EJ1feMj4ur9Bfk473IYekSrP3BIhF//YtTlqvaZj8FZ+fFW0p7VWDjDsjNi6o1/eilptXzjcC4QnI5i8Gyajc9cPphwpiDbaB9WGiAtwKYeknn6Y2laxA+Qa+ExPLKuP6h7BR/ZUAZvj9Uvs+CiC8gGu0Wt8gjLlvSUyCxea0ofluoqI4ufoXlkFzz6lKbYxXWL7AfmHTO6mlIs+6iWX+DgkiTLgPogLVrEs5vga34EdG8Wk0deFDgyDrlFffyUX0LkyjG/HBpcKCMdRhqAoMiwG0yrlVGRHkmG56YQFwz2MPADf5I4BP2tkJBt/OILLJCKq9oGVoQTCGLAAAAAbgLMVe6bcaFn6PiZqgTXgMEFeDnhr0iMOY1tQ6TwLrL4JqCL/jGHGHINaaRfcEZ+MFtxcaIV5XqPUsP+/AXRE6+qDHTl2sXwEOJq5+ORZ12SlliZBUJwIjRQRWu7/k460qFGt6hu4grgvfSJRyhdwI4pEvG0vX31iwah1Z3sox1xtgsWd0sqrYbIEYeZVuOsdYYvDPGuVBQHnD9wFycs22TqWVGW6dhlFoans2ZzZTsuOiSQnB+owFonX02+FUewztyEvQIA73rNFE7cQmgc+ZkcSsQw4E/apM76CSUOGwjjz9JuQtEJ8qPFCwpDr7EFjIkH1LuWZGN01CRyTbhoNi8DnHj68OXDJnnGb1+nAvWmNuGCko+9OSepYJZ/0Ne9Mw6HACA1G1tXWbLujY1+7xxN8czCxOJRmAzqh0yqytDcfOdMBvBPhMblRQfVrxQPdHpHsCFcrKtgi1tRlbV6bDCtawEvibz4qnWuROL0eaTMG4hqlD1KTZWLRSEYOhO+jn4Kk1jYYZ8XB9a5BMXFomWvYzC064O1aD53VyVqviHSn4sumFsyMOthmpuT90ZY3dkiX6VHgRDI4f8i4BWFgY0Yxv2OWFCDwWmGg/31YAviZ1t6U4qmMHwSNpR/p1yXmh7goWlEYq3LmetJft7UR7qLIW0zaLv/FBANVMxUsLc9t3zH/mwuBkCegAAAAAAAAAAAAA"}, {"id": 3, "clau": "michi", "nom": "Muó Michi", "retrat": "3-michi.webp", "color": "#CC5A55", "descripcio": "És infinitament adorable. De debò, mira'l. Tots els muons es volen aturar a acariciar-lo!", "bonus": "Bonus de monada", "habilitat": "Si acabes el moviment en una casella veïna d'un rival (just davant o just darrere), feu scattering. Si empateu a pedra, paper o tisores, guanyes tu.", "original": "Generes una situació de scattering amb els teus veïns de casella!", "adaptada": true, "retrat_url": "data:image/webp;base64,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"}, {"id": 4, "clau": "mestre", "nom": "Muó Mestre", "retrat": "4-mestre.webp", "color": "#1E8C9E", "descripcio": "Fa tant de temps que ensenya la relativitat (2 ms!) que respon bé gairebé totes les preguntes. Com que ja té una edat, a vegades la memòria li falla...", "bonus": "Bonus de saviesa", "habilitat": "Quan encertes una pregunta, avances 2 caselles. Si en falles una, tira un dau: amb un 6, guanyes 1 d'energia, sigui quina sigui la pregunta.", "original": "Cada ronda tens un comodí especial, tens un 33% de probabilitat d'encertar la pregunta.", "adaptada": true, "retrat_url": "data:image/webp;base64,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"}, {"id": 5, "clau": "minyo", "nom": "Muó Minyó", "retrat": "5-minyo.webp", "color": "#A2760F", "descripcio": "És simplement feliç. Passa de mals rotllos. No pensa massa les coses, i per això a vegades les jugades li surten millor del que espera...", "bonus": "Bonus del bon rotllo", "habilitat": "Mai fas scattering: quan n'hi hauria amb tu, passes de llarg i avances 1 casella.", "original": "Quan hi hagi una situació de scattering, simplement passa de llarg!", "adaptada": true, "retrat_url": "data:image/webp;base64,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"}]}, "preguntes": [{"id": 1, "nivell": "facil", "pregunta": "A velocitats relativistes, l'espai es dilata o es contrau?", "opcions": ["Es dilata", "Es contrau"], "correcta": 1, "explicacio": "Es contrau: les distàncies en la direcció del moviment s'escurcen. Per al muó, l'atmosfera fa molt menys de 15 km."}, {"id": 2, "nivell": "facil", "pregunta": "A velocitats relativistes, el temps es dilata o es contrau?", "opcions": ["Es dilata", "Es contrau"], "correcta": 0, "explicacio": "Es dilata: un rellotge que es mou molt ràpid va més lent. Per això, vistos des de terra, els muons viuen molt més."}, {"id": 3, "nivell": "facil", "pregunta": "Un muó té més o menys massa que un electró?", "opcions": ["Menys", "Més"], "correcta": 1, "explicacio": "Més: unes 200 vegades. El muó és com un electró pesant i inestable."}, {"id": 4, "nivell": "facil", "pregunta": "Per quantes partícules està format un neutró?", "opcions": ["Per 2 partícules", "Per cap: és indivisible", "Per 3 partícules"], "correcta": 2, "explicacio": "Per tres quarks (un up i dos down), units per gluons. El protó també en té tres, però dos up i un down."}, {"id": 5, "nivell": "facil", "pregunta": "Qui va formular la teoria de la relativitat?", "opcions": ["Isaac Newton", "Albert Einstein", "Marie Curie"], "correcta": 1, "explicacio": "Albert Einstein: la relativitat especial el 1905 i la general el 1915."}, {"id": 6, "nivell": "facil", "pregunta": "Què va més ràpid, la llum o el so?", "opcions": ["La llum", "El so", "Van igual de ràpid"], "correcta": 0, "explicacio": "La llum, gairebé un milió de vegades més. Per això primer veus el llamp i després sents el tro."}, {"id": 7, "nivell": "facil", "pregunta": "Un any llum és una unitat de...", "opcions": ["Temps", "Velocitat", "Distància"], "correcta": 2, "explicacio": "Distància: la que recorre la llum en un any, uns 9,5 bilions de quilòmetres."}, {"id": 8, "nivell": "facil", "pregunta": "On és el CERN, el laboratori de física de partícules més gran del món?", "opcions": ["Entre Suïssa i França", "Als Estats Units", "Al Japó"], "correcta": 0, "explicacio": "A tocar de Ginebra, a la frontera entre Suïssa i França. Espanya n'és un dels estats membres."}, {"id": 9, "nivell": "facil", "pregunta": "Quina força ens manté enganxats a terra?", "opcions": ["La força magnètica", "La gravetat", "La força nuclear"], "correcta": 1, "explicacio": "La gravetat. És la més feble de les quatre forces fonamentals, però és la que mana a l'escala dels planetes i les galàxies."}, {"id": 10, "nivell": "facil", "pregunta": "Com es diuen les partícules que formen la llum?", "opcions": ["Electrons", "Protons", "Fotons"], "correcta": 2, "explicacio": "Fotons. No tenen massa, i per això viatgen a la velocitat de la llum."}, {"id": 11, "nivell": "facil", "pregunta": "Hi ha res que pugui anar més ràpid que la llum en el buit?", "opcions": ["No, és el límit de l'univers", "Sí, un coet prou potent", "Sí, el so dins l'aigua"], "correcta": 0, "explicacio": "No. Els muons dels raigs còsmics solen anar a més del 99,9 % de la velocitat de la llum, però no l'arriben a igualar mai."}, {"id": 12, "nivell": "facil", "pregunta": "Què és un forat negre?", "opcions": ["Un forat a l'espai on no hi ha res", "Un lloc amb tanta gravetat que ni la llum en pot sortir", "Una estrella apagada que ja no fa llum"], "correcta": 1, "explicacio": "Es forma quan molta massa queda concentrada en un espai molt petit. El 2019 se'n va fotografiar un per primera vegada."}, {"id": 13, "nivell": "mitja", "pregunta": "Quin tipus de partícules van a la velocitat de la llum?", "opcions": ["Les més petites", "Les que tenen càrrega elèctrica", "Les que no tenen massa"], "correcta": 2, "explicacio": "Les que no tenen massa, com el fotó. Les que en tenen, com el muó, s'hi poden acostar molt però no l'assoleixen mai."}, {"id": 14, "nivell": "mitja", "pregunta": "Digues les tres lleis de Newton.", "resposta": "1) Inèrcia: sense forces, un cos continua quiet o en línia recta. 2) Força = massa × acceleració. 3) Acció i reacció. Val si en dona la idea.", "explicacio": "Funcionen molt bé fins que t'acostes a la velocitat de la llum. Llavors cal la relativitat."}, {"id": 15, "nivell": "mitja", "pregunta": "Què vol dir la fórmula E = mc²?", "opcions": ["Que la massa és una forma d'energia", "Que l'energia sempre es perd", "Que la llum té massa"], "correcta": 0, "explicacio": "Massa i energia es poden convertir l'una en l'altra. Per això, quan un raig còsmic xoca amb l'aire, neixen partícules noves, com els muons."}, {"id": 16, "nivell": "mitja", "pregunta": "Què és l'antimatèria?", "opcions": ["Matèria que no pesa i sura a l'espai", "Com la matèria, però amb la càrrega contrària", "La matèria que hi ha dins els forats negres"], "correcta": 1, "explicacio": "Cada partícula té una antipartícula: el μ⁺ és l'antipartícula del μ⁻. Quan es troben, s'anihilen i es converteixen en energia."}, {"id": 17, "nivell": "mitja", "pregunta": "Un bessó viatja en una nau gairebé a la velocitat de la llum. Quan torna, com és comparat amb el germà que s'ha quedat a la Terra?", "opcions": ["Més gran", "Igual", "Més jove"], "correcta": 2, "explicacio": "Més jove: per a ell ha passat menys temps. És la paradoxa dels bessons, el mateix efecte que fa que els muons arribin a terra."}, {"id": 18, "nivell": "mitja", "pregunta": "Per què el GPS del mòbil ha de tenir en compte la relativitat?", "opcions": ["Els rellotges dels satèl·lits no van al mateix ritme que els de terra", "Els satèl·lits es mouen més ràpid que la llum", "No cal: el GPS funciona igual sense relativitat"], "correcta": 0, "explicacio": "Si no es corregís, la posició s'equivocaria uns 10 km més cada dia."}, {"id": 19, "nivell": "mitja", "pregunta": "Qui va descobrir els raigs còsmics pujant en globus?", "opcions": ["Albert Einstein", "Victor Hess", "Galileo Galilei"], "correcta": 1, "explicacio": "Victor Hess, el 1912: la radiació augmentava com més amunt pujava. Va rebre el Nobel el 1936."}, {"id": 20, "nivell": "mitja", "pregunta": "Quina partícula es va descobrir al CERN el 2012?", "opcions": ["El bosó de Higgs", "El muó", "L'electró"], "correcta": 0, "explicacio": "El bosó de Higgs, relacionat amb l'origen de la massa. Peter Higgs i François Englert, que l'havien predit, van rebre el Nobel el 2013."}, {"id": 21, "nivell": "mitja", "pregunta": "Com es diu l'accelerador de partícules més gran del món?", "opcions": ["El telescopi Hubble", "L'ITER", "El Gran Col·lisionador d'Hadrons (LHC)"], "correcta": 2, "explicacio": "L'LHC del CERN: un anell de 27 km sota terra on es fan xocar protons gairebé a la velocitat de la llum."}, {"id": 22, "nivell": "mitja", "pregunta": "On es va descobrir el muó?", "opcions": ["En un accelerador del CERN", "Estudiant els raigs còsmics", "En una central nuclear"], "correcta": 1, "explicacio": "Carl Anderson i Seth Neddermeyer el van trobar el 1936 en els raigs còsmics. El CERN encara no existia: es va fundar el 1954."}, {"id": 23, "nivell": "mitja", "pregunta": "Els muons dels raigs còsmics es fan servir per fer una mena de radiografia de...", "opcions": ["Piràmides i volcans", "Ossos trencats", "Dents amb càries"], "correcta": 0, "explicacio": "Travessen la roca, i comptant quants n'arriben es veu què hi ha a dins. El 2017 així es va trobar un gran buit desconegut a la Gran Piràmide de Guiza."}, {"id": 24, "nivell": "mitja", "pregunta": "Per què el cel és blau?", "opcions": ["Perquè reflecteix el color del mar", "Perquè l'aire escampa més la llum blava que la vermella", "Perquè l'aire és de color blau"], "correcta": 1, "explicacio": "Les molècules de l'aire desvien (scattering) sobretot la llum blava. A la posta de sol, la llum travessa més aire i ens arriba més vermella."}, {"id": 25, "nivell": "dificil", "pregunta": "Digues 2 leptons, 2 quarks i 2 bosons.", "resposta": "Leptons: electró, muó, tau, neutrins. Quarks: up, down, strange, charm, bottom, top. Bosons: fotó, gluó, W, Z, Higgs. Val si en diu dos de cada grup.", "explicacio": "Són les peces del model estàndard, la teoria de totes les partícules elementals conegudes."}, {"id": 26, "nivell": "dificil", "pregunta": "En què es diferencien els leptons dels quarks?", "opcions": ["Els leptons són molt més pesants que els quarks", "Els quarks no tenen cap càrrega elèctrica", "Els quarks senten la força forta i sempre van en grup"], "correcta": 2, "explicacio": "Els quarks sempre estan units, formant protons, neutrons o pions. Els leptons, com l'electró o el muó, poden anar sols."}, {"id": 27, "nivell": "dificil", "pregunta": "En què es diferencien els bosons dels fermions?", "opcions": ["Els fermions fan la matèria; els bosons, les forces", "Els bosons sempre pesen més", "Els fermions no tenen càrrega"], "correcta": 0, "explicacio": "La diferència de fons és l'espín. Dos fermions iguals no poden estar al mateix estat (principi de Pauli): per això la matèria ocupa espai."}, {"id": 28, "nivell": "dificil", "pregunta": "Per quin descobriment va guanyar Einstein el premi Nobel?", "opcions": ["La teoria de la relativitat", "L'efecte fotoelèctric", "La bomba atòmica"], "correcta": 1, "explicacio": "Per l'efecte fotoelèctric: la llum arriba en paquets, els fotons. La relativitat no va rebre mai el Nobel."}, {"id": 29, "nivell": "dificil", "pregunta": "Per al muó, el seu rellotge va normal. Llavors, des del seu punt de vista, per què arriba a terra?", "opcions": ["Perquè va més ràpid que la llum", "Perquè l'atmosfera se li fa molt més curta", "Perquè guanya energia pel camí"], "correcta": 1, "explicacio": "És la contracció de l'espai. Des de terra ho expliquem amb el temps i des del muó, amb l'espai: és el mateix efecte."}, {"id": 30, "nivell": "dificil", "pregunta": "Qui va predir que existia l'antimatèria?", "opcions": ["Niels Bohr", "Isaac Newton", "Paul Dirac"], "correcta": 2, "explicacio": "Paul Dirac, el 1928, a partir d'una equació. El 1932, Carl Anderson va trobar el positró (l'antielectró) en els raigs còsmics."}, {"id": 31, "nivell": "dificil", "pregunta": "Què diu el principi d'incertesa de Heisenberg?", "opcions": ["No podem saber alhora exactament on és i com es mou", "Les partícules desapareixen si no les mirem", "Tota mesura té un error del 10 %"], "correcta": 0, "explicacio": "Com més bé saps on és una partícula, pitjor en saps la velocitat. No és culpa dels aparells: la natura és així."}, {"id": 32, "nivell": "dificil", "pregunta": "Què és la matèria fosca?", "opcions": ["Matèria que les estrelles han cremat", "Matèria invisible que es nota per la seva gravetat", "El nom científic dels forats negres"], "correcta": 1, "explicacio": "Les galàxies giren massa de pressa per la matèria que veiem. Hi ha unes cinc vegades més matèria fosca que visible, i encara no sabem què és."}, {"id": 33, "nivell": "dificil", "pregunta": "Quines són les quatre forces fonamentals de la natura?", "opcions": ["Gravetat, fregament, pes i magnetisme", "Calor, llum, so i electricitat", "Gravitatòria, electromagnètica, nuclear forta i nuclear feble"], "correcta": 2, "explicacio": "La força feble és la responsable de la desintegració del muó. La forta és la que manté units els quarks."}, {"id": 34, "nivell": "dificil", "pregunta": "Quina partícula manté units els quarks dins dels protons i els neutrons?", "opcions": ["El gluó", "El fotó", "El neutrí"], "correcta": 0, "explicacio": "El gluó, que transmet la força forta. El nom ve de l'anglès glue, que vol dir 'cola'."}, {"id": 35, "nivell": "dificil", "pregunta": "D'on ve la major part de la massa d'un protó?", "opcions": ["De la massa dels tres quarks que té a dins", "Dels electrons que giren al seu voltant", "De l'energia dels quarks i els gluons de dins"], "correcta": 2, "explicacio": "Els tres quarks només en fan un 1 %. La resta és energia de moviment i d'unió convertida en massa, com diu E = mc²."}, {"id": 36, "nivell": "dificil", "pregunta": "Què és un neutrí?", "opcions": ["Un neutró molt petit i sense massa", "Una partícula sense càrrega que ho travessa gairebé tot", "Un àtom que ha perdut els electrons"], "correcta": 1, "explicacio": "Quan un muó es desintegra en surten dos. Cada segon et travessen centenars de bilions de neutrins del Sol i no te n'adones."}]}</script>
+<script>
+(function () {
+  "use strict";
+  var D = JSON.parse(document.getElementById("dades").textContent);
+  var joc = D.joc;
+  var preguntes = D.preguntes;
+  var franges = joc.franges.slice().sort(function (a, b) { return a.min - b.min; });
+  var EMAX = joc.config.energia_max;
+  var EINI = joc.config.energia_inicial;
+  var N = joc.tauler.length;
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; });
+  }
+  function franjaDe(e) { return franges.find(function (f) { return e >= f.min && e <= f.max; }); }
+  function km(n) { return joc.config.altitud_naixement_km * (1 - n / N); }
+  function fmtKm(v) { return v.toFixed(1).replace(".", ","); }
+
+  /* ---------- Caselles (compartit entre el tauler i la llegenda) ---------- */
+  var ESTIL = {
+    buida:    { fill: "#FFFFFF", stroke: "#CFC2E0" },
+    quiz:     { fill: "#F1E6FB", stroke: "#7438B3" },
+    tempesta: { fill: "#E4E9F7", stroke: "#3F57A8" },
+    colisio:  { fill: "#FCE4E0", stroke: "#D8412F" },
+    canfranc: { fill: "#EEE8E3", stroke: "#7D7166" },
+    detector: { fill: "#FFF5D1", stroke: "#C9960E" }
+  };
+  /* Colors de les capes de l'atmosfera al tauler: fort (ponts i llegenda) i clar (fons de les caselles d'aire) */
+  var COLOR_CAPA = [
+    { fort: "#7B5BD6", clar: "#EFEAFC" },
+    { fort: "#4F6BE0", clar: "#E9EEFC" },
+    { fort: "#2E93C9", clar: "#E3F2FA" },
+    { fort: "#8AA2BC", clar: "#F0F4F8" },
+    { fort: "#6E9A4B", clar: "#EBF4E3" }
+  ];
+
+  /* Icones centrades a (0, 0), d'uns 34 x 34 */
+  function icona(tipus) {
+    switch (tipus) {
+      case "quiz":
+        return '<circle r="15" fill="#7438B3"/><circle r="15" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="2" stroke-dasharray="3 4"/>' +
+          '<text y="7" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="21" fill="#fff">?</text>';
+      case "tempesta":
+        return '<g fill="#8595CC"><circle cx="-7" cy="-4" r="7"/><circle cx="2" cy="-8" r="9"/><circle cx="10" cy="-3" r="6.5"/><rect x="-14" y="-4" width="30" height="8" rx="4"/></g>' +
+          '<g fill="#5C6DAE"><circle cx="-6" cy="0" r="5.5"/><circle cx="5" cy="-1" r="6"/><rect x="-14" y="0" width="30" height="5" rx="2.5"/></g>' +
+          '<path d="M-11 9-13 14M13 9 11 14" stroke="#5C6DAE" stroke-width="2.2" stroke-linecap="round"/>' +
+          '<path d="M2 1-5 12h5l-3 9 10-13H2l3-7z" fill="#F7CF3D" stroke="#3F3A1A" stroke-width="1" stroke-linejoin="round"/>';
+      case "colisio": {
+        var pts = [];
+        for (var k = 0; k < 16; k++) {
+          var r = k % 2 ? 6.5 : 15, a = (Math.PI * 2 * k) / 16;
+          pts.push((Math.cos(a) * r).toFixed(1) + "," + (Math.sin(a) * r).toFixed(1));
+        }
+        return '<polygon points="' + pts.join(" ") + '" fill="#D8412F"/><circle r="4.5" fill="#fff"/><circle r="2" fill="#D8412F"/>';
+      }
+      case "canfranc":
+        return '<path d="M-17 12-4-11 1-4 6-9 17 12z" fill="#7D7166"/><path d="M-4-11-7.5-5-4-6.5-1-5.5z" fill="#fff"/>' +
+          '<rect x="-6" y="3" width="12" height="7" rx="1.5" fill="#F2C94C"/><path d="M-6 6.5h12" stroke="#7D7166" stroke-width=".8"/>';
+      case "detector":
+        return '<circle r="14" fill="none" stroke="#C9960E" stroke-width="3"/><circle r="8" fill="none" stroke="#C9960E" stroke-width="3"/><circle r="3" fill="#C9960E"/>';
+      default:
+        return "";
+    }
+  }
+
+  /* Dibuixa una casella de 76x76 amb l'origen a la cantonada superior esquerra.
+     A dalt, el número i l'altitud; al mig, la icona; a baix, l'efecte en una píndola del color de la casella.
+     capa (opcional): colors de la capa d'atmosfera, per pintar les caselles d'aire. */
+  function casella(tipus, n, capa) {
+    var e = ESTIL[tipus] || ESTIL.buida;
+    var t = joc.tipus_caselles[tipus] || {};
+    var aire = tipus === "buida";
+    var s = '<rect x="1.5" y="1.5" width="73" height="73" rx="13" fill="' + (aire && capa ? capa.clar : e.fill) +
+      '" stroke="' + (aire && capa ? capa.fort : e.stroke) + '" stroke-width="3"' + (aire && capa ? ' stroke-opacity=".55"' : "") + "/>";
+    if (n != null) {
+      s += '<text x="9" y="18" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="14" fill="#241634">' + n + "</text>";
+      var alt = tipus === "detector" ? "0 km" : fmtKm(km(n));
+      s += '<text x="67" y="17" text-anchor="end" font-family="Lexend, sans-serif" font-size="10" fill="#65557C">' + alt + "</text>";
+    }
+    if (aire) return s;
+    s += '<g transform="translate(38 ' + (n != null ? 36 : 33) + ')">' + icona(tipus) + "</g>";
+    if (t.quiz) {
+      /* Qui hi cau tria: una boleta per nivell, amb el seu premi */
+      joc.nivells_quiz.forEach(function (nv, i) {
+        var x = 23 + i * 15;
+        s += '<circle cx="' + x + '" cy="62" r="6.8" fill="' + nv.color + '" stroke="#fff" stroke-width="1.4"/>' +
+          '<text x="' + x + '" y="65.4" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="9" fill="#fff">+' + nv.premi + "</text>";
+      });
+    } else if (t.etiqueta) {
+      s += '<rect x="8" y="54" width="60" height="15" rx="7.5" fill="' + e.stroke + '"/>' +
+        '<text x="38" y="64.8" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="' +
+        (t.etiqueta.length > 8 ? 9.5 : 10.5) + '" fill="#fff">' + esc(t.etiqueta) + "</text>";
+    }
+    return s;
+  }
+
+  /* ---------- Tauler: espiral quadrada de fora cap a dins ---------- */
+  function espiral(G) {
+    var res = [], dalt = 0, esq = 0, baix = G - 1, dreta = G - 1, i;
+    while (dalt <= baix && esq <= dreta) {
+      for (i = esq; i <= dreta; i++) res.push([dalt, i]);
+      dalt++;
+      for (i = dalt; i <= baix; i++) res.push([i, dreta]);
+      dreta--;
+      for (i = dreta; i >= esq; i--) res.push([baix, i]);
+      baix--;
+      for (i = baix; i >= dalt; i--) res.push([i, esq]);
+      esq++;
+    }
+    return res;
+  }
+
+  function capaDe(n) {
+    var a = km(n);
+    for (var i = 0; i < joc.capes.length; i++) {
+      if (a <= joc.capes[i].km[0] && a > joc.capes[i].km[1]) return i;
+    }
+    return joc.capes.length - 1;
+  }
+
+  function tauler() {
+    var G = 6, W = 1000, M = 66, A = W - 2 * M, P = A / G, S = 128, K = S / 76;
+    var cont = document.getElementById("tauler-svg");
+    var posicions = espiral(G).slice(0, G * G - 4); /* la sortida i les caselles; el centre és el detector */
+    if (N !== posicions.length) {
+      cont.textContent = "El tauler en espiral necessita " + posicions.length + " caselles i n'hi ha " + N + ".";
+      return;
+    }
+    function centre(p) { return { x: M + p[1] * P + P / 2, y: M + p[0] * P + P / 2 }; }
+    function f(v) { return v.toFixed(1); }
+    var cDet = { x: M + 3 * P, y: M + 3 * P };
+
+    var s = '<svg viewBox="0 0 ' + W + " " + W + '" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tauler de Muon Sidequest: una espiral de ' + (N - 1) + ' caselles des de la sortida, a 15 km, fins al detector de terra, al centre">';
+    s += '<defs><radialGradient id="atm" cx=".5" cy=".5" r=".72">' +
+      '<stop offset="0" stop-color="#E4D7F7"/><stop offset=".3" stop-color="#9C84D4"/>' +
+      '<stop offset=".62" stop-color="#4A2F86"/><stop offset="1" stop-color="#20113E"/></radialGradient></defs>';
+    s += '<rect width="' + W + '" height="' + W + '" rx="34" fill="#1A0D2E"/>';
+    s += '<rect x="' + (M - 10) + '" y="' + (M - 10) + '" width="' + (A + 20) + '" height="' + (A + 20) + '" rx="24" fill="url(#atm)"/>';
+
+    /* Estrelles a l'anell exterior */
+    for (var k = 0; k < 70; k++) {
+      var sx = M + ((k * 157.3) % A), sy = M + ((k * 83.7) % A);
+      var dc = Math.max(Math.abs(sx - W / 2), Math.abs(sy - W / 2));
+      if (dc < A * 0.36) continue;
+      s += '<circle cx="' + f(sx) + '" cy="' + f(sy) + '" r="' + (k % 3 === 0 ? 1.8 : 1) + '" fill="#fff" opacity="' + (0.25 + (k % 4) * 0.12).toFixed(2) + '"/>';
+    }
+
+    /* Ponts entre caselles, del color de la capa, amb una fletxa que marca el sentit */
+    var ponts = "", fletxes = "";
+    function pont(a, b, color) {
+      ponts += '<line x1="' + f(a.x) + '" y1="' + f(a.y) + '" x2="' + f(b.x) + '" y2="' + f(b.y) + '" stroke="' + color + '" stroke-width="34"/>';
+      var dx = b.x - a.x, dy = b.y - a.y, l = Math.sqrt(dx * dx + dy * dy);
+      dx /= l; dy /= l;
+      var mx = a.x + dx * P / 2, my = a.y + dy * P / 2;
+      fletxes += '<path d="M' + f(mx + dx * 6) + " " + f(my + dy * 6) + " L" + f(mx - dx * 5 - dy * 7) + " " + f(my - dy * 5 + dx * 7) +
+        " L" + f(mx - dx * 5 + dy * 7) + " " + f(my - dy * 5 - dx * 7) + ' Z" fill="#fff" opacity=".9"/>';
+    }
+    for (var i = 1; i < posicions.length; i++) {
+      pont(centre(posicions[i - 1]), centre(posicions[i]), COLOR_CAPA[capaDe(i)].fort);
+    }
+    var ultima = centre(posicions[posicions.length - 1]);
+    pont(ultima, { x: ultima.x + P, y: ultima.y }, COLOR_CAPA[capaDe(N)].fort);
+    s += ponts + fletxes;
+
+    /* Caselles */
+    for (var n = 1; n < N; n++) {
+      var p = posicions[n];
+      var x = M + p[1] * P + (P - S) / 2, y = M + p[0] * P + (P - S) / 2;
+      s += '<g transform="translate(' + f(x) + " " + f(y) + ") scale(" + K.toFixed(4) + ')">' + casella(joc.tauler[n - 1], n, COLOR_CAPA[capaDe(n)]) + "</g>";
+    }
+
+    /* Sortida, a la cantonada */
+    var s0 = posicions[0], x0 = M + s0[1] * P + (P - S) / 2, y0 = M + s0[0] * P + (P - S) / 2;
+    s += '<g transform="translate(' + f(x0) + " " + f(y0) + ") scale(" + K.toFixed(4) + ')">' +
+      '<rect x="1.5" y="1.5" width="73" height="73" rx="13" fill="#EADCFB" stroke="#7438B3" stroke-width="3"/>' +
+      '<text x="38" y="16" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="10.5" letter-spacing=".6" fill="#4B2A7B">SORTIDA</text>' +
+      '<circle cx="38" cy="35" r="12.5" fill="#7438B3"/>' +
+      '<text x="38" y="40.5" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="16" fill="#fff">μ</text>' +
+      '<text x="38" y="59" text-anchor="middle" font-family="Lexend, sans-serif" font-size="7.4" fill="#4B2A7B">Comença qui</text>' +
+      '<text x="38" y="68.5" text-anchor="middle" font-family="Lexend, sans-serif" font-size="7.4" fill="#4B2A7B">treu més al dau</text></g>';
+
+    /* Detector, al centre */
+    var D2 = P + S, xd = M + 2 * P + (P - S) / 2, yd = xd, cx = xd + D2 / 2, cy = yd + D2 / 2 - 16;
+    s += '<rect x="' + f(xd) + '" y="' + f(yd) + '" width="' + f(D2) + '" height="' + f(D2) + '" rx="26" fill="#FFF3C9" stroke="#C9960E" stroke-width="5"/>';
+    s += '<text x="' + f(xd + 16) + '" y="' + f(yd + 34) + '" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="24" fill="#241634">' + N + "</text>";
+    s += '<text x="' + f(xd + D2 - 16) + '" y="' + f(yd + 32) + '" text-anchor="end" font-family="Lexend, sans-serif" font-size="16" fill="#65557C">0 km</text>';
+    [74, 52, 30].forEach(function (r, j) {
+      s += '<circle cx="' + f(cx) + '" cy="' + f(cy) + '" r="' + r + '" fill="' + (j === 2 ? "#FFE9A3" : "none") + '" stroke="#C9960E" stroke-width="7"/>';
+    });
+    s += '<circle cx="' + f(cx) + '" cy="' + f(cy) + '" r="11" fill="#C9960E"/>';
+    s += '<text x="' + f(cx) + '" y="' + f(yd + D2 - 40) + '" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="30" letter-spacing="1" fill="#241634">DETECTOR</text>';
+    s += '<text x="' + f(cx) + '" y="' + f(yd + D2 - 16) + '" text-anchor="middle" font-family="Lexend, sans-serif" font-size="16" fill="#65557C">' + esc(joc.config.detector_lloc || "Has arribat a terra!") + "</text>";
+
+    /* Marc: d'on ve el muó i títol */
+    s += '<text x="' + M + '" y="42" font-family="Lexend, sans-serif" font-size="17" fill="#CDBDF0">Un raig còsmic xoca amb l\'aire a 15 km: ' +
+      '<tspan font-family="Bricolage Grotesque, sans-serif" font-weight="800" fill="#F2C94C">p⁺ → π± → μ</tspan></text>';
+    s += '<text x="' + (W - M) + '" y="44" text-anchor="end" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="28" letter-spacing=".5" fill="#F1E9FA">MUON SIDEQUEST</text>';
+
+    /* Marc: llegenda de les capes (amb les decoracions de cada capa) */
+    var amplada = A / joc.capes.length;
+    joc.capes.forEach(function (capa, j) {
+      var lx = M + j * amplada, extra = "";
+      (joc.decoracions || []).forEach(function (d) {
+        if (d.km <= capa.km[0] && d.km > capa.km[1]) extra = d.tipus === "avio" ? " · avions" : d.tipus === "globus" ? " · Hess" : "";
+      });
+      s += '<rect x="' + f(lx) + '" y="' + (W - 50) + '" width="16" height="16" rx="4" fill="' + COLOR_CAPA[j % COLOR_CAPA.length].fort + '"/>';
+      s += '<text x="' + f(lx + 24) + '" y="' + (W - 37) + '" font-family="Bricolage Grotesque, sans-serif" font-weight="700" font-size="15" fill="#F1E9FA">' + esc(capa.nom.split(",")[0]) + "</text>";
+      s += '<text x="' + f(lx + 24) + '" y="' + (W - 18) + '" font-family="Lexend, sans-serif" font-size="12.5" fill="#BFAEDA">' + capa.km[0] + "–" + capa.km[1] + " km" + extra + "</text>";
+    });
+    s += "</svg>";
+    cont.innerHTML = s;
+  }
+
+  /* ---------- Pista d'energia ---------- */
+  function pista() {
+    var cap = '<div class="pista-franja" style="grid-column:1"></div>';
+    franges.forEach(function (f) {
+      cap += '<div class="pista-franja" style="--f:' + f.color + ";grid-column:" + (f.min + 1) + " / span " + (f.max - f.min + 1) + '"><b>−' + f.cost + "</b><small>" + esc(f.nom) + "</small></div>";
+    });
+    var cels = '<div class="cel zero">0</div>';
+    var inici = "<span></span>";
+    for (var e = 1; e <= EMAX; e++) {
+      var f = franjaDe(e);
+      cels += '<div class="cel' + (e === EINI ? " inici" : "") + '" style="--f:' + (f ? f.color : "#999") + '">' + e + "</div>";
+      inici += "<span>" + (e === EINI ? "inici" : "") + "</span>";
+    }
+    return '<div class="pista" style="--n:' + (EMAX + 1) + '"><p class="pista-titol">Cada torn pagues:</p><div class="pista-franges">' + cap + '</div><div class="pista-caselles">' + cels + '</div><div class="pista-inici">' + inici + "</div></div>";
+  }
+
+  /* ---------- Components dins les regles ---------- */
+  function components() {
+    document.querySelectorAll('[data-component="barra-energia"]').forEach(function (el) {
+      el.innerHTML = pista();
+    });
+    document.querySelectorAll('[data-component="llegenda-caselles"]').forEach(function (el) {
+      var h = '<div class="llegenda">';
+      Object.keys(joc.tipus_caselles).forEach(function (k) {
+        if (k === "buida") return;
+        var t = joc.tipus_caselles[k];
+        h += '<div class="llegenda-item"><svg viewBox="0 0 76 76" aria-hidden="true">' + casella(k, null) + "</svg><div>" +
+          "<h4>" + esc(t.nom) + "</h4><p>" + esc(t.efecte) + '</p><p class="deveritat"><b>De veritat:</b> ' + esc(t.fisica) + "</p></div></div>";
+      });
+      el.innerHTML = h + "</div>";
+    });
+  }
+
+  /* ---------- Fitxes dels personatges ---------- */
+  function fitxa(p) {
+    var retrat = p.retrat_url
+      ? '<img class="fitxa-retrat" src="' + p.retrat_url + '" alt="">'
+      : '<div class="fitxa-retrat fitxa-mu" aria-hidden="true">μ</div>';
+    var nom = p.nom ? esc(p.nom) : '<span class="pendent">Nom per decidir</span>';
+    return '<article class="fitxa" style="--c:' + p.color + '">' +
+      '<div class="fitxa-cap">' + retrat + '<div><p class="fitxa-num">Personatge ' + p.id + "</p><h3>" + nom + "</h3></div></div>" +
+      (p.descripcio ? '<p class="fitxa-descripcio">' + esc(p.descripcio) + "</p>" : "") +
+      '<div class="fitxa-bonus"><h4><span aria-hidden="true">★</span> ' + esc(p.bonus || "Habilitat") + "</h4>" +
+      (p.habilitat ? "<p>" + esc(p.habilitat) + "</p>" : '<p class="pendent">Escriviu aquí l\'habilitat especial del personatge.</p>') + "</div>" +
+      pista() +
+      '<div class="fitxa-peu"><span class="marca">Última oportunitat</span><span class="marca">Comodí</span></div>' +
+      "</article>";
+  }
+  function fitxes() {
+    document.getElementById("graella-fitxes").innerHTML = joc.personatges.map(fitxa).join("");
+  }
+
+  /* ---------- Preguntes ---------- */
+  var NIVELLS = {};
+  joc.nivells_quiz.forEach(function (nv, i) { nv.ordre = i; NIVELLS[nv.id] = nv; });
+  function punts(nv) {
+    var s = "";
+    for (var i = 0; i < joc.nivells_quiz.length; i++) s += i <= nv.ordre ? "●" : "○";
+    return s;
+  }
+
+  function carta(q) {
+    var lletres = ["A", "B", "C", "D"];
+    var nv = NIVELLS[q.nivell];
+    var cos, resposta;
+    if (q.opcions && q.opcions.length) {
+      cos = "<ol>" + q.opcions.map(function (o, i) { return '<li data-lletra="' + lletres[i] + '">' + esc(o) + "</li>"; }).join("") + "</ol>";
+      resposta = "<b>" + lletres[q.correcta] + ".</b> " + esc(q.explicacio);
+    } else {
+      cos = '<p class="oberta">Pregunta oberta: respon amb les teves paraules.</p>';
+      resposta = "<b>Val:</b> " + esc(q.resposta) + (q.explicacio ? "<span>" + esc(q.explicacio) + "</span>" : "");
+    }
+    return '<article class="carta-quiz" data-nivell="' + q.nivell + '" style="--n:' + nv.color + '">' +
+      '<div class="carta-cap"><span class="carta-nivell">' + esc(nv.nom) + ' <span aria-hidden="true">' + punts(nv) + '</span></span>' +
+      '<b class="carta-premi">+' + nv.premi + "<small>energia</small></b></div>" +
+      '<p class="carta-num">Pregunta ' + q.id + "</p>" +
+      '<p class="pregunta">' + esc(q.pregunta) + "</p>" + cos +
+      '<p class="resposta">' + resposta + "</p></article>";
+  }
+
+  function quiz() {
+    var graella = document.getElementById("graella-quiz");
+    graella.innerHTML = preguntes.map(carta).join("");
+    document.getElementById("n-preguntes").textContent = preguntes.length;
+
+    /* Filtres per nivell */
+    var filtres = document.getElementById("filtres-quiz");
+    var opcions = [{ id: "totes", nom: "Totes", color: "var(--violeta)" }].concat(joc.nivells_quiz);
+    filtres.innerHTML = opcions.map(function (o) {
+      var n = o.id === "totes" ? preguntes.length : preguntes.filter(function (q) { return q.nivell === o.id; }).length;
+      var premi = o.premi ? " +" + o.premi : "";
+      return '<button type="button" class="filtre" data-nivell="' + o.id + '" style="--n:' + o.color + '" aria-pressed="' + (o.id === "totes") + '">' +
+        "<i></i>" + esc(o.nom) + premi + " <small>" + n + "</small></button>";
+    }).join("");
+    filtres.addEventListener("click", function (ev) {
+      var b = ev.target.closest("button");
+      if (!b) return;
+      var id = b.getAttribute("data-nivell");
+      filtres.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      graella.querySelectorAll(".carta-quiz").forEach(function (c) {
+        c.hidden = id !== "totes" && c.getAttribute("data-nivell") !== id;
+      });
+    });
+  }
+
+  /* ---------- Portada: la pluja de partícules ---------- */
+  function pluja() {
+    var svg = document.querySelector(".pluja");
+    var s = "", ox = 830, oy = -40, llavor = 7;
+    function rnd() { llavor = (llavor * 9301 + 49297) % 233280; return llavor / 233280; }
+    for (var i = 0; i < 46; i++) {
+      var ang = (-62 + rnd() * 110) * Math.PI / 180;
+      var llarg = 380 + rnd() * 720;
+      var x2 = ox + Math.sin(ang) * llarg, y2 = oy + Math.cos(ang) * llarg;
+      var w = rnd() < 0.2 ? 2.2 : 1;
+      var op = (0.18 + rnd() * 0.4).toFixed(2);
+      s += '<line x1="' + ox + '" y1="' + oy + '" x2="' + x2.toFixed(0) + '" y2="' + y2.toFixed(0) + '" stroke-width="' + w + '" opacity="' + op + '" style="--l:' + llarg.toFixed(0) + ";--d:" + (rnd() * 0.9).toFixed(2) + 's"/>';
+      if (x2 > 940 && rnd() < 0.5) s += '<circle cx="' + x2.toFixed(0) + '" cy="' + y2.toFixed(0) + '" r="3" opacity=".8"/>';
+    }
+    svg.innerHTML = s;
+  }
+
+  /* ---------- Altímetre: el muó baixa mentre llegeixes ---------- */
+  function altimetre() {
+    var mu = document.querySelector(".altimetre-mu");
+    var kmEl = document.querySelector(".altimetre-km");
+    var pendent = false;
+    function actualitza() {
+      pendent = false;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      mu.style.top = kmEl.style.top = (p * 100) + "%";
+      kmEl.textContent = fmtKm(20 * (1 - p));
+    }
+    window.addEventListener("scroll", function () {
+      if (!pendent) { pendent = true; requestAnimationFrame(actualitza); }
+    }, { passive: true });
+    actualitza();
+  }
+
+  /* ---------- Fulls per imprimir: index.html?imprimir=preguntes | preguntes-doble-cara | fitxes | personatges ---------- */
+  function full(contingut, peu, classe) {
+    return '<section class="full ' + (classe || "") + '">' + contingut + (peu ? '<p class="full-peu">' + peu + "</p>" : "") + "</section>";
+  }
+
+  function revers(q) {
+    if (!q) return '<div class="tall"></div>';
+    var nv = NIVELLS[q.nivell];
+    return '<div class="tall revers" style="--n:' + nv.color + '"><span class="revers-punts">' + punts(nv) + "</span>" +
+      '<b class="revers-interrogant">?</b><span class="revers-nivell">' + esc(nv.nom) + '</span><span class="revers-premi">+' + nv.premi +
+      ' energia</span><span class="revers-marca">Muon Sidequest</span></div>';
+  }
+
+  function fullsPreguntes(dobleCara) {
+    var h = "", total = Math.ceil(preguntes.length / 9);
+    for (var i = 0; i < preguntes.length; i += 9) {
+      var grup = preguntes.slice(i, i + 9);
+      var num = i / 9 + 1;
+      h += full('<div class="graella-tall cartes">' + grup.map(function (q) { return '<div class="tall">' + carta(q) + "</div>"; }).join("") + "</div>",
+        "Muon Sidequest · preguntes, full " + num + " de " + total + " · retalleu per les línies discontínues" +
+        (dobleCara ? " · imprimiu a doble cara, girant pel costat llarg" : ""));
+      if (dobleCara) {
+        /* El revers va en mirall per files, perquè quadri en girar el full pel costat llarg */
+        var mirall = [];
+        for (var f = 0; f < 3; f++) {
+          var fila = grup.slice(f * 3, f * 3 + 3);
+          while (fila.length < 3) fila.push(null);
+          mirall = mirall.concat(fila.reverse());
+        }
+        h += full('<div class="graella-tall cartes">' + mirall.map(revers).join("") + "</div>", "");
+      }
+    }
+    return h;
+  }
+
+  function fullsFitxes() {
+    var h = "", total = Math.ceil(joc.personatges.length / 4);
+    for (var i = 0; i < joc.personatges.length; i += 4) {
+      h += full('<div class="graella-tall fitxes">' + joc.personatges.slice(i, i + 4).map(function (p) { return '<div class="tall">' + fitxa(p) + "</div>"; }).join("") + "</div>",
+        "Muon Sidequest · fitxes dels muons, full " + (i / 4 + 1) + " de " + total + " · retalleu per les línies discontínues");
+    }
+    return h;
+  }
+
+  function taulaPersonatges() {
+    var files = joc.personatges.map(function (p) {
+      return '<article class="fila-personatge" style="--c:' + p.color + '">' +
+        (p.retrat_url ? '<img src="' + p.retrat_url + '" alt="">' : "<span></span>") +
+        "<div><h2>" + esc(p.nom || "Personatge " + p.id) + "</h2>" +
+        (p.descripcio ? '<p class="fila-descripcio">' + esc(p.descripcio) + "</p>" : "") +
+        '<p class="fila-bonus"><b>★ ' + esc(p.bonus || "Habilitat") + ".</b> " + esc(p.habilitat || "") + "</p></div></article>";
+    }).join("");
+    return full('<header class="taula-cap"><p>Muon Sidequest</p><h1>Tria el teu muó</h1>' +
+      "<span>Tots neixen a 15 km amb 10 d'energia. Cadascun té un bonus diferent.</span></header>" +
+      '<div class="taula-personatges">' + files + "</div>",
+      "Club de Física de la UAB · Nit de la Recerca", "full-taula");
+  }
+
+  function modeImprimir() {
+    var mode = new URLSearchParams(location.search).get("imprimir");
+    var fulls = {
+      "preguntes": function () { return fullsPreguntes(false); },
+      "preguntes-doble-cara": function () { return fullsPreguntes(true); },
+      "fitxes": fullsFitxes,
+      "personatges": taulaPersonatges
+    };
+    if (!fulls[mode]) return false;
+    document.documentElement.classList.add("mode-imprimir");
+    var estil = document.createElement("style");
+    estil.textContent = "@page { size: A4; margin: 0; }";
+    document.head.appendChild(estil);
+    var cont = document.getElementById("imprimir");
+    cont.innerHTML = fulls[mode]();
+    cont.hidden = false;
+    return true;
+  }
+
+  if (modeImprimir()) return;
+  pluja();
+  components();
+  tauler();
+  fitxes();
+  quiz();
+  altimetre();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{{- /* Fitxers per descarregar d'un projecte (front matter "baixades").
+       Cada fitxer ha de ser a la carpeta del projecte: - fitxer: "tauler.pdf"  titol: "..."  text: "..." */ -}}
+{{- $p := . -}}
+{{- $fitxers := slice -}}
+{{- range .Params.baixades -}}
+  {{- $b := . -}}
+  {{- with $p.Resources.Get .fitxer -}}
+    {{- $fitxers = $fitxers | append (dict "recurs" . "titol" ($b.titol | default .Name) "text" $b.text) -}}
+  {{- else -}}
+    {{- warnf "%s: no trobo el fitxer per descarregar %q a la carpeta del projecte" $p.File.Path .fitxer -}}
+  {{- end -}}
+{{- end -}}
+{{- with $fitxers }}
+<section class="cf-baixades" id="baixades" aria-labelledby="titol-baixades">
+  <h2 class="cf-bloc-titol" id="titol-baixades">Material per descarregar</h2>
+  <ul class="cf-baixades-llista">
+    {{- range . }}
+    {{- $r := .recurs }}
+    {{- $mida := len $r.Content }}
+    {{- $text := printf "%d kB" (int (math.Ceil (div (float $mida) 1024))) }}
+    {{- if ge $mida 1048576 }}{{ $text = replace (printf "%.1f MB" (div (float $mida) 1048576)) "." "," }}{{ end }}
+    <li>
+      <a class="cf-baixada" href="{{ $r.RelPermalink }}" target="_blank" rel="noopener">
+        <span class="cf-baixada-icona" aria-hidden="true">{{ partial "icona.html" "document" }}</span>
+        <span class="cf-baixada-cos">
+          <span class="cf-baixada-titol">{{ .titol }}</span>
+          {{- with .text }}
+          <span class="cf-baixada-text">{{ . }}</span>
+          {{- end }}
+        </span>
+        <span class="cf-baixada-mida">{{ upper (strings.TrimPrefix "." (path.Ext $r.Name)) }} · {{ $text }}</span>
+      </a>
+    </li>
+    {{- end }}
+  </ul>
+</section>
+{{- end }}

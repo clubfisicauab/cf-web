@@ -1,0 +1,28 @@
+{{- /* Portada: franja fosca amb un projecte. Surt el primer amb "destacat: true" o, si no n'hi ha cap, el més recent. */ -}}
+{{- $projectes := (where site.RegularPages "Section" "projectes").ByDate.Reverse -}}
+{{- with $projectes }}
+{{- $p := index . 0 -}}
+{{- with where . "Params.destacat" true }}{{ $p = index . 0 }}{{ end -}}
+{{- $portada := $p.Resources.GetMatch "portada.*" -}}
+<section class="cf-destacat" aria-labelledby="titol-projecte-destacat">
+  <div class="cf-destacat-contingut{{ if $portada }} cf-destacat-contingut--imatge{{ end }}">
+    <div class="cf-destacat-text">
+      <p class="cf-etiqueta">Projectes{{ with $p.Params.tipus }} · {{ . }}{{ end }}</p>
+      <h2 class="cf-destacat-titol" id="titol-projecte-destacat">{{ $p.Title }}</h2>
+      {{- with $p.Description }}
+      <p class="cf-destacat-desc">{{ . }}</p>
+      {{- end }}
+      {{ partial "dades-projecte.html" (dict "dades" $p.Params.dades "fosc" true) }}
+      <div class="cf-destacat-accions">
+        <a class="cf-boto cf-boto--or" href="{{ $p.RelPermalink }}">Descobreix el projecte {{ partial "icona.html" "arrow-right" }}</a>
+        <a class="cf-boto cf-boto--fantasma" href="{{ "projectes/" | relURL }}">Tots els projectes</a>
+      </div>
+    </div>
+    {{- with $portada }}
+    <a class="cf-destacat-imatge" href="{{ $p.RelPermalink }}" tabindex="-1" aria-hidden="true">
+      {{ partial "imatge.html" (dict "recurs" . "amplades" (slice 640 1100) "proporcio" "16:10" "mida" "(min-width: 960px) 560px, 100vw" "classe" "nozoom") }}
+    </a>
+    {{- end }}
+  </div>
+</section>
+{{- end }}

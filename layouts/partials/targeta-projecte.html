@@ -1,0 +1,38 @@
+{{- /* Targeta horitzontal d'un projecte (llistat de projectes).
+       Ús: {{ partial "targeta-projecte.html" (dict "pagina" . "nivell" 2) }}  (nivell = h2 o h3 del títol) */ -}}
+{{- $p := .pagina -}}
+{{- $nivell := .nivell | default 2 -}}
+{{- $imatge := "" -}}
+{{- with $p.Resources.GetMatch "portada.*" -}}
+  {{- $imatge = partial "imatge.html" (dict "recurs" . "amplades" (slice 560 960) "proporcio" "16:10" "mida" "(min-width: 1024px) 560px, (min-width: 768px) 50vw, 100vw" "classe" "nozoom") -}}
+{{- end -}}
+<article class="cf-projecte-targeta">
+  <div class="cf-projecte-targeta-imatge{{ if not $imatge }} cf-targeta-imatge--buida{{ end }}">
+    {{- with $imatge }}
+    {{ . }}
+    {{- else }}
+    {{ partial "icona.html" "atom" }}
+    {{- end }}
+  </div>
+  <div class="cf-projecte-targeta-cos">
+    {{- with $p.Params.tipus }}
+    <p class="cf-targeta-categoria">{{ . }}</p>
+    {{- end }}
+    {{- if eq $nivell 3 }}
+    <h3 class="cf-projecte-targeta-titol"><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></h3>
+    {{- else }}
+    <h2 class="cf-projecte-targeta-titol"><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></h2>
+    {{- end }}
+    {{- with $p.Description }}
+    <p class="cf-projecte-targeta-desc">{{ . }}</p>
+    {{- end }}
+    {{ partial "dades-projecte.html" (dict "dades" $p.Params.dades) }}
+    <p class="cf-targeta-meta">
+      {{- with $p.Params.estat }}
+      <span class="cf-estat cf-estat--projecte">{{ . }}</span>
+      {{- end }}
+      <span>{{ partial "icona.html" "user" }}{{ $p.Params.equip | default site.Title }}</span>
+    </p>
+    <span class="cf-enllac-fletxa cf-targeta-peu" aria-hidden="true">Descobreix el projecte {{ partial "icona.html" "arrow-right" }}</span>
+  </div>
+</article>

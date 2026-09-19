@@ -1,0 +1,5 @@
+{{- /* Una xifra destacada (dins de {{< xifres >}}). Ús: {{< xifra valor="660 m" >}}Text breu{{< /xifra >}} */ -}}
+<div class="cf-xifra">
+  <span class="cf-xifra-valor">{{ .Get "valor" }}</span>
+  <span class="cf-xifra-text">{{ .Inner | .Page.RenderString }}</span>
+</div>

@@ -1,0 +1,9 @@
+{{- /* Xifres curtes d'un projecte (front matter "dades"), en xips.
+       Ús: {{ partial "dades-projecte.html" (dict "dades" .Params.dades "fosc" true) }}  (fosc: sobre fons fosc) */ -}}
+{{- with .dades }}
+<ul class="cf-dades{{ if $.fosc }} cf-dades--fosc{{ end }}">
+  {{- range . }}
+  <li><b>{{ .valor }}</b> {{ .text }}</li>
+  {{- end }}
+</ul>
+{{- end }}

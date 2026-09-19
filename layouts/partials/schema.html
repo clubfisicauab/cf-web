@@ -1,4 +1,4 @@
-{{- /* Dades estructurades (JSON-LD) per a Google: organització, web, posts, activitats i paperillos */ -}}
+{{- /* Dades estructurades (JSON-LD) per a Google: organització, web, posts, activitats, paperillos i projectes */ -}}
 {{- $iso := "2006-01-02T15:04:05-07:00" -}}
 {{- $club := site.Params.club -}}
 {{- $idOrganitzacio := printf "%s#organitzacio" site.Home.Permalink -}}
@@ -95,6 +95,21 @@
   -}}
   {{- with .Resources.GetMatch "*.pdf" }}{{ $article = merge $article (dict "encoding" (dict "@type" "MediaObject" "contentUrl" .Permalink "encodingFormat" "application/pdf")) }}{{ end -}}
   {{- $dades = $dades | append $article -}}
+
+{{- else if and .IsPage (eq .Section "projectes") -}}
+  {{- $dades = $dades | append (dict
+    "@context" "https://schema.org"
+    "@type" (.Params.schema | default "CreativeWork")
+    "name" .Title
+    "description" $descripcio
+    "url" .Permalink
+    "inLanguage" "ca"
+    "datePublished" (.PublishDate.Format $iso)
+    "dateModified" (.Lastmod.Format $iso)
+    "creator" (dict "@type" "Organization" "name" site.Title "url" site.Home.Permalink)
+    "image" ($compartir.url | default "")
+    "keywords" (delimit (.Params.tags | default (slice)) ", ")
+  ) -}}
 
 {{- else -}}
   {{- $dades = $dades | append (dict
