@@ -2,7 +2,7 @@
 title: "Trobada 0 del curs 26-27: El Club torna!"
 meta_title: ""
 description: "Primera trobada del curs oberta a tothom per explicar què és el Club de Física, com treballem i presentar el calendari d'enguany."
-date: 2026-09-19T12:00:00Z
+date: 2026-09-16T12:00:00Z
 image: "/images/gallery/post23-1.jpeg"
 categories: ["Club de Física", "Trobada", "Presentacions"]
 cursos: ["2026-27"]
