@@ -114,7 +114,7 @@ Dins del text pots fer servir aquests blocs:
 {{< /fitxes >}}
 ```
 
-> **Muon Sidequest** s'actualitza des del projecte del joc: després de `build.py` i `pdf.py`, `python scripts/web_club.py <carpeta de la web>` hi copia els PDF, els retrats, la portada i la web del joc (`static/projectes/muon-sidequest/joc/`), i posa al dia la versió, les xifres i els personatges de `content/projectes/muon-sidequest/index.md`. No editeu a mà aquests fitxers ni el bloc marcat com a generat; la resta del text sí.
+> **Muon Sidequest** s'actualitza des del projecte del joc: després de `build.py` i `pdf.py`, `python scripts/web_club.py <carpeta de la web>` hi copia els PDF, els retrats, la portada i la web del joc (`static/projectes/muon-sidequest/joc/`), i posa al dia les xifres i les fitxes dels personatges de `content/projectes/muon-sidequest/index.md`. No editeu a mà aquests fitxers ni el bloc marcat com a generat; la resta del text sí.
 
 ### 📚 Recursos
 Edita `content/recursos.md`. Els recursos van dins d'un bloc `{{< recursos >}} ... {{< /recursos >}}` i cadascun s'escriu així:

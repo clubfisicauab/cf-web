@@ -2,9 +2,9 @@
 title: "Muon Sidequest"
 description: "Ets un muó que acaba de néixer a 15 km d'altura. Arribaràs a terra abans de desintegrar-te? Un joc de taula de divulgació per a la Nit de la Recerca."
 date: 2026-09-19
-lastmod: 2026-09-19
+lastmod: 2026-09-20
 tipus: "Joc de taula de divulgació"
-estat: "Prototip v0.1"             # La versió l'actualitza scripts/web_club.py del projecte del joc
+estat: "Prototip v0.2"             # Com es diu la versió a la web: és decisió vostra, cap script no la toca
 equip: "Regina Calsapeu, David Galan"
 tags: ["Relativitat", "Raigs còsmics", "Divulgació"]
 destacat: true
@@ -39,12 +39,18 @@ baixades:
   - fitxer: "tauler-a4.pdf"
     titol: "Tauler en A4"
     text: "El mateix tauler, de 19 cm, per fer-ne proves."
-  - fitxer: "cartes-preguntes.pdf"
-    titol: "Cartes de preguntes"
-    text: "Nou cartes per full, a mida de carta de joc (63 × 88 mm), per retallar."
-  - fitxer: "cartes-preguntes-doble-cara.pdf"
-    titol: "Cartes de preguntes amb revers"
-    text: "Les mateixes cartes amb el revers del color de cada nivell. Imprimiu-les a doble cara, girant pel costat llarg."
+  - fitxer: "cartes-ciencies.pdf"
+    titol: "Baralla de ciències"
+    text: "Les 36 preguntes per a qui ja té base de física, nou per full i a mida de carta de joc (63 × 88 mm)."
+  - fitxer: "cartes-ciencies-doble-cara.pdf"
+    titol: "Baralla de ciències amb revers"
+    text: "La mateixa baralla amb el revers del color de cada nivell. Imprimiu-la a doble cara, girant pel costat llarg."
+  - fitxer: "cartes-amateur.pdf"
+    titol: "Baralla amateur"
+    text: "Les 36 preguntes per a tots els públics, nou per full i a mida de carta de joc."
+  - fitxer: "cartes-amateur-doble-cara.pdf"
+    titol: "Baralla amateur amb revers"
+    text: "La mateixa baralla amb el revers del color de cada nivell. Imprimiu-la a doble cara, girant pel costat llarg."
   - fitxer: "fitxes-personatges.pdf"
     titol: "Fitxes dels muons"
     text: "Una per jugador, amb el bonus i la pista d'energia. Quatre per full."
@@ -65,7 +71,7 @@ draft: false
 
 <!--more-->
 
-Ets un muó que acaba de néixer a uns 15 km d'altura i has de baixar fins al detector abans de desintegrar-te. Pel camí trobaràs tempestes elèctriques, col·lisions amb l'aire i preguntes de cultura científica que et poden donar l'energia que et falta. Una partida dura menys de 10 minuts.
+Ets un muó que acaba de néixer a uns 15 km d'altura i has de baixar fins al detector abans de desintegrar-te. Pel camí trobaràs tempestes elèctriques, col·lisions amb l'aire i preguntes de cultura científica que et poden donar l'energia que et falta. Hi podeu jugar els que vulgueu, de 2 a 5: amb quatre jugadors una partida ronda els 10 minuts, i a la Nit de la Recerca hi juguem de 4 en 4 per no allargar-nos.
 
 ## Per què arriben a terra?
 
@@ -92,6 +98,8 @@ Al joc passa igual: com més energia tens, més lent va el teu rellotge i menys 
 
 Si al principi del torn no pots pagar, et desintegres (μ → e + 2 neutrins). Cada casella té física real al darrere, i les simplificacions del joc les expliquem a les regles.
 
+Les preguntes venen en dues baralles de 36 cartes: una **de ciències**, per a qui ja té base de física, i una **amateur**, per a tots els públics. Se'n tria una segons qui tingueu davant i es juga igual.
+
 [Llegeix les regles completes →](joc/#regles)
 
 ## Els cinc muons
@@ -100,16 +108,10 @@ Si al principi del torn no pots pagar, et desintegres (μ → e + 2 neutrins). C
 Tots neixen a 15 km amb 10 d'energia, però cadascun té un bonus diferent.
 
 {{< fitxes >}}
-{{< fitxa titol="Muó Macarra" imatge="personatges/1-macarra.webp" color="#7B45C0" etiqueta="Bonus de velocitat" nota=`S'ha intentat saltar les normes còsmiques diverses vegades! Té antecedents penals per voler acostar-se massa a la velocitat de la llum.` >}}Si quan tires el teu marcador és a la franja verda, avances una casella més del que diuen els daus.{{< /fitxa >}}
-{{< fitxa titol="Muó Maliciós" imatge="personatges/2-malicios.webp" color="#2E8B57" etiqueta="Bonus per avarícia" nota=`És dels dolents! Vol aconseguir el màxim d'energia possible per causar un impacte negatiu a la Terra.` >}}Quan els teus daus sumen parell, robes 1 d'energia al rival que tinguis més a prop.{{< /fitxa >}}
-{{< fitxa titol="Muó Michi" imatge="personatges/3-michi.webp" color="#CC5A55" etiqueta="Bonus de monada" nota=`És infinitament adorable. De debò, mira'l. Tots els muons es volen aturar a acariciar-lo!` >}}Si acabes el moviment en una casella veïna d'un rival (just davant o just darrere), feu scattering. Si empateu a pedra, paper o tisores, guanyes tu.{{< /fitxa >}}
-{{< fitxa titol="Muó Mestre" imatge="personatges/4-mestre.webp" color="#1E8C9E" etiqueta="Bonus de saviesa" nota=`Fa tant de temps que ensenya la relativitat (2 ms!) que respon bé gairebé totes les preguntes. Com que ja té una edat, a vegades la memòria li falla...` >}}Quan encertes una pregunta, avances 2 caselles. Si en falles una, tira un dau: amb un 6, guanyes 1 d'energia, sigui quina sigui la pregunta.{{< /fitxa >}}
-{{< fitxa titol="Muó Minyó" imatge="personatges/5-minyo.webp" color="#A2760F" etiqueta="Bonus del bon rotllo" nota=`És simplement feliç. Passa de mals rotllos. No pensa massa les coses, i per això a vegades les jugades li surten millor del que espera...` >}}Mai fas scattering: quan n'hi hauria amb tu, passes de llarg i avances 1 casella.{{< /fitxa >}}
+{{< fitxa titol="Muó Macarra" imatge="personatges/1-macarra.webp" color="#7B45C0" etiqueta="Bonus de velocitat" nota=`S'ha intentat saltar les normes còsmiques diverses vegades! Té antecedents penals per voler acostar-se massa a la velocitat de la llum.` >}}Sempre et mous una casella més del que t'indica al dau!{{< /fitxa >}}
+{{< fitxa titol="Muó Maliciós" imatge="personatges/2-malicios.webp" color="#2E8B57" etiqueta="Bonus per avarícia" nota=`És dels dolents! Vol aconseguir el màxim d'energia possible per causar un impacte negatiu a la Terra.` >}}Quan els teus daus sumen parell, robes 2 d'energia al rival que tinguis més a prop i el fas retrocedir 1 casella.{{< /fitxa >}}
+{{< fitxa titol="Muó Michi" imatge="personatges/3-michi.webp" color="#CC5A55" etiqueta="Bonus de monada" nota=`És infinitament adorable. De debò, mira'l. Tots els muons es volen aturar a acariciar-lo!` >}}Generes scattering amb els veïns de casella (just davant o just darrere). Guanyes els empats i, quan guanyes, avances 4 caselles en lloc de 2.{{< /fitxa >}}
+{{< fitxa titol="Muó Mestre" imatge="personatges/4-mestre.webp" color="#1E8C9E" etiqueta="Bonus de saviesa" nota=`Fa tant de temps que ensenya la relativitat (2 ms!) que respon bé gairebé totes les preguntes. Com que ja té una edat, a vegades la memòria li falla...` >}}Cada ronda tens el teu comodí especial: si falles una pregunta, tira un dau i amb un 5 o un 6 la dones per bona. Quan encertes una pregunta, avances 4 caselles.{{< /fitxa >}}
+{{< fitxa titol="Muó Minyó" imatge="personatges/5-minyo.webp" color="#A2760F" etiqueta="Bonus del bon rotllo" nota=`És simplement feliç. Passa de mals rotllos. No pensa massa les coses, i per això a vegades les jugades li surten millor del que espera...` >}}Quan hi hagi una situació de scattering, passes de llarg: avances 2 caselles i l'altre en retrocedeix 2, sense pedra, paper ni tisores.{{< /fitxa >}}
 {{< /fitxes >}}
 <!-- /personatges -->
-
-## En quin punt som
-
-Muon Sidequest el fa un equip petit del Club i encara és un prototip. Hem ajustat les regles amb simulacions de milers de partides perquè cap personatge surti massa afavorit i una partida no s'allargui més de 10 minuts. Ara toca provar-lo amb gent de veritat.
-
-Si hi jugues, explica'ns què t'ha semblat: digues-nos-ho a la paradeta o [escriu-nos](/contacte/).
