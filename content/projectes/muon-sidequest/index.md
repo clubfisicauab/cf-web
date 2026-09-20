@@ -51,6 +51,12 @@ baixades:
   - fitxer: "cartes-amateur-doble-cara.pdf"
     titol: "Baralla amateur amb revers"
     text: "La mateixa baralla amb el revers del color de cada nivell. Imprimiu-la a doble cara, girant pel costat llarg."
+  - fitxer: "cartes-esdeveniments.pdf"
+    titol: "Cartes d'esdeveniment"
+    text: "Nou coses que li poden passar a un muó mentre baixa, de la partícula més energètica mai detectada a una tempesta solar."
+  - fitxer: "cartes-esdeveniments-doble-cara.pdf"
+    titol: "Cartes d'esdeveniment amb revers"
+    text: "Les mateixes, amb el revers. Imprimiu-les a doble cara, girant pel costat llarg."
   - fitxer: "fitxes-personatges.pdf"
     titol: "Fitxes dels muons"
     text: "Una per jugador, amb el bonus i la pista d'energia. Quatre per full."
@@ -93,7 +99,7 @@ Al joc passa igual: com més energia tens, més lent va el teu rellotge i menys 
 {{< passos >}}
 1. **Paga** l'energia que marca el color on tens el marcador. Com més energia tens, menys pagues.
 2. **Tira** els dos daus i avança.
-3. **Resol** la casella on has caigut: una pregunta, una tempesta que t'accelera, una col·lisió amb l'aire que et fa perdre energia...
+3. **Resol** la casella on has caigut: una pregunta, una tempesta que t'accelera, una pèrdua d'energia de cop o una carta d'esdeveniment.
 {{< /passos >}}
 
 Si al principi del torn no pots pagar, et desintegres (μ → e + 2 neutrins). Cada casella té física real al darrere, i les simplificacions del joc les expliquem a les regles.
