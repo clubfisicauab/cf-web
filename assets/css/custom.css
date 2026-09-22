@@ -3327,6 +3327,76 @@ a.cf-paginacio-fletxa:hover {
   }
 }
 
+/* Llicència d'un projecte (shortcode "llicencia") */
+.cf-llicencia {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.cf-llicencia-cos {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--cf-linia);
+  border-left: 4px solid var(--cf-or);
+  border-radius: var(--cf-radi);
+  background: var(--cf-fons-suau);
+}
+
+.cf-llicencia-segell {
+  flex: none;
+  display: inline-flex;
+  margin-top: 0.2rem;
+}
+
+.cf-llicencia-segell img {
+  display: block;
+  width: 120px;
+  height: auto;
+}
+
+.cf-llicencia-codi {
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  background: var(--cf-blau-nit);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.cf-llicencia-text > * {
+  margin: 0 0 0.75rem;
+  font-size: 0.93rem;
+  line-height: 1.6;
+  color: var(--cf-suau);
+}
+
+.cf-llicencia-text > :last-child {
+  margin-bottom: 0;
+}
+
+.cf-llicencia-text b {
+  color: var(--cf-tinta);
+}
+
+.cf-llicencia-text a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--cf-or);
+  text-underline-offset: 3px;
+}
+
+.cf-llicencia-text a:hover {
+  color: var(--cf-tinta);
+}
+
+@media (max-width: 559px) {
+  .cf-llicencia-cos {
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+}
+
 /* Portada: projecte destacat */
 .cf-destacat {
   width: 100vw;
