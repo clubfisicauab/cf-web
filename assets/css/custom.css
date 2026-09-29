@@ -3488,6 +3488,224 @@ a.cf-paginacio-fletxa:hover {
 }
 
 /* ---------------------------------------------------------------------
+   28. Pàgina 404
+   --------------------------------------------------------------------- */
+.cf-404 {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+  padding: clamp(3rem, 8vw, 5.5rem) var(--cf-marge);
+  overflow: hidden;
+  background-color: var(--cf-blau-nit);
+  /* Estrelles + resplendor daurada darrere l'àtom */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' fill='%23ffffff'%3E%3Ccircle cx='18' cy='30' r='1.2' fill-opacity='.7'/%3E%3Ccircle cx='92' cy='14' r='.8' fill-opacity='.5'/%3E%3Ccircle cx='160' cy='52' r='1.4' fill-opacity='.6'/%3E%3Ccircle cx='236' cy='22' r='.9' fill-opacity='.45'/%3E%3Ccircle cx='54' cy='104' r='.9' fill-opacity='.4'/%3E%3Ccircle cx='128' cy='122' r='1.1' fill-opacity='.55'/%3E%3Ccircle cx='210' cy='140' r='.8' fill-opacity='.5'/%3E%3Ccircle cx='30' cy='186' r='1.3' fill-opacity='.5'/%3E%3Ccircle cx='104' cy='214' r='.8' fill-opacity='.45'/%3E%3Ccircle cx='182' cy='236' r='1.2' fill-opacity='.65'/%3E%3Ccircle cx='246' cy='196' r='.9' fill-opacity='.4'/%3E%3C/svg%3E"),
+    radial-gradient(circle at 76% 50%, rgba(234, 179, 8, 0.2), transparent 42%),
+    linear-gradient(135deg, var(--cf-blau-nit) 0%, var(--cf-blau-nit-2) 100%);
+  background-size: 260px 260px, auto, auto;
+  color: #fff;
+}
+
+.cf-404-contingut {
+  display: grid;
+  align-items: center;
+  gap: clamp(1.5rem, 5vw, 4rem);
+  max-width: var(--cf-contenidor);
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .cf-404-contingut {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 899px) {
+  .cf-404-figura {
+    order: -1;
+  }
+}
+
+.cf-404 .cf-etiqueta {
+  color: var(--cf-or);
+}
+
+.cf-404-titol {
+  max-width: 18ch;
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.3rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.cf-404-subtitol {
+  max-width: 38rem;
+  margin: 1rem 0 0;
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.cf-404-accions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.cf-404-figura {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(6rem, 22vw, 12rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #fff;
+  user-select: none;
+}
+
+.cf-404-xifra {
+  text-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.cf-404-atom {
+  width: 1em;
+  height: 1em;
+  margin: 0 -0.04em;
+  overflow: visible;
+}
+
+.cf-404-orbites {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: cf-404-gir 60s linear infinite;
+}
+
+.cf-404-orbita {
+  stroke: rgba(255, 255, 255, 0.6);
+  stroke-width: 5;
+}
+
+.cf-404-electro {
+  fill: #fff;
+}
+
+.cf-404-nucli {
+  fill: var(--cf-or);
+}
+
+@keyframes cf-404-gir {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cf-404-apartats {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 640px) {
+  .cf-404-apartats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .cf-404-apartats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.cf-404-apartat {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--cf-linia);
+  border-radius: var(--cf-radi);
+  background: #fff;
+  box-shadow: var(--cf-ombra);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--cf-suau);
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.cf-404-apartat:hover {
+  transform: translateY(-3px);
+  border-color: var(--cf-or);
+  box-shadow: var(--cf-ombra-hover);
+}
+
+.cf-404-apartat-icona {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 12px;
+  background: var(--cf-or-suau);
+  color: var(--cf-or-fosc);
+}
+
+.cf-404-apartat-icona .icona {
+  width: 22px;
+  height: 22px;
+}
+
+.cf-404-apartat-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.cf-404-apartat-text strong {
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--cf-tinta);
+}
+
+.cf-404-apartat-fletxa {
+  flex: none;
+  display: inline-flex;
+  color: var(--cf-suau);
+  transition: transform 0.2s, color 0.2s;
+}
+
+.cf-404-apartat:hover .cf-404-apartat-fletxa {
+  transform: translateX(4px);
+  color: var(--cf-or-fosc);
+}
+
+.cf-404-avis {
+  margin: 2rem 0 0;
+  font-size: 0.95rem;
+  color: var(--cf-suau);
+}
+
+.cf-404-avis a {
+  font-weight: 700;
+  color: var(--cf-blau);
+  text-underline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cf-404-orbites {
+    animation: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------------
    15. Accessibilitat i moviment reduït
    --------------------------------------------------------------------- */
 :where(a, button, summary, input):focus-visible {

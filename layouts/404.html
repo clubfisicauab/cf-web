@@ -1,0 +1,90 @@
+{{- /* Pàgina 404: substitueix la del tema. El "0" del 404 és l'àtom del logo. */ -}}
+{{ define "main" }}
+{{- $club := site.Params.club -}}
+{{- $apartats := slice
+  (dict "url" "agenda/" "icona" "calendar" "titol" "Agenda" "text" "Les properes sessions, xerrades i sortides del Club.")
+  (dict "url" "blog/" "icona" "chat" "titol" "Blog" "text" "Cròniques de les trobades i notícies del Club.")
+  (dict "url" "paperillos/" "icona" "document" "titol" "Paperillos" "text" "Petits articles de física escrits per membres del Club.")
+  (dict "url" "projectes/" "icona" "atom" "titol" "Projectes" "text" "Jocs, maquetes i experiments que hem construït.")
+  (dict "url" "recursos/" "icona" "link" "titol" "Recursos" "text" "Vídeos, llibres i webs per aprendre física pel teu compte.")
+  (dict "url" "preguntes-frequents/" "icona" "help" "titol" "Preguntes freqüents" "text" "Què és el Club, qui hi pot venir i com s'hi participa.")
+-}}
+
+<section class="cf-404" aria-labelledby="cf-404-titol">
+  <div class="cf-404-contingut">
+    <div class="cf-404-text">
+      <p class="cf-etiqueta">Error 404 · Pàgina no trobada</p>
+      <h1 id="cf-404-titol" class="cf-404-titol">Has col·lapsat la funció d'ona</h1>
+      <p class="cf-404-subtitol">Fins que no hi has entrat, aquesta pàgina estava en superposició: podia existir o no existir. Ara que l'has observada, ja ho sabem del cert: no existeix.</p>
+      <p class="cf-404-subtitol">Potser l'enllaç és antic, la pàgina s'ha mogut o l'adreça té alguna lletra de més.</p>
+      <div class="cf-404-accions">
+        <a class="cf-boto cf-boto--or" href="{{ "/" | relURL }}">{{ partial "icona.html" "arrow-left" }} Torna a l'inici</a>
+        {{- if site.Params.enableSearch }}
+        <button type="button" class="cf-boto cf-boto--fantasma" data-cf-cerca hidden>{{ partial "icona.html" "search" }} Cerca a la web</button>
+        {{- end }}
+      </div>
+    </div>
+
+    <div class="cf-404-figura" aria-hidden="true">
+      <span class="cf-404-xifra">4</span>
+      <svg class="cf-404-atom" viewBox="0 0 200 200" fill="none" focusable="false">
+        <defs>
+          <radialGradient id="cf-404-brillantor">
+            <stop offset="0" stop-color="#eab308" stop-opacity="0.55" />
+            <stop offset="1" stop-color="#eab308" stop-opacity="0" />
+          </radialGradient>
+          <path id="cf-404-orbita" d="M8 100a92 34 0 1 0 184 0a92 34 0 1 0-184 0" />
+        </defs>
+        <circle cx="100" cy="100" r="48" fill="url(#cf-404-brillantor)" />
+        <g class="cf-404-orbites">
+          {{- range $i, $orbita := slice (dict "angle" -30 "durada" "3.4s") (dict "angle" 30 "durada" "4.2s") (dict "angle" 90 "durada" "3.8s") }}
+          <g transform="rotate({{ $orbita.angle }} 100 100)">
+            <use href="#cf-404-orbita" class="cf-404-orbita" />
+            <circle r="7" class="cf-404-electro">
+              <animateMotion dur="{{ $orbita.durada }}" begin="-{{ $i }}.3s" repeatCount="indefinite"><mpath href="#cf-404-orbita" /></animateMotion>
+            </circle>
+          </g>
+          {{- end }}
+        </g>
+        <circle cx="100" cy="100" r="14" class="cf-404-nucli" />
+      </svg>
+      <span class="cf-404-xifra">4</span>
+    </div>
+  </div>
+</section>
+
+<div class="cf-contenidor cf-pagina-cos">
+  <h2 class="cf-bloc-titol">Potser buscaves…</h2>
+  <ul class="cf-404-apartats">
+    {{- range $apartats }}
+    <li>
+      <a class="cf-404-apartat" href="{{ .url | relURL }}">
+        <span class="cf-404-apartat-icona">{{ partial "icona.html" .icona }}</span>
+        <span class="cf-404-apartat-text"><strong>{{ .titol }}</strong>{{ .text }}</span>
+        <span class="cf-404-apartat-fletxa">{{ partial "icona.html" "arrow-right" }}</span>
+      </a>
+    </li>
+    {{- end }}
+  </ul>
+  {{- with $club.email }}
+  <p class="cf-404-avis">Hi has arribat des d'un enllaç de la nostra web? <a href="mailto:{{ . }}?subject=Enlla%C3%A7%20trencat%20a%20la%20web">Avisa'ns</a> i l'arreglarem.</p>
+  {{- end }}
+</div>
+
+<script>
+  (function () {
+    // Botó "Cerca a la web": obre el cercador de la capçalera (si n'hi ha)
+    var boto = document.querySelector("[data-cf-cerca]");
+    var cercador = document.getElementById("search-button") || document.getElementById("search-button-mobile");
+    if (boto && cercador) {
+      boto.hidden = false;
+      boto.addEventListener("click", function () { cercador.click(); });
+    }
+    // Moviment reduït: atura els electrons
+    var atom = document.querySelector(".cf-404-atom");
+    if (atom && atom.pauseAnimations && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      atom.pauseAnimations();
+    }
+  })();
+</script>
+{{ end }}

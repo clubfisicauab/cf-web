@@ -1,6 +1,7 @@
 <head>
-  {{/* Còpia del head.html de Blowfish v2.103.0. Únic canvi: el bloc "Social" fa servir
-       partials/metadades/ (imatge i descripció de cada pàgina) en lloc de les plantilles internes de Hugo. */}}
+  {{/* Còpia del head.html de Blowfish v2.103.0. Canvis: el bloc "Social" fa servir
+       partials/metadades/ (imatge i descripció de cada pàgina) en lloc de les plantilles internes de Hugo,
+       i la pàgina 404 es titula en català. */}}
   <meta charset="utf-8">
   {{ with .Site.Language.Params.htmlCode | default .Site.Language.Locale }}
     <meta http-equiv="content-language" content="{{ . }}">
@@ -14,8 +15,10 @@
     <title>{{ .Site.Title | emojify }}</title>
     <meta name="title" content="{{ .Site.Title | emojify }}">
   {{ else }}
-    <title>{{ .Title | plainify | emojify }} &middot; {{ .Site.Title | emojify }}</title>
-    <meta name="title" content="{{ .Title | plainify | emojify }} &middot; {{ .Site.Title | emojify }}">
+    {{/* Hugo titula la 404 en anglès ("404 Page not found") */}}
+    {{ $titol := cond (eq .Kind "404") "Pàgina no trobada" .Title }}
+    <title>{{ $titol | plainify | emojify }} &middot; {{ .Site.Title | emojify }}</title>
+    <meta name="title" content="{{ $titol | plainify | emojify }} &middot; {{ .Site.Title | emojify }}">
   {{ end }}
 
   {{/* Metadata */}}
