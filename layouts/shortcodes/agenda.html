@@ -2,7 +2,7 @@
 {{- $esdeveniments := where site.RegularPages "Section" "agenda" -}}
 {{- $avui := now.Format "2006-01-02" -}}
 {{- $propers := slice -}}
-{{- range $esdeveniments.ByDate -}}
+{{- range partial "ordena-activitats.html" $esdeveniments -}}
   {{- if ge (.Date.Format "2006-01-02") $avui -}}
     {{- $propers = $propers | append . -}}
   {{- end -}}

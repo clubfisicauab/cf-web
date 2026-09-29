@@ -1141,7 +1141,9 @@ body {
   padding: 1.35rem 1.5rem 1.5rem;
 }
 
-.cf-targeta-categoria {
+.cf-targeta-categoria,
+.cf-calendari-categoria,
+.cf-event-categoria {
   margin: 0 0 0.45rem;
   font-size: 0.74rem;
   font-weight: 800;
@@ -2400,6 +2402,12 @@ a.cf-paginacio-fletxa:hover {
   flex-direction: column;
   gap: 0.15rem;
   min-width: 0;
+}
+
+.cf-calendari-categoria,
+.cf-event-categoria {
+  margin: 0;
+  font-size: 0.68rem;
 }
 
 .cf-calendari-info a {

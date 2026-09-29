@@ -1,0 +1,12 @@
+{{- /* Ordena activitats per data i, si comencen alhora, per la primera categoria
+       (així les sessions de "1r curs", "2n curs" i "3r curs" del mateix dia surten en ordre).
+       Rep una llista de pàgines i en retorna una d'ordenada. */ -}}
+{{- $elements := slice -}}
+{{- range . -}}
+  {{- $categoria := "" -}}
+  {{- with .Params.categories }}{{ $categoria = index . 0 }}{{ end -}}
+  {{- $elements = $elements | append (dict "clau" (printf "%s|%s" (.Date.UTC.Format "2006-01-02T15:04:05") $categoria) "pagina" .) -}}
+{{- end -}}
+{{- $ordenades := slice -}}
+{{- range sort $elements "clau" }}{{ $ordenades = $ordenades | append .pagina }}{{ end -}}
+{{- return $ordenades -}}

@@ -6,6 +6,9 @@
     <span class="cf-event-dia">{{ .Date.Format "02" }}</span>
   </span>
   <span class="cf-event-info">
+    {{- with .Params.categories }}
+    <span class="cf-event-categoria">{{ delimit . " · " }}</span>
+    {{- end }}
     <span class="cf-event-titol">{{ .Title }}</span>
     <span class="cf-event-detalls">
       <span>{{ partial "icona.html" "calendar" }}{{ .Date.Format "02/01/2006" }}</span>

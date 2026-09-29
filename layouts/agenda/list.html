@@ -13,7 +13,7 @@
 {{- $dies := slice "dg." "dl." "dt." "dc." "dj." "dv." "ds." -}}
 
 {{- $propers := slice -}}
-{{- range .Pages.ByDate }}{{ if ge (.Date.Format "2006-01-02") $avui }}{{ $propers = $propers | append . }}{{ end }}{{ end -}}
+{{- range partial "ordena-activitats.html" .Pages }}{{ if ge (.Date.Format "2006-01-02") $avui }}{{ $propers = $propers | append . }}{{ end }}{{ end -}}
 {{- $delCurs := where (where .Pages "Date" "ge" $iniciCurs) "Date" "lt" $fiCurs -}}
 {{- $anteriors := where .Pages "Date" "lt" $iniciCurs -}}
 
@@ -59,11 +59,14 @@
       <div class="cf-calendari-mes">
         <h3 class="cf-calendari-mes-titol">{{ index $mesos (sub $primera.Date.Month 1) | strings.FirstUpper }} {{ $primera.Date.Year }}</h3>
         <ol class="cf-calendari-llista">
-          {{- range .Pages.ByDate }}
+          {{- range partial "ordena-activitats.html" .Pages }}
           {{- $passat := lt (.Date.Format "2006-01-02") $avui }}
           <li class="cf-calendari-item{{ if $passat }} cf-calendari-item--passat{{ end }}">
             <span class="cf-calendari-dia" aria-hidden="true"><span>{{ index $dies (int .Date.Weekday) }}</span><strong>{{ .Date.Day }}</strong></span>
             <span class="cf-calendari-info">
+              {{- with .Params.categories }}
+              <span class="cf-calendari-categoria">{{ delimit . " · " }}</span>
+              {{- end }}
               <a href="{{ .RelPermalink }}"><time datetime="{{ .Date.Format "2006-01-02" }}" class="cf-visualment-amagat">{{ .Date.Day }} {{ index $mesos (sub .Date.Month 1) }}: </time>{{ .Title }}</a>
               <span class="cf-calendari-detalls">
                 {{- with .Params.time }}{{ partial "icona.html" "clock" }}{{ . }}{{ end }}
