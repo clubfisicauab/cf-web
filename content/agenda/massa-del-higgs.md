@@ -1,8 +1,8 @@
 ---
 title: "La massa del Higgs des de diferents punts de vista"
 description: "Sessió de 2n curs: què vol dir que el bosó de Higgs dona massa a les partícules, mirat des de diferents punts de vista."
-date: 2026-10-21T13:00:00+02:00
-fi: 2026-10-21T15:00:00+02:00
+date: 2026-11-04T13:00:00+02:00
+fi: 2026-11-04T15:00:00+02:00
 time: "13:00 - 15:00h"
 location: "Facultat de Ciències"
 categories: ["2n curs", "Presentacions"]

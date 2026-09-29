@@ -1,8 +1,8 @@
 ---
 title: "Quin tacte té el buit?"
 description: "Sessió de 2n curs: el buit no està tan buit com sembla. Fluctuacions quàntiques, partícules virtuals i l'efecte Casimir."
-date: 2026-09-30T13:00:00+02:00
-fi: 2026-09-30T15:00:00+02:00
+date: 2026-10-07T13:00:00+02:00
+fi: 2026-10-07T15:00:00+02:00
 time: "13:00 - 15:00h"
 location: "Facultat de Ciències"
 categories: ["2n curs", "Presentacions"]

@@ -1,8 +1,8 @@
 ---
 title: "El principi d'exclusió de Pauli"
 description: "Sessió de 2n curs: per què dos electrons no poden estar en el mateix estat, i per què això fa que la matèria sigui sòlida."
-date: 2026-10-07T13:00:00+02:00
-fi: 2026-10-07T15:00:00+02:00
+date: 2026-10-21T13:00:00+02:00
+fi: 2026-10-21T15:00:00+02:00
 time: "13:00 - 15:00h"
 location: "Facultat de Ciències"
 categories: ["2n curs", "Presentacions"]
