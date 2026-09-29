@@ -1,0 +1,69 @@
+{{- /* Avís de llicència Creative Commons d'un projecte o d'un material descarregable.
+       Ús:
+       {{< llicencia codi="by-nc-sa" obra="Maqueta de Lorentz" autor="del Club de Física UAB"
+                     original="Lorentz Transform Simulator" autorOriginal="de 3DPrintingEnthusiast"
+                     urlOriginal="https://..." >}}
+       Text opcional: què s'ha canviat respecte de l'original.
+       {{< /llicencia >}}
+
+       Si no hi vols posar text, tanca'l amb una barra: {{< llicencia obra="..." />}}
+
+       codi: by, by-sa, by-nc, by-nc-sa, by-nd, by-nc-nd (per defecte, by-nc-sa)
+       autor i autorOriginal: escriu-hi la preposició ("del Club de Física UAB", "de l'Hector Solé")
+       versio: versió de la llicència (per defecte, 4.0)
+       Els camps "original", "autorOriginal" i "urlOriginal" només calen si l'obra és un remix. */ -}}
+
+{{- $codi := .Get "codi" | default "by-nc-sa" -}}
+{{- $versio := .Get "versio" | default "4.0" -}}
+{{- $obra := .Get "obra" | default .Page.Title -}}
+{{- $autor := .Get "autor" | default (printf "del %s" site.Title) -}}
+{{- $url := printf "https://creativecommons.org/licenses/%s/%s/deed.ca" $codi $versio -}}
+
+{{- $noms := dict
+  "by" "Reconeixement"
+  "by-sa" "Reconeixement-CompartirIgual"
+  "by-nc" "Reconeixement-NoComercial"
+  "by-nc-sa" "Reconeixement-NoComercial-CompartirIgual"
+  "by-nd" "Reconeixement-SenseObraDerivada"
+  "by-nc-nd" "Reconeixement-NoComercial-SenseObraDerivada" -}}
+{{- $nom := index $noms $codi -}}
+{{- if not $nom }}{{ errorf "%s: el codi de llicència %q no és cap de: by, by-sa, by-nc, by-nc-sa, by-nd, by-nc-nd" .Page.File.Path $codi }}{{ end -}}
+{{- $parts := split $codi "-" -}}
+
+{{- $condicions := slice "en reconeguis l'autoria" -}}
+{{- if in $parts "nc" }}{{ $condicions = $condicions | append "no en facis un ús comercial" }}{{ end -}}
+{{- if in $parts "sa" }}{{ $condicions = $condicions | append "comparteixis les obres derivades amb aquesta mateixa llicència" }}{{ end -}}
+{{- if in $parts "nd" }}{{ $condicions = $condicions | append "no en distribueixis versions modificades" }}{{ end -}}
+
+{{- $segell := resources.Get (printf "images/llicencies/%s.png" $codi) -}}
+{{- $etiqueta := printf "Llicència Creative Commons %s %s Internacional" $nom $versio -}}
+
+<section class="cf-llicencia not-prose" aria-labelledby="titol-llicencia">
+  <h2 class="cf-bloc-titol" id="titol-llicencia">Llicència i crèdits</h2>
+  <div class="cf-llicencia-cos">
+    <a class="cf-llicencia-segell" href="{{ $url }}" rel="license noopener noreferrer" target="_blank" title="{{ $etiqueta }}">
+      {{- with $segell }}
+      <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="{{ $etiqueta }}" loading="lazy" decoding="async">
+      {{- else }}
+      <span class="cf-llicencia-codi">CC {{ upper $codi }} {{ $versio }}</span>
+      {{- end }}
+    </a>
+    <div class="cf-llicencia-text">
+      <p>
+        <b>{{ $obra }}</b>, {{ $autor }}
+        {{- with .Get "original" }}, és una obra derivada de
+          {{- with $.Get "urlOriginal" }} <a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ end -}}
+          <i>{{ . }}</i>
+          {{- if $.Get "urlOriginal" }}</a>{{ end }}
+          {{- with $.Get "autorOriginal" }} {{ . }}{{ end -}}
+        , i es publica{{ else }}, es publica{{ end }}
+        sota una llicència <a href="{{ $url }}" rel="license noopener noreferrer" target="_blank">Creative Commons {{ $nom }} {{ $versio }} Internacional (CC {{ upper $codi }} {{ $versio }})</a>.
+        Pots copiar-la, compartir-la{{ if not (in $parts "nd") }} i adaptar-la{{ end }} sempre que
+        {{ delimit $condicions ", " " i " }}.
+      </p>
+      {{- with .Inner }}
+      {{ $.Page.RenderString (dict "display" "block") . }}
+      {{- end }}
+    </div>
+  </div>
+</section>

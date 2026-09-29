@@ -96,6 +96,7 @@ hugo new content projectes/nom-del-projecte
 - `baixades`: fitxers de la carpeta per descarregar (PDF, SVG...), amb un títol i una frase. La mida es calcula sola.
 - `relacionats`: posts del blog relacionats, p. ex. `["/blog/post-23/"]`.
 - `destacat: true` perquè surti a la portada de la web. Si cap projecte ho és, hi surt el més recent.
+- `weight`: ordre a la llista de projectes (com més petit, més amunt). Si no en poses, el projecte va al final.
 - El paràgraf d'abans de `<!--more-->` és el resum que surt a les pàgines d'etiquetes.
 
 Dins del text pots fer servir aquests blocs:
@@ -113,6 +114,20 @@ Dins del text pots fer servir aquests blocs:
 {{< fitxa titol="Nom" imatge="foto.webp" color="#7B45C0" etiqueta="Etiqueta" nota="Frase en cursiva" >}}Text principal{{< /fitxa >}}
 {{< /fitxes >}}
 ```
+
+Si el projecte es publica amb una llicència Creative Commons (obligatori si és un *remix* d'un material d'altri), acaba la pàgina amb el bloc de llicència:
+```
+{{< llicencia codi="by-nc-sa" obra="Nom del projecte" autor="del Club de Física UAB"
+              original="Nom de l'obra original" autorOriginal="de qui la va fer"
+              urlOriginal="https://..." >}}
+Què s'ha canviat respecte de l'original i qualsevol altre avís.
+{{< /llicencia >}}
+```
+- `codi`: `by`, `by-sa`, `by-nc`, `by-nc-sa` (per defecte), `by-nd` o `by-nc-nd`. El text de les condicions i l'enllaç a la llicència es generen sols.
+- `autor` i `autorOriginal` porten la preposició escrita (`"del Club de Física UAB"`, `"de l'Hector Solé"`).
+- Els tres camps de l'original només calen si el projecte és un *remix*.
+- El segell surt de `static/images/llicencies/<codi>.png`. Si no hi ha el segell d'una llicència, es mostra el codi en text.
+- Si no hi vols posar cap text a dins, tanca el bloc amb una barra: `{{< llicencia obra="..." />}}`.
 
 > **Muon Sidequest** s'actualitza des del projecte del joc: després de `build.py` i `pdf.py`, `python scripts/web_club.py <carpeta de la web>` hi copia els PDF, els retrats, la portada i la web del joc (`static/projectes/muon-sidequest/joc/`), i posa al dia les xifres i les fitxes dels personatges de `content/projectes/muon-sidequest/index.md`. No editeu a mà aquests fitxers ni el bloc marcat com a generat; la resta del text sí.
 

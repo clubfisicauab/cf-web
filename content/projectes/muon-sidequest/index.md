@@ -8,6 +8,7 @@ estat: "Prototip v0.2"             # Com es diu la versió a la web: és decisi�
 equip: "Regina Calsapeu, David Galan"
 tags: ["Relativitat", "Raigs còsmics", "Divulgació"]
 destacat: true
+weight: 1                         # Ordre a la llista de projectes: com més petit, més amunt
 schema: "Game"
 aliases: ["/muon/"]               # Adreça curta per a la paradeta: clubdefisicauab.cat/muon
 
