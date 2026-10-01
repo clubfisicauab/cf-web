@@ -3,6 +3,8 @@ locale = 'ca'
 title = 'Club de Física UAB'
 theme = 'blowfish'
 buildFuture = true
+# Les dates sense hora (p. ex. "2026-07-15") són de l'hora de Barcelona, no UTC
+timeZone = 'Europe/Madrid'
 enableRobotsTXT = true
 # Manté els noms de categories i etiquetes tal com s'escriuen (p. ex. "Club de Física", no "Club De Física")
 titleCaseStyle = "none"

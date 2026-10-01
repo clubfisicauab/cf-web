@@ -2,7 +2,6 @@
 
 {{ partial "capcalera-pagina.html" (dict "etiqueta" "Agenda i esdeveniments" "titol" .Title "subtitol" "Descobreix els propers seminaris, tallers, sortides i fires on participa el Club de Física de la UAB. T'hi esperem!") }}
 
-{{- $avui := now.Format "2006-01-02" -}}
 {{- /* El curs va de setembre a agost */ -}}
 {{- $any := now.Year -}}
 {{- if lt (int now.Month) 9 }}{{ $any = sub $any 1 }}{{ end -}}
@@ -13,7 +12,7 @@
 {{- $dies := slice "dg." "dl." "dt." "dc." "dj." "dv." "ds." -}}
 
 {{- $propers := slice -}}
-{{- range partial "ordena-activitats.html" .Pages }}{{ if ge (.Date.Format "2006-01-02") $avui }}{{ $propers = $propers | append . }}{{ end }}{{ end -}}
+{{- range partial "ordena-activitats.html" .Pages }}{{ if not (partial "activitat-finalitzada.html" .) }}{{ $propers = $propers | append . }}{{ end }}{{ end -}}
 {{- $delCurs := where (where .Pages "Date" "ge" $iniciCurs) "Date" "lt" $fiCurs -}}
 {{- $anteriors := where .Pages "Date" "lt" $iniciCurs -}}
 
@@ -38,7 +37,7 @@
   {{- end }}
 
   {{- if $propers }}
-  <section class="cf-bloc">
+  <section class="cf-bloc" data-properes>
     <h2 class="cf-bloc-titol">Properes activitats</h2>
     <div class="cf-graella-posts">
       {{- range $propers }}
@@ -46,6 +45,7 @@
       {{- end }}
     </div>
   </section>
+  <div data-properes-buit hidden>{{ partial "agenda-buida.html" . }}</div>
   {{- else }}
   {{ partial "agenda-buida.html" . }}
   {{- end }}
@@ -60,8 +60,8 @@
         <h3 class="cf-calendari-mes-titol">{{ index $mesos (sub $primera.Date.Month 1) | strings.FirstUpper }} {{ $primera.Date.Year }}</h3>
         <ol class="cf-calendari-llista">
           {{- range partial "ordena-activitats.html" .Pages }}
-          {{- $passat := lt (.Date.Format "2006-01-02") $avui }}
-          <li class="cf-calendari-item{{ if $passat }} cf-calendari-item--passat{{ end }}">
+          {{- $passat := partial "activitat-finalitzada.html" . }}
+          <li class="cf-calendari-item{{ if $passat }} cf-calendari-item--passat{{ end }}"{{ if not $passat }} {{ partial "atribut-fi.html" . }}{{ end }}>
             <span class="cf-calendari-dia" aria-hidden="true"><span>{{ index $dies (int .Date.Weekday) }}</span><strong>{{ .Date.Day }}</strong></span>
             <span class="cf-calendari-info">
               {{- with .Params.categories }}
@@ -98,5 +98,7 @@
   </section>
   {{- end }}
 </div>
+
+{{ partial "script-agenda.html" . }}
 
 {{ end }}

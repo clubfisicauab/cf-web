@@ -4,11 +4,11 @@
 {{- $mes := index $mesos (sub .Date.Month 1) -}}
 {{- $de := cond (in (slice "abril" "agost" "octubre") $mes) "d'" "de " -}}
 {{- $dataLlarga := printf "%d %s%s de %d" .Date.Day $de $mes .Date.Year -}}
-{{- $passat := lt (.Date.Format "2006-01-02") (now.Format "2006-01-02") -}}
+{{- $passat := partial "activitat-finalitzada.html" . -}}
 {{- $cronica := "" -}}
 {{- with .Params.cronica }}{{ $cronica = site.GetPage (strings.TrimSuffix "/" .) }}{{ end -}}
 
-<article>
+<article data-activitat{{ if not $passat }} {{ partial "atribut-fi.html" . }}{{ end }}>
   <header class="cf-capcalera-pagina">
     <div class="cf-capcalera-pagina-contingut cf-capcalera-pagina-contingut--estret">
       <a class="cf-tornar" href="{{ "agenda/" | relURL }}">{{ partial "icona.html" "arrow-left" }} Tornar a l'agenda</a>
@@ -38,12 +38,12 @@
     <div class="cf-accions-activitat">
       {{- if not $passat }}
         {{- with .Params.inscripcio }}
-      <a class="cf-boto cf-boto--or" href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ partial "icona.html" "check" }} Inscriu-t'hi</a>
+      <a class="cf-boto cf-boto--or" href="{{ . }}" target="_blank" rel="noopener noreferrer" data-nomes-abans>{{ partial "icona.html" "check" }} Inscriu-t'hi</a>
         {{- end }}
         {{- with .OutputFormats.Get "calendar" }}
-      <a class="cf-boto cf-boto--fosc" href="{{ .RelPermalink }}" download>{{ partial "icona.html" "calendar-add" }} Afegeix al calendari</a>
+      <a class="cf-boto cf-boto--fosc" href="{{ .RelPermalink }}" download data-nomes-abans>{{ partial "icona.html" "calendar-add" }} Afegeix al calendari</a>
         {{- end }}
-      <a class="cf-boto cf-boto--contorn" href="{{ partial "enllac-google-calendar.html" . }}" target="_blank" rel="noopener noreferrer">{{ partial "icona.html" "calendar" }} Google Calendar</a>
+      <a class="cf-boto cf-boto--contorn" href="{{ partial "enllac-google-calendar.html" . }}" target="_blank" rel="noopener noreferrer" data-nomes-abans>{{ partial "icona.html" "calendar" }} Google Calendar</a>
       {{- end }}
       {{- with $cronica }}
       <a class="cf-boto cf-boto--fosc" href="{{ .RelPermalink }}">{{ partial "icona.html" "document" }} Llegeix la crònica</a>
@@ -60,5 +60,9 @@
     </div>
   </div>
 </article>
+
+{{- if not $passat }}
+{{ partial "script-agenda.html" . }}
+{{- end }}
 
 {{ end }}

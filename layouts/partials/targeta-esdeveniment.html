@@ -1,6 +1,6 @@
 {{- /* Targeta d'una activitat (pàgina d'Agenda) */ -}}
-{{- $passat := lt (.Date.Format "2006-01-02") (now.Format "2006-01-02") -}}
-<article class="cf-targeta">
+{{- $passat := partial "activitat-finalitzada.html" . -}}
+<article class="cf-targeta"{{ if not $passat }} {{ partial "atribut-fi.html" . }}{{ end }}>
   <span class="cf-targeta-data{{ if $passat }} cf-targeta-data--passat{{ end }}">
     {{- if $passat }}Finalitzada · {{ end }}{{ .Date.Format "02/01/2006" -}}
   </span>

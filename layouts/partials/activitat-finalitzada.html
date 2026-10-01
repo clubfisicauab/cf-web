@@ -1,0 +1,5 @@
+{{- /* Si una activitat de l'agenda ja ha acabat (segons la seva hora de fi) en el moment de generar la web.
+       La web es torna a generar cada nit (.github/workflows/hugo.yml) i, entremig,
+       assets/js/agenda.js fa el mateix càlcul al navegador perquè es vegi a l'hora exacta. */ -}}
+{{- $hores := partial "esdeveniment-hores.html" . -}}
+{{- return (not (now.Before $hores.fi)) -}}

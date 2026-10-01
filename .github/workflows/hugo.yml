@@ -5,6 +5,11 @@ on:
     branches:
       - main
   workflow_dispatch:
+  # Cada nit es torna a generar la web perquè les activitats de l'agenda que ja han passat
+  # surtin com a finalitzades i deixin de sortir a "Properes activitats".
+  # L'hora és UTC: 00:15 a l'hivern i 01:15 a l'estiu (hora de Barcelona).
+  schedule:
+    - cron: "15 23 * * *"
 
 permissions:
   contents: read
@@ -63,6 +68,8 @@ jobs:
       - name: Build
         env:
           HUGO_ENVIRONMENT: production
+          # "Avui" és el dia de Barcelona, no el del servidor (UTC)
+          TZ: Europe/Madrid
         run: hugo --gc --minify
 
       - name: Comprova enllaços i imatges

@@ -1,9 +1,8 @@
 {{- /* Portada: properes activitats de l'agenda (a partir d'avui, per data) */ -}}
 {{- $esdeveniments := where site.RegularPages "Section" "agenda" -}}
-{{- $avui := now.Format "2006-01-02" -}}
 {{- $propers := slice -}}
 {{- range partial "ordena-activitats.html" $esdeveniments -}}
-  {{- if ge (.Date.Format "2006-01-02") $avui -}}
+  {{- if not (partial "activitat-finalitzada.html" .) -}}
     {{- $propers = $propers | append . -}}
   {{- end -}}
 {{- end -}}
@@ -20,11 +19,15 @@
       {{- end }}
     </div>
     {{- if $propers }}
-    <ul class="cf-llista-events">
-      {{- range first 3 $propers }}
-      <li>{{ partial "fila-esdeveniment.html" . }}</li>
+    {{- /* Se'n mostren 3; les altres hi són amagades perquè agenda.js les pugui mostrar
+           quan les primeres acabin, abans que la web es torni a generar */}}
+    <ul class="cf-llista-events" data-properes="3">
+      {{- range $i, $p := $propers }}
+      <li {{ partial "atribut-fi.html" $p }}{{ if ge $i 3 }} hidden{{ end }}>{{ partial "fila-esdeveniment.html" $p }}</li>
       {{- end }}
     </ul>
+    <div data-properes-buit hidden>{{ partial "agenda-buida.html" . }}</div>
+    {{ partial "script-agenda.html" . }}
     {{- else }}
     {{ partial "agenda-buida.html" . }}
     {{- end }}

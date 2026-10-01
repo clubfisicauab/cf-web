@@ -1,0 +1,4 @@
+{{- /* El nom del fitxer porta un hash: si el JS canvia, els navegadors no fan servir la versió antiga de la memòria cau */ -}}
+{{- with resources.Get "js/agenda.js" | minify | fingerprint }}
+<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
+{{- end }}
