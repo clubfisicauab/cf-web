@@ -20,6 +20,9 @@
         {{- with $club.x }}
         <a href="https://x.com/{{ . }}" target="_blank" rel="noopener noreferrer" aria-label="X del Club (@{{ . }})">{{ partial "icona.html" "x" }}</a>
         {{- end }}
+        {{- with $club.youtube }}
+        <a href="https://www.youtube.com/@{{ . }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube del Club (@{{ . }})">{{ partial "icona.html" "youtube" }}</a>
+        {{- end }}
         {{- with $club.email }}
         <a href="mailto:{{ . }}" aria-label="Correu del Club">{{ partial "icona.html" "mail" }}</a>
         {{- end }}
@@ -53,6 +56,9 @@
         {{- end }}
         {{- with $club.x }}
         <li><a href="https://x.com/{{ . }}" target="_blank" rel="noopener noreferrer">X · @{{ . }}</a></li>
+        {{- end }}
+        {{- with $club.youtube }}
+        <li><a href="https://www.youtube.com/@{{ . }}" target="_blank" rel="noopener noreferrer">YouTube · @{{ . }}</a></li>
         {{- end }}
         {{- with $club.butlleti }}
         <li><a href="{{ . }}" target="_blank" rel="noopener noreferrer">Butlletí per correu</a></li>

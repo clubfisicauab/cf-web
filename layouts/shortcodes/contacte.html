@@ -25,4 +25,12 @@
     <span class="cf-contacte-text">Avisos de reunions, xerrades i esdeveniments.</span>
   </a>
   {{- end }}
+  {{- with $club.youtube }}
+  <a href="https://www.youtube.com/@{{ . }}" target="_blank" rel="noopener noreferrer">
+    <span class="cf-contacte-icona">{{ partial "icona.html" "youtube" }}</span>
+    <span class="cf-contacte-titol">YouTube</span>
+    <span class="cf-contacte-valor">@{{ . }}</span>
+    <span class="cf-contacte-text">Vídeos de les sessions, xerrades i projectes del Club.</span>
+  </a>
+  {{- end }}
 </div>

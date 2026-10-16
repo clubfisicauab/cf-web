@@ -13,6 +13,11 @@
         {{ partial "icona.html" "x" }}
       </a>
       {{- end }}
+      {{- with $club.youtube }}
+      <a href="https://www.youtube.com/@{{ . }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube del Club (@{{ . }})" title="YouTube · @{{ . }}">
+        {{ partial "icona.html" "youtube" }}
+      </a>
+      {{- end }}
     </div>
     {{- with $club.email }}
     <a class="barra-correu" href="mailto:{{ . }}" aria-label="Correu del Club: {{ . }}">

@@ -9,6 +9,7 @@
 {{- $xarxes := slice -}}
 {{- with $club.instagram }}{{ $xarxes = $xarxes | append (printf "https://www.instagram.com/%s/" .) }}{{ end -}}
 {{- with $club.x }}{{ $xarxes = $xarxes | append (printf "https://x.com/%s" .) }}{{ end -}}
+{{- with $club.youtube }}{{ $xarxes = $xarxes | append (printf "https://www.youtube.com/@%s" .) }}{{ end -}}
 
 {{- $dades := slice -}}
 
