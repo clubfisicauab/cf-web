@@ -27,13 +27,13 @@
       {{ .Content }}
     </div>
 
-    {{- /* Si aquest post és la crònica d'una activitat de l'agenda, s'hi enllaça */ -}}
+    {{- /* Si aquest post parla d'una activitat de l'agenda, s'hi enllaça */ -}}
     {{- $aquest := strings.TrimSuffix "/" .RelPermalink }}
     {{- range where site.RegularPages "Section" "agenda" }}
-      {{- if eq (strings.TrimSuffix "/" (.Params.cronica | default "")) $aquest }}
-    <aside class="cf-cronica">
+      {{- if eq (strings.TrimSuffix "/" (.Params.post | default "")) $aquest }}
+    <aside class="cf-post-activitat">
       {{ partial "icona.html" "calendar" }}
-      <p>Aquest post és la crònica de l'activitat <a href="{{ .RelPermalink }}">{{ .Title }}</a> del {{ .Date.Format "02/01/2006" }}.</p>
+      <p>Aquest post parla de l'activitat <a href="{{ .RelPermalink }}">{{ .Title }}</a> del {{ .Date.Format "02/01/2006" }}.</p>
     </aside>
       {{- end }}
     {{- end }}

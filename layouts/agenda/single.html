@@ -5,8 +5,8 @@
 {{- $de := cond (in (slice "abril" "agost" "octubre") $mes) "d'" "de " -}}
 {{- $dataLlarga := printf "%d %s%s de %d" .Date.Day $de $mes .Date.Year -}}
 {{- $passat := partial "activitat-finalitzada.html" . -}}
-{{- $cronica := "" -}}
-{{- with .Params.cronica }}{{ $cronica = site.GetPage (strings.TrimSuffix "/" .) }}{{ end -}}
+{{- $post := "" -}}
+{{- with .Params.post }}{{ $post = site.GetPage (strings.TrimSuffix "/" .) }}{{ end -}}
 
 <article data-activitat{{ if not $passat }} {{ partial "atribut-fi.html" . }}{{ end }}>
   <header class="cf-capcalera-pagina">
@@ -34,7 +34,7 @@
   </header>
 
   <div class="cf-contenidor cf-contenidor--estret cf-pagina-cos">
-    {{- if or (not $passat) $cronica }}
+    {{- if or (not $passat) $post }}
     <div class="cf-accions-activitat">
       {{- if not $passat }}
         {{- with .Params.inscripcio }}
@@ -45,8 +45,8 @@
         {{- end }}
       <a class="cf-boto cf-boto--contorn" href="{{ partial "enllac-google-calendar.html" . }}" target="_blank" rel="noopener noreferrer" data-nomes-abans>{{ partial "icona.html" "calendar" }} Google Calendar</a>
       {{- end }}
-      {{- with $cronica }}
-      <a class="cf-boto cf-boto--fosc" href="{{ .RelPermalink }}">{{ partial "icona.html" "document" }} Llegeix la crònica</a>
+      {{- with $post }}
+      <a class="cf-boto cf-boto--fosc" href="{{ .RelPermalink }}">{{ partial "icona.html" "document" }} Llegeix el post</a>
       {{- end }}
     </div>
     {{- end }}

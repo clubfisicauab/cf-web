@@ -2455,7 +2455,7 @@ a.cf-paginacio-fletxa:hover {
   color: var(--cf-blau-nit);
 }
 
-.cf-cronica {
+.cf-post-activitat {
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
@@ -2466,19 +2466,19 @@ a.cf-paginacio-fletxa:hover {
   background: var(--cf-or-suau);
 }
 
-.cf-cronica .icona {
+.cf-post-activitat .icona {
   width: 22px;
   height: 22px;
   margin-top: 0.15rem;
   color: var(--cf-or-fosc);
 }
 
-.cf-cronica p {
+.cf-post-activitat p {
   margin: 0;
   line-height: 1.55;
 }
 
-.cf-cronica a {
+.cf-post-activitat a {
   font-weight: 700;
   color: var(--cf-blau);
 }

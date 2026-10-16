@@ -8,7 +8,7 @@ location: "Facultat de Ciències"
 categories: ["Club de Física", "Reunions"]
 image: ""                              # (Opcional) Foto, p. ex. "/images/gallery/activitat.jpeg"
 inscripcio: ""                         # (Opcional) Enllaç a un formulari per apuntar-s'hi
-cronica: ""                            # (Opcional) Quan hagi passat, post que l'explica, p. ex. "/blog/post-23/"
+post: ""                               # (Opcional) Quan hagi passat, post que l'explica, p. ex. "/blog/post-23/"
 draft: true                            # Canvia-ho a false quan la vulguis publicar
 ---
 

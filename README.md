@@ -68,7 +68,7 @@ hugo new content agenda/nom-de-l-activitat.md
 - `date`: dia i hora d'inici (p. ex. `2026-10-07T13:00:00+02:00`). Opcionalment, `fi` amb l'hora d'acabar.
 - `time` i `location`: l'horari i el lloc tal com es mostren.
 - `inscripcio` (opcional): enllaç a un formulari. Apareix un botó **Inscriu-t'hi**.
-- `cronica` (opcional): quan l'activitat hagi passat, posa-hi el post que l'explica (p. ex. `"/blog/post-23/"`) i s'enllaçaran entre ells.
+- `post` (opcional): quan l'activitat hagi passat, posa-hi el post que l'explica (p. ex. `"/blog/post-23/"`) i s'enllaçaran entre ells.
 - Cada activitat genera sola el seu fitxer `.ics`, i s'afegeix al calendari general (`/agenda/index.ics`) al qual es pot subscriure qualsevol persona.
 
 ### 📄 Un paperillo

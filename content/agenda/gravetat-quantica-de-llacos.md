@@ -7,6 +7,7 @@ time: "13:00 - 15:00h"
 location: "Facultat de Ciències"
 categories: ["1r curs", "Presentacions"]
 image: ""
+post: "/blog/post-24/"
 ---
 
 I si l'espai no fos continu, sinó una xarxa de petits "àtoms d'espai"? Descobrim la gravetat quàntica de llaços, una de les propostes per fer encaixar la relativitat general amb la mecànica quàntica.
