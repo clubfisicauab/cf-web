@@ -7,6 +7,7 @@ time: "13:00 - 15:00h"
 location: "Facultat de Ciències"
 categories: ["1r curs", "Presentacions"]
 image: ""
+post: "/blog/post-26/"
 ---
 
 Objectes tan densos que ni la llum en pot escapar. Parlem de forats negres: què són, com es formen i per què continuen sent un dels grans laboratoris de la física.

@@ -7,6 +7,7 @@ time: "13:00 - 15:00h"
 location: "Facultat de Ciències"
 categories: ["3r curs", "Nit de la Recerca"]
 image: ""
+post: "/blog/post-25/"
 ---
 
 Sessió dedicada a la Nit de la Recerca i als muons. Parlem de la paradeta del Club, del joc Muon Sidequest i de la física dels raigs còsmics que hi ha al darrere.

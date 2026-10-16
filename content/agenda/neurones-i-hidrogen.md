@@ -7,6 +7,7 @@ time: "13:00 - 15:00h"
 location: "Facultat de Ciències"
 categories: ["3r curs", "Presentacions"]
 image: ""
+post: "/blog/post-27/"
 ---
 
 Doble sessió de presentacions a càrrec de gent de 3r: de les neurones a l'hidrogen en condicions extremes.
